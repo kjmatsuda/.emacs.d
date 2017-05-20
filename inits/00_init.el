@@ -185,13 +185,6 @@
 (setq linum-format "%4d|")
 
 
-;; アイドルにしてたらマトリックスのような表示
-;; マトリックス以外の zone は削除
-(setq zone-programs nil)
-(require 'zone-matrix)
-(require 'zone-matrix-settings)
-(require 'zone-settings)
-
 (setq-default tab-width 4 indent-tabs-mode nil)
 (setq default-tab-width 4)
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
@@ -274,48 +267,6 @@
 		  51))))
 
 
-;; フレームサイズ切替
-;; (load-file "~/.emacs.d/util/my-screen.el")
-;; (global-set-key [f11] 'my-fullscreen)
-
-;; フレームの操作性を向上する
-(defun other-window-or-split ()
-  (interactive)
-  (when (one-window-p)
-    (split-window-horizontally))
-  (other-window 1))
-
-;; C-S-oで次のwindowへカーソルを移す
-(global-set-key (kbd "C-S-o") 'other-window-or-split)
-
-(defun select-buffer-start-with (b-list buff-name-top)
-  (if (eq b-list nil)
-      nil
-    (if (eq (string-match (concat "^" buff-name-top) (buffer-name (car b-list))) 0)
-        ;; バッファ名が一致した
-        (switch-to-buffer (car b-list))
-      (select-buffer-start-with (cdr b-list) buff-name-top))))
-
-;; clojure開発用にウィンドウを構成する
-(defun window-manage-for-develop ()
-  (interactive)
-  (delete-other-windows)
-  (neotree)
-  (other-window 1)
-  (split-window-vertically (/ (* 2 (window-height)) 3))
-  (other-window 1)
-  (if (eq major-mode 'clojure-mode)
-      (select-buffer-start-with (buffer-list) "*cider-repl")
-    (if (eq major-mode 'lisp-mode)
-        (select-buffer-start-with (buffer-list) "*slime-repl")))
-  (other-window 1)
-  (other-window 1))
-
-;; 画面左にディレクトリツリーを表示
-(require 'neotree)
-(global-set-key (kbd "M-+") 'window-manage-for-develop)
-(global-set-key (kbd "M--") 'neotree-hide)
-
 ;; cua-mode の設定
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
@@ -324,66 +275,15 @@
 ;; C-SPC を連続で入力するだけで，連続でマークを辿れるようになる
 (setq set-mark-command-repeat-pop t)
 
-;; ;; バックアップとオートセーブファイルを保存する
-;; (add-to-list 'backup-directory-alist
-;; 	  (cons "." "~/Dropbox/backups/"))
-;; (setq auto-save-file-name-transforms
-;;       `((".*" ,(expand-file-name "~/Dropbox/backups/") t)))
-;; (setq auto-save-intarval 60)
-
 ;; バックアップファイルを作成しない
 (setq make-backup-files nil)
 ;; オートセーブファイルを作らない
 (setq auto-save-default nil)
 
-;; (global-set-key "\M-g" 'goto-line)
-;; (global-set-key (kbd "C-M-g") 'igrep)
-(global-set-key (kbd "C-x g") 'grep-find)
-(global-set-key (kbd "C-M-e") 'ediff-merge-files)
-;; (global-set-key "\M-o" 'occur-by-moccur)
-;; (global-set-key (kbd "C-M-o") 'moccur)
-(global-set-key (kbd "C-x C-o") 'moccur-grep-find)
-;; (global-set-key [\C-\tab] 'dabbrev-expand)
-(global-set-key (kbd "C-c C-i") 'indent-region)
-(global-set-key (kbd "C->") 'comment-region)
-(global-set-key (kbd "C-<") 'uncomment-region)
-;; 改行と同時にインデント
-(global-set-key (kbd "C-m") 'newline-and-indent)
-;; C-h でバックスペース
-(keyboard-translate ?\C-h ?\C-?) ; C-h -> BS
-(global-set-key (kbd "C-H") 'help-command)
-;; ;; 文字の拡大、縮小、元に戻す
-;; (global-set-key (kbd "C-M-;") (lambda () (interactive) (text-scale-increase 1)))
-;; ;; 文字の縮小
-;; (global-set-key (kbd "C-M--") (lambda () (interactive) (text-scale-decrease 1)))
-;; 文字のサイズを元に戻す
-(global-set-key (kbd "C-M-0") (lambda () (interactive) (text-scale-increase 0)))
-
-;; http://www.gentei.org/~yuuji/software/euc/instamp.el
-;; 現在時刻挿入
-(autoload 'instamp
-  "instamp" "Insert TimeStamp on the point" t)
-(define-key global-map "\M-s" 'instamp)
-(setq instamp-date-format-list-private
-      '("%Y%m%d"))
-
 ;; M-wやC-kでコピーしたものを、他のアプルケーションで貼り付け可能にする
 (cond (window-system
        (setq x-select-enable-clipboard t)
 ))
-
-;; 対応する括弧等を自動挿入する。以下を評価してインストール
-;; (auto-install-from-url "https://github.com/uk-ar/skeleton-pair-dwim/raw/master/skeleton-pair-dwim.el")
-;; (require 'skeleton-pair-dwim)
-;; (skeleton-pair-dwim-load-default)
-;; ;; < >でエラーが出るためキーバインドを再定義
-;; (define-key (current-global-map) (kbd "<") 'self-insert-command)
-;; (define-key (current-global-map) (kbd ">") 'self-insert-command)
-;; (define-key (current-global-map) (kbd "`") 'self-insert-command)
-;; (define-key (current-global-map) (kbd "'") 'self-insert-command)
-;; (skeleton-pair-dwim-global-set-key '("{" "(" "\"" "'" "`" "<" "[") 'self-insert-command);;unload default
-;; (skeleton-pair-dwim-define-key
-;; '(global-map lisp-mode-map) '("{" "\"" "[") 'skeleton-pair-insert-dwim)
 
 ;; 参考
 ;; http://d.hatena.ne.jp/uk-ar/20111208/1322572618%3E
@@ -394,16 +294,6 @@
 (key-combo-define-global (kbd "[") "[`!!']")
 (key-combo-define-global (kbd "{") "{`!!'}")
 (key-combo-define-global (kbd "// ") "// ")
-;; 古い設定2013/11/22時点
-;; (key-combo-define-global (kbd "(") '("(`!!')"))
-;; (key-combo-define-global (kbd "()") "()")
-;; (key-combo-define-global (kbd "((") "((`!!'))")
-;; (key-combo-define-global (kbd "\"") '("\"`!!'\""))
-;; (key-combo-define-global (kbd "\"\"") "\"\"")
-;; (key-combo-define-global (kbd "{") '("{`!!'}"))
-;; (key-combo-define-global (kbd "{}") "{}")
-;; (key-combo-define-global (kbd "[") '("[`!!']"))
-;; (key-combo-define-global (kbd "[]") "[]")
 
 ;; 英和辞書
 (when (require 'sdic nil t)
@@ -419,6 +309,7 @@
       (setq sdic-waei-dictionary-list '((sdicf-client "~/Dropbox/.emacs.d/dict/jedict.sdic")))
       )
   )
+
 ;; 単語の意味をツールチップで表示する
 (defun temp-cancel-read-only (function &optional jaspace-off)
   "eval temporarily cancel buffer-read-only
