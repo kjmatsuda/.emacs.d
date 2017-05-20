@@ -70,3 +70,32 @@
 
 ;; 行末の空白を削除する
 (global-set-key (kbd "C-x C-s") 'delete-trailing-whitespace)
+
+;; skk
+(global-set-key "\C-\\" 'skk-mode)
+(global-set-key "\C-xj" 'skk-auto-fill-mode)
+(global-set-key "\C-xt" 'skk-tutorial)
+(global-set-key (kbd "C-t") 'skk-latin-toggle)
+
+;; 5.8 goto-chg.el
+;; 最後の変更箇所にジャンプする
+(require 'goto-chg)
+(define-key global-map (kbd "<f8>") 'goto-last-change)
+(define-key global-map (kbd "S-<f8>") 'goto-last-change-reverse)
+
+;; undo
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode t)
+  (global-set-key (kbd "C-M-/") 'undo-tree-redo))
+
+;;; windmove (e2wm でバッファ切り換えがしやすくなるように)
+(windmove-default-keybindings)
+(global-unset-key (kbd "<C-up>"))
+(global-unset-key (kbd "<C-down>"))
+(global-unset-key (kbd "<C-right>"))
+(global-unset-key (kbd "<C-left>"))
+
+(global-set-key (kbd "<C-up>") (quote windmove-up))
+(global-set-key (kbd "<C-down>") (quote windmove-down))
+(global-set-key (kbd "<C-right>") (quote windmove-right))
+(global-set-key (kbd "<C-left>") (quote windmove-left))

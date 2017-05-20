@@ -205,3 +205,20 @@
 	    (cons (concat "find . -type f -print0"
 			  " | ""xargs"" -0 -e grep -nH -e ''")
 		  51))))
+
+;; サイズ表示が 69913580 から 67M といったようにちょっと分かりやすくなる
+(setq dired-listing-switches "-alh")
+
+;; 現在行をハイライト表示する
+(defface hlline-face
+  '((((class color)
+      (background dark))
+     (:background "dark slate gray"))
+    (((class color)
+      (background light))
+     (:background  "#98FB98"))
+    (t
+     ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+(global-hl-line-mode)

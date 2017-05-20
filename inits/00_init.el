@@ -220,11 +220,8 @@
                   (anything '(anything-c-source-dired-various-sort))))
              ))
 
-;; サイズ表示が 69913580 から 67M といったようにちょっと分かりやすくなる
-(setq dired-listing-switches "-alh")
 
 ;; ;; Visual Basicモード
-;; (auto-install-from-url "http://www.emacswiki.org/emacs/download/visual-basic-mode.el")
 (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
 (setq auto-mode-alist (append '(("\\.\\(frm\\|FRM\\|BAS\\|bas\\|cls\\|vb\\)$" .
                                  visual-basic-mode)) auto-mode-alist))
@@ -239,286 +236,9 @@
 ;; バッファ自動再読み込み
 (global-auto-revert-mode 1)
 
-;; 現在行をハイライト表示する
-(defface hlline-face
-  '((((class color)
-      (background dark))
-     (:background "dark slate gray"))
-    (((class color)
-      (background light))
-     (:background  "#98FB98"))
-    (t
-     ()))
-  "*Face used by hl-line.")
-(setq hl-line-face 'hlline-face)
-(global-hl-line-mode)
-
 ;;graphviz mode
 (load "graphviz-dot-mode.el")
 (add-hook 'graphviz-dot-mode-hook (lambda () (local-set-key [f6] "\C-cc\C-m\C-cp")))
-
-;;;;;;;;;;;;;;;;;  Emacsテクニックバイブルより ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 14. org-mode
-(require 'org)
-
-;; 14.4 M-x org-remember
-;; (org-remember-insinuate) ;; org-mode を最新にしたらエラーが出たのでコメントアウト2013/11/8
-(setq org-directory "~/Dropbox/org/")
-(setq org-mobile-directory "~/Dropbox/mobileorg/")
-(setq org-mobile-inbox-for-pull "~/Dropbox/org/goals.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/dictionary.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/idea.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/knowledge_of_failure.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/main.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/project_business_client.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/project_business_private.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/project_company.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/project_free_private.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/project_volunteer_client.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/server.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/study.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/taiko.org")
-;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/tips.org")
-
-;; (setq org-remember-templates
-;;       '(("Memo" ?m "** %?\n %i %a\n %t" nil "Inbox")
-;; 	;; ("Todo" ?t "** TODO %?\n %i %a\n %t" nil "Inbox")
-;; 	("Twitter" ?t "** %?\n %i %t" nil "Twitter")))
-;; (global-set-key (kbd "C-,") 'org-remember)
-
-
-(setq org-default-notes-file (expand-file-name "capture/capture.org" org-directory))
-(require 'org-capture)
-(setq org-capture-templates
-      '(("t" "Task" entry (file+headline nil "Inbox")
-         "** TODO %?\n %T\n %a\n %i\n")
-        ("b" "Bug" entry (file+headline nil "Inbox")
-         "** TODO %?   :bug:\n  %T\n %a\n %i\n")
-        ("i" "Idea" entry (file+headline nil "Idea")
-         "** %?\n %U\n %i\n %a\n %i\n")
-        ("c" "Comment" entry (file+headline nil "Code Reading")
-         "** %?\n %U\n %i\n %a\n %i\n")
-        ("w" "Twitter" entry (file+datetree "twitter.org")
-         "** %U %?\n")
-        )
-      )
-(global-set-key (kbd "C-,") 'org-capture)
-
-
-;; 14.6 TODOリストを作成する
-(setq org-use-fast-todo-selection t)
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCEL(c)")))
-
-;; 14.14 予定表を見る
-;; アジェンダ表示の対象ファイル
-(setq org-agenda-files (list org-directory))
-
-(global-set-key (kbd "C-c a") 'org-agenda)
-;; mobileorg のアジェンダ表示を改善するべく、org-agenda-custom-commands を触った。2015/3/26
-;; どこかが悪さをして、orgmobile から google カレンダーへの同期が効かなくなったので
-;; いくつかコメントアウトした。
-;; どれがまずかったのかまでは分からない。org-agenda-sorting-strategy,org-deadline-warning-days
-(setq org-agenda-custom-commands
-      '(
-        ;; ("d" "全般：今日すること"
-        ;;  ((agenda "" ((org-agenda-ndays 1)
-        ;;               (org-deadline-warning-days 1) ;; 締切日の一日前のアジェンダに表示
-        ;;               ;; (org-agenda-sorting-strategy
-        ;;               ;;  (quote ((agenda time-up priority-down tag-up))))
-        ;;               ;; (org-deadline-warning-days 0)
-        ;;               ))))
-        ;; ("w" "全般：今週すること"
-        ;;  ((agenda "" ((org-agenda-ndays 7)
-        ;;               (org-deadline-warning-days 7)
-        ;;               ;; (org-agenda-sorting-strategy
-        ;;               ;;  (quote ((agenda time-up priority-down tag-up))))
-        ;;               ;; (org-deadline-warning-days 0)
-        ;;               ))))
-        ;; ("g" "目標"
-        ;;  ((tags-todo "goals")))
-        ("h" "目標：今日すること" ((agenda "" ((org-agenda-ndays 1)
-                                               (org-deadline-warning-days 1)
-                                                ;; (org-agenda-sorting-strategy
-                                                ;;  (quote ((agenda time-up priority-down tag-up))))
-                                                ;; (org-deadline-warning-days 0)
-                                                )))
-         ((org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
-          ;; (org-agenda-sorting-strategy '(priority-up effort-down))
-          )
-         ;; ("~/computer.html")
-         )
-        ("j" "目標：今週すること" ((agenda "" ((org-agenda-ndays 7)
-                                               (org-deadline-warning-days 7)
-                                                ;; (org-agenda-sorting-strategy
-                                                ;;  (quote ((agenda time-up priority-down tag-up))))
-                                                ;; (org-deadline-warning-days 0)
-                                                )))
-         ((org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
-          ;; (org-agenda-sorting-strategy '(priority-up effort-down))
-          )
-         ;; ("~/computer.html")
-         )
-        ))
-
-;; Googleカレンダーへエスクポート
-;; ネタ元
-;; http://d.hatena.ne.jp/t0m0_tomo/20100103/1262537012
-(setq org-combined-agenda-icalendar-file "~/Dropbox/calendar/org.ics")
-(setq org-icalendar-include-todo t)
-;; (setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo))
-;; (setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo))
-(setq org-icalendar-use-deadline '(event-if-todo))
-(setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo))
-
-;; ;; org ファイルを google カレンダーに同期する
-;; (defun start-process-org ()
-;;   (interactive)
-;;   (start-process-shell-command "org-sync-gcal" "*org-sync-gcal*" "emacs" "--script" "~/Dropbox/.emacs.d/elisp/org-sync-gcal.el"))
-;; (define-key global-map [f12] 'start-process-org)
-
-
-(if (linux?)
-    (progn
-      ;; (start-process-org)
-      ;; Emacs 終了時に mobileorg に push
-      ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
-      (add-hook 'kill-emacs-hook
-                '(lambda nil
-                   (shell-command "set_goals_score")))))
-
-;; サブタスクが残っているときに親タスクをDONEにできないようにする
-(setq org-enforce-todo-dependencies t)
-
-;; サブタスクが全て DONE になったら親タスクも自動的に DONE になり
-;; サブタスクをひとつでも TODO にしたら 親タスクも TODO になる
-(defun org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
-;; カーソル位置のステータスを取得する関数
-;; 返り値 :item, :headline, :headline-stars
-(defun org-position-status(context-list)
-  (if (not (cdr context-list))
-      ;; context-list の末尾に到達
-      (caar context-list)
-    (org-position-status (cdr context-list))))
-
-(add-hook
- 'org-mode-hook
- (lambda ()
-   (local-set-key (kbd "<M-S-return>") (lambda () (interactive)
-                                       (if (not (eq (org-position-status (org-context)) :item))
-                                           (progn
-                                             (org-insert-heading-after-current))
-                                         (org-insert-heading))))
-   (local-set-key (kbd "<M-return>") (lambda () (interactive)
-                                         (org-insert-todo-heading-respect-content)
-                                         (insert (format "%s" "[0/1] "))))
-   ;; 自作の M-return の動きに干渉するので key-combo-mode をオフにする
-   (key-combo-mode -1)
-   (auto-complete-mode t)
-   ))
-
-;; elscreen で<C-tab>をタブの切り換えに割り当てたいので無効にする
-(define-key org-mode-map [(control tab)] nil)
-(define-key org-mode-map (kbd "<M-S-return>") (lambda () (interactive)
-                                       (if (not (eq (org-position-status (org-context)) :item))
-                                           (progn
-                                             (org-insert-heading-after-current))
-                                         (org-insert-heading))))
-(define-key org-mode-map (kbd "<M-return>") (lambda () (interactive)
-                                         (org-insert-todo-heading-respect-content)
-                                         (insert (format "%s" "[0/1] "))))
-
-
-;; org-babel
-(org-babel-do-load-languages    ;;; org7.5/doc/org.pdf p162
-  'org-babel-load-languages
-  '((R . t)
-    (sh . t)
-    (C . t)
-    (dot . t)))
-
-;; org ファイル読み込み時に自動的に画像をインライン表示する
-;; 読み込み後、編集中の画像リンクには影響しない
-(setq org-startup-with-inline-images t)
-
-
-;; 常に画像を表示
-;; リンク記述後 C-l で即表示
-(add-hook 'org-mode-hook 'turn-on-iimage-mode)
-
-;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
-;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
-(require 'org-mobile)
-;; (defvar org-mobile-sync-timer nil
-;;   "Timer that `org-mobile-sync-timer' used to reschedule itself, or nil.")
-
-;; ;;pullしてpush する関数
-;; (defun org-mobile-sync nil
-;;   (interactive)
-;;   (org-mobile-pull)
-;;   (org-mobile-push))
-
-;; ;;idle 時間が30秒経過すると自動でpullしてpush
-;; (defun org-mobile-set-sync-timer nil
-;;   (interactive)
-;;   (setq org-mobile-sync-timer (run-with-idle-timer 10 30 t 'org-mobile-sync)))
-
-;; ;;自動pull, push  を無効にする
-;; (defun org-mobile-clear-sync-timer nil
-;;   (interactive)
-;;   (cancel-timer org-mobile-sync-timer))
-
-;; ;;指定されたファイルを指定された時間で監視，更新されたらorg-mobile-pull を実行
-;; (defun install-monitor (file secs)
-;;   (run-with-timer
-;;    0 secs
-;;    (lambda (f p)
-;;      (unless (< p (second (time-since (elt (file-attributes f) 5))))
-;;        (org-mobile-pull)
-;;        ;; (message "mobileorg.org is updated!")
-;;        ))
-;;    file secs))
-
-;; ;; capture ファイルを10秒ごとに監視，更新されたらorg-mobile-pull 実行
-;; (install-monitor (file-truename
-;;                   (concat
-;;                    (file-name-as-directory org-mobile-directory)
-;;                    org-mobile-capture-file))
-;;                  10)
-
-;; ;; org-mobile に登録したファイルを保存するとpush
-;; (add-hook 'after-save-hook
-;;           (lambda ()
-;;             (when (eq major-mode 'org-mode)
-;;               (dolist (file (org-mobile-files-alist))
-;;                 (if (string= (file-truename (expand-file-name (car file)))
-;;                              (file-truename (buffer-file-name)))
-;;                     (org-mobile-push)))
-;;               )))
-
-;; ;; org-mobile に登録したファイルを開くとpull
-;; (add-hook 'find-file-hook
-;;           (lambda ()
-;;             (when (eq major-mode 'org-mode)
-;;               (dolist (file (org-mobile-files-alist))
-;;                 (if (string= (file-truename (expand-file-name (car file)))
-;;                              (file-truename (buffer-file-name)))
-;;                     (org-mobile-pull)))
-;;               )))
-
-;; (org-mobile-set-sync-timer)
-;;;;;;;;;;;;;;;;;;; mobile-orgとの同期 END ;;;;;;;;;;;;;;;;;;;;;;;
-
-;; どうもこれが有効になってるとwindows 10 で時折固まるので、コメントアウトする 2017/5/19(金)
-;; (require 'org-mobile-sync)
-;; (org-mobile-sync-mode 1)
-
 
 (require 'ox-freemind)
 
@@ -554,10 +274,6 @@
           (skk-latin-mode t)
           (key-combo-mode t)))))
 
-(global-set-key "\C-\\" 'skk-mode)
-(global-set-key "\C-xj" 'skk-auto-fill-mode)
-(global-set-key "\C-xt" 'skk-tutorial)
-(global-set-key (kbd "C-t") 'skk-latin-toggle)
 (autoload 'skk-mode "skk" nil t)
 (autoload 'skk-tutorial "skk-tut" nil t)
 (autoload 'skk-check-jisyo "skk-tools" nil t)
@@ -599,10 +315,6 @@
       (setq auto-install-directory "~/Dropbox/.emacs.d/elisp/")
       (setq ediff-window-setup-function 'ediff-setup-windows-plain)))
 
-;; 3.9 key-chord.el
-;; (require 'key-chord)
-;; (setq key-chord-two-keys-delay 0.04)
-;; (key-chord-mode 1)
 
 ;; 4.2 uniquify.el
 (require 'uniquify)
@@ -615,19 +327,8 @@
 (require 'recentf-ext)
 ;; (define-key global-map (kbd "C-x f") 'recentf-open-files)
 
-;; 4.6 emacsclient
-;; (server-start)
-;; (defun iconify-emacs-when-server-is-done ()
-;;   (unless server-clients (iconify-frame)))
-;; ;; 編集が終了したらEmacsをアイコン化する
-;; (add-hook 'server-done-hook 'iconify-emacs-when-server-is-done)
-;; ;;
-;; (global-set-key (kbd "C-x C-c") 'server-edit)
-;; (defalias 'exit 'save-buffers-kill-emacs)
-
 ;; 4.8 auto-save-buffers.el
 ;; ファイルを自動保存する
-;; M-x install-elisp http://homepage3.nifty.com/oatu/emacs/archives/auto-save-buffers.el
 (require ' auto-save-buffers)
 (run-with-idle-timer 2 t 'auto-save-buffers)
 
@@ -662,24 +363,6 @@
 ;; (define-key global-map (kbd "C--") 'point-undo)
 ;; (define-key global-map (kbd "C-=") 'point-redo)
 
-;; 5.8 goto-chg.el
-;; 最後の変更箇所にジャンプする
-(require 'goto-chg)
-(define-key global-map (kbd "<f8>") 'goto-last-change)
-(define-key global-map (kbd "S-<f8>") 'goto-last-change-reverse)
-
-;; ;; 6.2 redo+.el
-;; (require 'redo+)
-;; (global-set-key (kbd "C-M-/") 'redo)
-;; (setq undo-no-redo t)
-;; (setq undo-limit 600000)
-;; (setq undo-strong-limit 900000)
-
-(when (require 'undo-tree nil t)
-  (global-undo-tree-mode t)
-  (global-set-key (kbd "C-M-/") 'undo-tree-redo))
-
-
 ;; 6.6 yasnippet.el
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
@@ -692,8 +375,10 @@
 ;; C-n/C-p で候補を選択
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+
 ;; 大文字、小文字を区別する
 (setq ac-ignore-case nil)
+
 ;; auto-complete の候補に日本語を含む単語が含まれないようにする
 ;; http://d.hatena.ne.jp/IMAKADO/20090813/1250130343
 (defadvice ac-word-candidates (after remove-word-contain-japanese activate)
@@ -747,9 +432,6 @@
   ;; 7.11 grep-edit.el
   (require 'grep-edit)
 )
-;; 8.4 w3m.el
-;; (if (linux?)
-;;    (require 'w3m-load))
 
 ;; ;; 8.5 twittering-mode.el
 (require 'twittering-mode)
@@ -768,8 +450,6 @@
 (define-key twittering-mode-map (kbd "R") 'twittering-native-retweet)
 (define-key twittering-mode-map (kbd "Q") 'twittering-organic-retweet)
 
-;; 8.6 gist.el
-;(require 'gist)
 
 ;; 11.1 view-mode
 ;; view-minor-modeの設定
@@ -787,30 +467,15 @@
                (define-key view-mode-map "l" 'forward-char)
                )))
 
-;; 12.3 paredit.el
-;(require 'paredit)
-;(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-;(add-hook 'lisp-interaction-mode 'enable-paredit-mode)
-;(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-;(add-hook 'ielm-mode-hook 'enable-paredit-mode)
-
-;; kiwanamiさん作成関連
-;; (autoload 'id-manager "id-manager" nil t)
-;; (global-set-key (kbd "M-7") 'id-manager)                     ; キーバインド
-;; (setenv "GPG_AGENT_INFO" nil)                                ; minibufferでパスワードを入力する場合
 
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (install-elisp "https://raw.github.com/byplayer/egg/master/egg.el")
-;; (install-elisp "https://raw.github.com/byplayer/egg/master/egg-grep.el")
 (when (executable-find "git")
   (require 'egg nil t))
 
-;; (install-elisp "http://www.xsteve.at/prg/emacs/psvn.el")
-;; 上記ファイルでは svn 1.7 で使えなかった(2012/6/22時点)
-;; (install-elisp "http://www.eaflux.com/psvn/psvn.el.new")
 (when (executable-find "svn")
   (setq svn-status-verbose nil)
   (autoload 'svn-status "psvn" "Run 'svn status'." t))
+
 (when (win?)
   (setq process-coding-system-alist '(("svn" . utf-8)))
   (setq default-file-name-coding-system 'sjis)
@@ -820,33 +485,6 @@
   (setenv "LC_ALL" "en_US.UTF-8")
   (setenv "LANG" "en_US.UTF-8")
   )
-
-;; 2017/1/29(日) windows10 で clojureを開発するにあたり、inf-clojureを導入した
-;; inf-clojure で参考にしたページでgtagsを使っていたので、
-;; gtagsを使うことにする。よってctags部分をコメント化する
-;;;;;;;;;;;; START ;;;;;;;;;;;;;;;
-;;; ctags.el の設定(Emacs 実践入門 p191より)
-;; (require 'ctags nil t)
-;; (setq tags-revert-without-query t)
-;; ;; (setq ctags-command "ctags -e -R ")
-;; ;; ctagsを呼び出すコマンドライン
-;; (setq ctags-command "ctags -R --fields=\"+afikKlmnsSzt\" ")
-;; (global-set-key (kbd "<f5>") 'ctags-create-or-update-tags-table)
-;; ;; 定義ジャンプできるようにする
-;; (when (require 'anything nil t)
-;;   (require 'anything-exuberant-ctags)
-;;   )
-;; ;; 関数の定義にジャンプ
-;; (global-set-key (kbd "C-;") (lambda () (interactive)
-;;                               (ring-insert find-tag-marker-ring (point-marker))
-;;                               (anything-exuberant-ctags-select-from-here)))
-;; ;; 関数の一覧を表示
-;; (global-set-key (kbd "C-o") (lambda () (interactive)
-;;                               (ring-insert find-tag-marker-ring (point-marker))
-;;                               (anything-exuberant-ctags-select)))
-;; ;; ジャンプ元に戻る
-;; (global-set-key (kbd "C--") 'pop-tag-mark)
-;;;;;;;;;;;; END ;;;;;;;;;;;;;;;
 
 ;;; Enable helm-gtags-mode
 (require 'helm-gtags)
@@ -970,6 +608,7 @@ Jump to reference point if curosr is on its definition"
 
 (global-set-key (kbd "<f9>") 'create-doxygen-and-open)
 ;;;;;;;;;;;;;;;;; doxygen END   ;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;;;;;;;;;;;;;;;;  言語モード ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; プログラミング全般
 ;; 参考
@@ -1064,21 +703,6 @@ Jump to reference point if curosr is on its definition"
 ;; (add-hook 'php-mode-hook 'flycheck-mode)
 ;; (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 
-;; html や css の編集に便利な emmet-mode
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-(setq emmet-move-cursor-between-quotes t) ;; default nil
-
-;; emmet-mode を入れたので zencoding-mode はコメントアウトする
-;; ;; Zen Coding Mode
-;; (require 'zencoding-mode)
-;; (add-hook 'sgml-mode-hook 'zencoding-mode)
-;; (define-key zencoding-mode-keymap (kbd "C-z") 'zencoding-expand-yas)
-;; (define-key zencoding-mode-keymap (kbd "<C-return>") nil)
-;; (define-key zencoding-mode-keymap (kbd "<S-return>") 'zencoding-expand-line)
-
-
 ;;; コードの折り畳み
 ;; C coding style
 (add-hook 'c-mode-hook
@@ -1109,276 +733,11 @@ Jump to reference point if curosr is on its definition"
           '(lambda ()
     (hs-minor-mode 1)))
 
-
 (define-key global-map (kbd "C-#") 'hs-toggle-hiding)
 (define-key global-map (kbd "C-8") 'hs-hide-block)
 (define-key global-map (kbd "C-9") 'hs-show-block)
 (define-key global-map (kbd "C-M-8") 'hs-hide-all)
 (define-key global-map (kbd "C-M-9") 'hs-show-all)
-
-;;;;;; JavaScript関連の設定
-;; moz.el
-(add-hook 'js-mode-hook
-          (lambda ()
-            (moz-minor-mode 1) ;; 要moz.el
-            (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-cr" 'js-console-execute-region)
-            ))
-
-;;; ejacs
-;; C-c C-jでjs-consoleを起動
-;; C-c rで選択範囲を実行
-(autoload 'js-console "js-console" nil t)
-(defun js-console-execute-region (start end)
-  "Execute region"
-  (interactive "r")
-  (let ((buf-name (buffer-name (current-buffer))))
-    (copy-region-as-kill start end)
-    (switch-to-buffer-other-window "*js*")
-    (js-console-exec-input (car kill-ring))
-    (switch-to-buffer-other-window buf-name)))
-(defun run-js-console-and-split-window ()
-  "Run js-console and split window horizontally."
-  (interactive)
-  (split-window-horizontally)
-  (js-console)
-  (other-window 1)
-  )
-(add-hook 'js-mode-hook
-          (lambda ()
-            (moz-minor-mode 1) ;; 要moz.el
-            (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-cr" 'js-console-execute-region)
-            (key-combo-define-local (kbd "{ RET") "{\n`!!'\n}")
-            ))
-
-;; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-
-;;     (add-hook 'javascript-mode-hook 'javascript-custom-setup)
-;;     (defun javascript-custom-setup ()
-;;       (moz-minor-mode 1))
-
-;;;;;; PHPに関する設定
-;; php-mode
-(load-library "php-mode")
-(require 'php-mode)
-(add-hook 'php-mode-user-hook
-	  '(lambda ()
-	     (setq tab-width 2)
-	     (setq indent-tabs-mode nil)))
-;(setq php-mode-force-pear t) ;PEAR規約のインデント設定にする
-
-;; php-completion
-(add-hook 'php-mode-hook
-         (lambda ()
-             (require 'php-completion)
-             (php-completion-mode t)
-             (define-key php-mode-map (kbd "\C-co") 'phpcmp-complete)
-             (when (require 'auto-complete nil t)
-             (make-variable-buffer-local 'ac-sources)
-             (add-to-list 'ac-sources 'ac-source-php-completion)
-             (auto-complete-mode t))))
-
-;;;;;; Ruby関連の設定
-;;; 参考
-;;  1) http://futurismo.biz/archives/2213
-(autoload 'ruby-mode "ruby-mode"
-  "Mode for editing ruby source files" t)
-(add-to-list 'auto-mode-alist '("\\.rb$latex " . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-
-;; (require 'ruby-electric)
-;; (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-;; (setq ruby-electric-expand-delimiters-list nil)
-
-;; ruby-block.el --- highlight matching block
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
-
-;; TODO Rubyでタグジャンプ
-
-;;;;;; Lisp関連の設定
-;; slime
-(when (require 'slime nil t)
-  (slime-setup '(slime-repl slime-fancy slime-banner))
-
-  ;; sbclのパスを記述
-  (if (linux?)
-      (progn
-    (setq inferior-lisp-program "sbcl")
-    ;; HyperSpecを読み込む.
-    ;; HyperSpecがインストールされている場所「/usr/share/doc/hyperspec/」
-    (setq common-lisp-hyperspec-root
-          (concat "file://" (expand-file-name "~/Dropbox/.emacs.d/doc/HyperSpec/")))
-    (setq common-lisp-hyperspec-symbol-table
-          (expand-file-name "~/Dropbox/.emacs.d/doc/HyperSpec/Data/Map_Sym.txt"))
-
-    ;; HyperSpecをw3mで見る
-    (defadvice common-lisp-hyperspec
-      (around hyperspec-lookup-w3m () activate)
-      (let* ((window-configuration (current-window-configuration))
-         (browse-url-browser-function
-          `(lambda (url new-window)
-             (w3m-browse-url url nil)
-             (let ((hs-map (copy-keymap w3m-mode-map)))
-               (define-key hs-map (kbd "q")
-             (lambda ()
-               (interactive)
-               (kill-buffer nil)
-               (set-window-configuration ,window-configuration)))
-               (use-local-map hs-map)))))
-        ad-do-it)))
-    ;; windows の場合
-    (setq inferior-lisp-program "sbcl.exe")))
-
-;; 日本語利用
-(setq slime-net-coding-system 'utf-8-unix)
-
-(add-hook 'lisp-mode-hook (lambda ()
-                            (slime-mode t)
-                            (show-paren-mode t)))
-
-;; C-c L で slimeを起動
-(defun my-slime (&optional command coding-system)
-  (interactive)
-  (switch-to-buffer-other-window
-   (get-buffer-create "*lisp*"))
-  (slime command coding-system))
-(global-set-key "\C-cL" 'my-slime)
-(global-set-key "\C-cs" 'slime-selector)
-
-;;; Modern Common Lisp より
-;;; http://modern-cl.blogspot.com/
-;; http://d.hatena.ne.jp/m2ym/20110120/1295524932
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-;; Apropos
-(push '("*slime-apropos*") popwin:special-display-config)
-;; Macroexpand
-(push '("*slime-macroexpansion*") popwin:special-display-config)
-;; Help
-(push '("*slime-description*") popwin:special-display-config)
-;; Compilation
-(push '("*slime-compilation*" :noselect t) popwin:special-display-config)
-;; Cross-reference
-(push '("*slime-xref*") popwin:special-display-config)
-;; Debugger
-(push '(sldb-mode :stick t) popwin:special-display-config)
-;; REPL
-(push '(slime-repl-mode) popwin:special-display-config)
-;; Connections
-(push '(slime-connection-list-mode) popwin:special-display-config)
-
-;; ウィンドウ間移動のキーバインドが上書きされないようにする
-(add-hook
- 'slime-repl-mode-hook
- (lambda ()
-   (local-set-key (kbd "<C-up>") (quote windmove-up))
-   (local-set-key (kbd "<C-down>") (quote windmove-down))))
-
-(eval-after-load "slime-repl"
-  '(progn
-     (define-key slime-repl-mode-map (kbd "<C-up>") nil)
-     (define-key slime-repl-mode-map (kbd "<C-down>") nil)))
-
-(require 'ac-slime)
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
-(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'slime-repl-mode))
-
-;; 正しいインデントにする
-(when (require 'cl-indent-patches nil t)
-  ;; emacs-lispのインデントと混同しないように
-  (setq lisp-indent-function
-        (lambda (&rest args)
-          (apply (if (memq major-mode '(emacs-lisp-mode lisp-interaction-mode))
-                     'lisp-indent-function
-                     'common-lisp-indent-function)
-                 args))))
-
-;; scheme 用の設定
-(if (win?)
-    (progn (setq process-coding-system-alist
-                 (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
-           (setq scheme-program-name "gosh -i")
-           (autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
-           (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t))
-  (setq scheme-program-name "gosh"))
-
-(require 'cmuscheme)
-
-(defun scheme-other-window ()
-  "Run scheme on other window"
-  (interactive)
-  (switch-to-buffer-other-window
-   (get-buffer-create "*scheme*"))
-  (run-scheme scheme-program-name))
-
-(define-key global-map
-  "\C-cS" 'scheme-other-window)
-
-;; カーソルのあるポイントのinfoを引く
-(defvar anything-c-source-info-gauche-refj
-   ;; '((info-index . "~/../gauche/share/info/gauche-refj.info")))
-  '((info-index . "gauche-refj.info")))
-(defun anything-info-ja-at-point ()
-  "Preconfigured `anything' for searching info at point."
-  (interactive)
-  (anything '(anything-c-source-info-gauche-refj)
-            (thing-at-point 'symbol) nil nil nil "*anything info*"))
-(define-key global-map (kbd "C-M-i") 'anything-info-ja-at-point)
-
-;;;;;; Java
-(add-hook 'java-mode-hook
-      '(lambda ()
-         (key-combo-define-local (kbd "(") '("(`!!')"))
-         (key-combo-define-local (kbd "()") "()")
-         (key-combo-define-local (kbd "((") "((`!!'))")
-         (key-combo-define-local (kbd "(\"") "(\"`!!'\")")
-         (key-combo-define-local (kbd "\"") '("\"`!!'\""))
-         (key-combo-define-local (kbd "\"\"") "\"\"")
-         (key-combo-define-local (kbd "{") '("{`!!'}"))
-         (key-combo-define-local (kbd "{}") "{}")
-         (key-combo-define-local (kbd "[") '("[`!!']"))
-         (key-combo-define-local (kbd "[]") "[]")
-         ))
-
-;;;;;; clojure
-(require 'clojure-mode)
-;; (autoload 'inf-clojure "inf-clojure" "Run an inferior Clojure process" t)
-;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
-;; (setq inf-clojure-prompt-read-only nil)
-
-;;; ciderは編集が重くなったり、replの起動に1分近くかかる問題から、一旦無効にする 2017/1/29(日)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; START ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'cider)
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-(setq nrepl-hide-special-buffers t)
-
-(eval-after-load 'clojure-mode
-  '(progn
-     (define-key clojure-mode-map (kbd "C-c C-h") #'clojure-cheatsheet)))
-
-;; ウィンドウ間移動のキーバインドが上書きされないようにする
-(add-hook
- 'cider-repl-mode-hook
- (lambda ()
-   (local-set-key (kbd "<C-up>") (quote windmove-up))
-   (local-set-key (kbd "<C-down>") (quote windmove-down))))
-
-;; ciderのreplでauto-completeが使えるようにする
-(require 'ac-nrepl)
-(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-(add-hook 'cider-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-repl-mode))
-
-;; ciderのスタックトレースが明るくて見にくいため修正
-(setq cider-stacktrace-frames-background-color "#003200320032")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;  END  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; sql-mode
 (add-hook 'sql-mode-hook
@@ -1388,96 +747,9 @@ Jump to reference point if curosr is on its definition"
 (add-hook 'graphviz-dot-mode-hook
           (lambda () (auto-complete-mode t)))
 
-;; plantuml-mode
-(add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))
-(autoload 'plantuml-mode "plantuml-mode" "PlantUML mode" t)
-
-(add-hook 'plantuml-mode-hook
-          (lambda () (auto-complete-mode t)))
-
-(defun plantuml-execute ()
-  (interactive)
-  (when (buffer-modified-p)
-    (map-y-or-n-p "Save this buffer before executing PlantUML?"
-                  'save-buffer (list (current-buffer))))
-  (let ((code (buffer-string))
-        out-file
-        cmd)
-    (when (string-match "^\\s-*@startuml\\s-+\\(\\S-+\\)\\s*$" code)
-      (setq out-file (match-string 1 code)))
-    (setq cmd (concat
-               "java -jar " plantuml-java-options " "
-               (shell-quote-argument plantuml-jar-path) " "
-               (and out-file (concat "-t" (file-name-extension out-file))) " "
-               plantuml-options " "
-               (buffer-file-name)))
-    (message cmd)
-    (shell-command cmd)
-    (message "done")))
-
-(if (linux?)
-    (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-  (setq plantuml-jar-path "C:/opt/jars/plantuml.jar")
-  )
-(setq plantuml-java-options "")
-(setq plantuml-options "-charset UTF-8")
-(setq plantuml-mode-map
-      (let ((map (make-sparse-keymap)))
-        (define-key map (kbd "C-c C-c") 'plantuml-execute)
-        map))
 
 ;;;; 単語補完
 (require 'pabbrev)
-
-;; ElScreen
-(when (require 'elscreen nil t)
-  (if window-system
-      (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
-    (define-key elscreen-map (kbd "C-z") 'suspend-emacs))
-  (define-key global-map [\C-\S-\iso-\lefttab] 'elscreen-previous)
-  (define-key global-map [\C-\S-\tab] 'elscreen-previous)
-  (define-key global-map [\C-\tab] 'elscreen-next)
-  (define-key global-map (kbd "C-S-t") 'elscreen-create)
-  (elscreen-start)
-  ;; (elscreen-separate-buffer-list-mode 1)
-  ;; (elscreen-persist-mode 1)
-  )
-(put 'upcase-region 'disabled nil)
-
-;;;; alda-mode 2017/5/4(木)
-(require 'alda-mode)
-(when (win?)
-  (setq alda-binary-location "C:/opt/alda/1.0.0/bin/alda.exe"))
-
-
-
-;;; windmove (e2wm でバッファ切り換えがしやすくなるように)
-(windmove-default-keybindings)
-(global-unset-key (kbd "<C-up>"))
-(global-unset-key (kbd "<C-down>"))
-(global-unset-key (kbd "<C-right>"))
-(global-unset-key (kbd "<C-left>"))
-
-(global-set-key (kbd "<C-up>") (quote windmove-up))
-(global-set-key (kbd "<C-down>") (quote windmove-down))
-(global-set-key (kbd "<C-right>") (quote windmove-right))
-(global-set-key (kbd "<C-left>") (quote windmove-left))
-
-;; ;; persp-modeを導入 2017/2/11(土)
-;; (setq persp-keymap-prefix (kbd "C-c p")) ;prefix
-;; (setq persp-add-on-switch-or-display t) ;バッファを切り替えたら見えるようにする
-;; (persp-mode 1)
-;; (defun persp-register-buffers-on-create ()
-;;   (interactive)
-;;   (dolist (bufname (condition-case _
-;;                        (helm-comp-read
-;;                         "Buffers: "
-;;                         (mapcar 'buffer-name (buffer-list))
-;;                         :must-match t
-;;                         :marked-candidates t)
-;;                      (quit nil)))
-;;     (persp-add-buffer (get-buffer bufname))))
-;; (add-hook 'persp-activated-hook 'persp-register-buffers-on-create)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
