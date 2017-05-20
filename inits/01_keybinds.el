@@ -67,3 +67,6 @@
 (define-key global-map "\M-s" 'instamp)
 (setq instamp-date-format-list-private
       '("%Y%m%d"))
+
+;; 行末の空白を削除する
+(global-set-key (kbd "C-x C-s") 'delete-trailing-whitespace)
