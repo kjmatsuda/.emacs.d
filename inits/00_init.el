@@ -38,8 +38,8 @@
 	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
-;; elispとconfディレクトリをサブディレクトリごとload-pathに追加
-(add-to-load-path "elisp" "conf")
+;; サブディレクトリごとload-pathに追加
+(add-to-load-path "elisp" "conf" "github")
 
 (when (win?)
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/apel")
