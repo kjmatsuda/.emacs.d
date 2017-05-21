@@ -21,14 +21,14 @@
 
       ;; Shell Mode
       (setq shell-mode-hook
-	    (function (lambda()
-			(set-buffer-process-coding-system 'utf-8-unix
-							  'utf-8-unix))))
+        (function (lambda()
+            (set-buffer-process-coding-system 'utf-8-unix
+                              'utf-8-unix))))
 
       ;; Grep
       (defadvice grep (around grep-coding-setup activate)
-	(let ((coding-system-for-read 'utf-8))
-	  ad-do-it))))
+    (let ((coding-system-for-read 'utf-8))
+      ad-do-it))))
 
 ;;;;;;;;;;;;;;;;;  画面の基本設定 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (if window-system (progn
@@ -72,6 +72,14 @@
 (set-face-foreground 'mode-line "SkyBlue")
 (set-face-background 'highlight "grey10")
 (set-face-foreground 'highlight "red")
+
+;; スクロールした際のカーソルの移動行数
+(setq scroll-conservatively 1)
+(global-set-key [vertical-scroll-bar down-mouse-1] 'scroll-bar-drag)
+(global-set-key [vertical-scroll-bar drag-mouse-1] 'scroll-bar-drag)
+(global-set-key [vertical-scroll-bar vertical-scroll-bar mouse-1] 'scroll-bar-drag)
+
+
 
 ;; ツールバーは非表示
 (tool-bar-mode -1)
@@ -139,35 +147,35 @@
       (cond
        (window-system
         (set-default-font "Courier New-11")
-      	;; Japanese(japanese-jisx0208)font
-      	(set-fontset-font
-      	 (frame-parameter nil 'font)
-      	 'japanese-jisx0208
-      	 (font-spec :family "Meiryo"))
-	(set-fontset-font "fontset-default"
+          ;; Japanese(japanese-jisx0208)font
+          (set-fontset-font
+           (frame-parameter nil 'font)
+           'japanese-jisx0208
+           (font-spec :family "Meiryo"))
+    (set-fontset-font "fontset-default"
                   'katakana-jisx0201
                   '("ＭＳ ゴシック" . "jisx0201-katakana"))
-	))
+    ))
       ;; フレームの最大化、切り替え
       (defvar w32-window-state nil)
 
       (defun w32-fullscreen-switch-frame ()
-	(interactive)
-	(setq w32-window-state (not w32-window-state))
-	(if w32-window-state
-	    (w32-fullscreen-restore-frame)
-	  (w32-fullscreen-maximize-frame)
-	  ))
+    (interactive)
+    (setq w32-window-state (not w32-window-state))
+    (if w32-window-state
+        (w32-fullscreen-restore-frame)
+      (w32-fullscreen-maximize-frame)
+      ))
 
       (defun w32-fullscreen-maximize-frame ()
-	"Maximize the current frame (windows only)"
-	(interactive)
-	(w32-send-sys-command 61488))
+    "Maximize the current frame (windows only)"
+    (interactive)
+    (w32-send-sys-command 61488))
 
       (defun w32-fullscreen-restore-frame ()
-	"Restore a minimized/maximized frame (windows only)"
-	(interactive)
-	(w32-send-sys-command 61728))
+    "Restore a minimized/maximized frame (windows only)"
+    (interactive)
+    (w32-send-sys-command 61728))
 
       (global-set-key [f11] 'w32-fullscreen-switch-frame)
 
@@ -180,9 +188,9 @@
       ;; 参考 http://antoine.st/MeadowSettings.html
       ;; cons の第2引数はカーソルの初期位置(''の間にくるよう設定)
       (setq grep-find-command
-	    (cons (concat "findcyg ./ -type f -name '*'"
-			  " | xargs grep -n -e '' {} nul \\;")
-		  50))
+        (cons (concat "findcyg ./ -type f -name '*'"
+              " | xargs grep -n -e '' {} nul \\;")
+          50))
 ))
 
 ;; Linux用設定
@@ -191,20 +199,20 @@
       ;; http://d.hatena.ne.jp/khiker/20090711/emacsfullscreen
       ;;上記リンクから引用
       (defun my-fullscreen ()
-	(interactive)
-	(let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
-	  (cond
-	   ((null fullscreen)
-	    (set-frame-parameter (selected-frame) 'fullscreen 'fullboth))
-	   (t
-	    (set-frame-parameter (selected-frame) 'fullscreen 'nil))))
-	(redisplay))
+    (interactive)
+    (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
+      (cond
+       ((null fullscreen)
+        (set-frame-parameter (selected-frame) 'fullscreen 'fullboth))
+       (t
+        (set-frame-parameter (selected-frame) 'fullscreen 'nil))))
+    (redisplay))
 
       (global-set-key [f11] 'my-fullscreen)
       (setq grep-find-command
-	    (cons (concat "find . -type f -print0"
-			  " | ""xargs"" -0 -e grep -nH -e ''")
-		  51))))
+        (cons (concat "find . -type f -print0"
+              " | ""xargs"" -0 -e grep -nH -e ''")
+          51))))
 
 ;; サイズ表示が 69913580 から 67M といったようにちょっと分かりやすくなる
 (setq dired-listing-switches "-alh")
