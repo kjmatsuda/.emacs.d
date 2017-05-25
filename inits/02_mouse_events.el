@@ -29,5 +29,12 @@
 
 ;; TODO ダブルクリックでQuit
 
+;; neotree上でクリックでファイルを開く
+(defun click-select-file (click)
+  (interactive "e")
+  (mouse-set-point click nil)
+  (neotree-enter))
 
+(with-eval-after-load 'neotree
+  (define-key neotree-mode-map [mouse-1] 'click-select-file))
 
