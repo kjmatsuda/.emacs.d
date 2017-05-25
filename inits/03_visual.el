@@ -75,11 +75,8 @@
 
 ;; スクロールした際のカーソルの移動行数
 (setq scroll-conservatively 1)
-(global-set-key [vertical-scroll-bar down-mouse-1] 'scroll-bar-drag)
-(global-set-key [vertical-scroll-bar drag-mouse-1] 'scroll-bar-drag)
-(global-set-key [vertical-scroll-bar vertical-scroll-bar mouse-1] 'scroll-bar-drag)
-
-
+;; 1 画面スクロール時にカーソルの画面上の位置をなるべく変えない
+(setq scroll-preserve-screen-position t)
 
 ;; ツールバーは非表示
 (tool-bar-mode -1)
