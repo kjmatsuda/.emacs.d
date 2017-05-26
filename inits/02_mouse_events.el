@@ -34,6 +34,7 @@
 (global-unset-key [drag-mouse-1])
 ;; (global-unset-key [down-mouse-1])
 
+;;;;;;;;;;;;;;; neotree ;;;;;;;;;;;;;;; 
 ;; neotree上でクリックでファイルを開く
 (defun click-neotree-select-file (click)
   (interactive "e")
@@ -43,6 +44,10 @@
 (with-eval-after-load 'neotree
   (define-key neotree-mode-map [mouse-1] 'click-neotree-select-file))
 
+;; (..)をクリックするとカレントディレクトリの1つ上の階層を表示する
+(custom-set-variables '(neo-click-changes-root t))
+
+;;;;;;;;;;;;;; imenu ;;;;;;;;;;;;;;;;;; 
 ;; imenu-list上でクリックで定義に移動
 (defun click-imenu-list-goto-entry (click)
   (interactive "e")
