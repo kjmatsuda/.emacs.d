@@ -9,7 +9,7 @@
       )
      ("View"
       ("Tree"  :call (neotree-toggle))
-      ("imenu"  :call nil) ;; TODO 関数リストの表示のトグ
+      ("imenu"  :call (imenu-list-smart-toggle)) ;; 関数リストの表示のトグ
       )
      ("File"
       ("Open"  :call nil) ;; TODO ファイル選択
@@ -27,14 +27,27 @@
 (global-set-key [vertical-scroll-bar drag-mouse-1] 'scroll-bar-drag)
 (global-set-key [vertical-scroll-bar vertical-scroll-bar mouse-1] 'scroll-bar-drag)
 
-;; TODO ダブルクリックでQuit
+;; ダブルクリックで定義ジャンプ
+(global-set-key [double-mouse-1] 'my/helm-gtags-find-tag-from-here)
+
+;; 不要な領域選択を抑止する
+(global-unset-key [drag-mouse-1])
+;; (global-unset-key [down-mouse-1])
 
 ;; neotree上でクリックでファイルを開く
-(defun click-select-file (click)
+(defun click-neotree-select-file (click)
   (interactive "e")
   (mouse-set-point click nil)
   (neotree-enter))
 
 (with-eval-after-load 'neotree
-  (define-key neotree-mode-map [mouse-1] 'click-select-file))
+  (define-key neotree-mode-map [mouse-1] 'click-neotree-select-file))
 
+;; imenu-list上でクリックで定義に移動
+(defun click-imenu-list-goto-entry (click)
+  (interactive "e")
+  (mouse-set-point click nil)
+  (imenu-list-goto-entry))
+
+(with-eval-after-load 'imenu-list
+  (define-key imenu-list-major-mode-map [mouse-1] 'click-imenu-list-goto-entry))
