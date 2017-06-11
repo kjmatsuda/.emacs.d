@@ -39,7 +39,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; サブディレクトリごとload-pathに追加
-(add-to-load-path "elisp" "conf" "github")
+(add-to-load-path "elisp" "conf" "github/my-repos")
 
 (when (win?)
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/apel")
@@ -490,6 +490,7 @@
 (require 'helm-gtags)
 (setq helm-gtags-auto-update t)
 (setq helm-gtags-update-interval-second 20)
+(add-hook 'java-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'clojure-mode-hook 'helm-gtags-mode)
