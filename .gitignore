@@ -1,5 +1,6 @@
 *.elc
 .org-id-locations
+.cask
 auto-save-list
 dict
 public_repos
