@@ -469,8 +469,7 @@
 
 
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (executable-find "git")
-  (require 'egg nil t))
+(require 'magit)
 
 (when (executable-find "svn")
   (setq svn-status-verbose nil)

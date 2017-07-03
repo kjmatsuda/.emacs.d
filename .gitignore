@@ -5,6 +5,7 @@ auto-save-list
 dict
 public_repos
 github
+eshell
 elisp
 elpa
 etc
