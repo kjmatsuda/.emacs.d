@@ -143,7 +143,8 @@
       ;; 日本語フォント設定
       (cond
        (window-system
-        (set-default-font "Courier New-11")
+        ;; (set-default-font "Courier New-11")
+        (set-default-font "Ricty Diminished-12")
           ;; Japanese(japanese-jisx0208)font
           (set-fontset-font
            (frame-parameter nil 'font)
