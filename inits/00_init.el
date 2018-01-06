@@ -39,7 +39,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; サブディレクトリごとload-pathに追加
-(add-to-load-path "elisp" "conf" "github/my-repos")
+(add-to-load-path "elisp" "conf")
 
 (when (win?)
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/apel")
@@ -583,13 +583,13 @@ Jump to reference point if curosr is on its definition"
 ;; key bindings
 (with-eval-after-load 'helm-gtags
   (define-key helm-gtags-mode-map (kbd "C-M-;") 'my/find-tag-without-ns)
-  (define-key helm-gtags-mode-map (kbd "C-;") 'my/helm-gtags-find-tag-from-here)
+  (define-key helm-gtags-mode-map (kbd "C-]") 'my/helm-gtags-find-tag-from-here)
   (define-key helm-gtags-mode-map (kbd "C-M-r") 'helm-gtags-find-rtag)
   (define-key helm-gtags-mode-map (kbd "C-M-s") 'helm-gtags-find-symbol)
   ;; (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
-  (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-  (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
-  (define-key helm-gtags-mode-map (kbd "C--") 'helm-gtags-pop-stack))
+  (define-key helm-gtags-mode-map [M-left] 'helm-gtags-previous-history)
+  (define-key helm-gtags-mode-map [M-right] 'helm-gtags-next-history)
+  (define-key helm-gtags-mode-map (kbd "C-^") 'helm-gtags-pop-stack))
 
 (require 'helm-ag)
 ; agのデフォルトのコマンドオプションを指定

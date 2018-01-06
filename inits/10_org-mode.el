@@ -98,14 +98,14 @@
 ;; (define-key global-map [f12] 'start-process-org)
 
 
-(if (linux?)
-    (progn
-      ;; (start-process-org)
-      ;; Emacs 終了時に mobileorg に push
-      ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
-      (add-hook 'kill-emacs-hook
-                '(lambda nil
-                   (shell-command "set_goals_score")))))
+;; (if (linux?)
+;;     (progn
+;;       ;; (start-process-org)
+;;       ;; Emacs 終了時に mobileorg に push
+;;       ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
+;;       (add-hook 'kill-emacs-hook
+;;                 '(lambda nil
+;;                    (shell-command "set_goals_score")))))
 ;; サブタスクが残っているときに親タスクをDONEにできないようにする
 (setq org-enforce-todo-dependencies t)
 

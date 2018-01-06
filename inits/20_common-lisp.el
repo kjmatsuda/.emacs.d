@@ -1,41 +1,6 @@
 ;;;;;; Lisp関連の設定
 ;; slime
-(when (require 'slime nil t)
-  (slime-setup '(slime-repl slime-fancy slime-banner))
- 
-  ;; sbclのパスを記述
-  (if (win?)
-      ;; (setq inferior-lisp-program "sbcl.exe")
-      (load (expand-file-name "~/.roswell/helper.el"))
-    (setq inferior-lisp-program "sbcl"))
-
-  (if (linux?)
-      (progn
-        (setq inferior-lisp-program "sbcl")
-        ;; HyperSpecを読み込む.
-        ;; HyperSpecがインストールされている場所「/usr/share/doc/hyperspec/」
-        (setq common-lisp-hyperspec-root
-              (concat "file://" (expand-file-name "~/Dropbox/.emacs.d/doc/HyperSpec/")))
-        (setq common-lisp-hyperspec-symbol-table
-              (expand-file-name "~/Dropbox/.emacs.d/doc/HyperSpec/Data/Map_Sym.txt"))
-
-        ;; HyperSpecをw3mで見る
-        (defadvice common-lisp-hyperspec
-            (around hyperspec-lookup-w3m () activate)
-          (let* ((window-configuration (current-window-configuration))
-                 (browse-url-browser-function
-                  `(lambda (url new-window)
-                     (w3m-browse-url url nil)
-                     (let ((hs-map (copy-keymap w3m-mode-map)))
-                       (define-key hs-map (kbd "q")
-                         (lambda ()
-                           (interactive)
-                           (kill-buffer nil)
-                           (set-window-configuration ,window-configuration)))
-                       (use-local-map hs-map)))))
-            ad-do-it)))
-    ))
-
+(load (expand-file-name "~/.roswell/helper.el"))
 
 ;; 日本語利用
 (setq slime-net-coding-system 'utf-8-unix)
