@@ -245,7 +245,6 @@
 ;; anything初期設定
 (require 'anything-startup)
 ;; 15.5 anything-for-files
-(global-set-key (kbd "C-x C-.") 'anything-for-files)
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 ;; (auto-install-from-url "http://www.emacswiki.org/cgi-bin/emacs/download/descbinds-anything.el")
 (when (require 'descbinds-anything nil t)
@@ -255,6 +254,21 @@
 ;; helm
 (require 'helm-config)
 (helm-mode 1)
+
+;; helmの操作感を改善するため、下記の設定を追加
+;; https://abicky.net/2014/01/04/170448/
+(define-key global-map (kbd "M-x")     'helm-M-x)
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "C-x C-r") 'helm-recentf)
+(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
+(define-key global-map (kbd "C-c i")   'helm-imenu)
+(define-key global-map (kbd "C-x b")   'helm-buffers-list)
+(define-key global-map (kbd "M-r")     'helm-resume)
+(define-key global-map (kbd "C-M-h")   'helm-apropos)
+(define-key helm-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
 ;; (require 'helm-config)
 ;; (helm-descbinds-mode)
@@ -589,7 +603,7 @@ Jump to reference point if curosr is on its definition"
   ;; (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
   (define-key helm-gtags-mode-map [M-left] 'helm-gtags-previous-history)
   (define-key helm-gtags-mode-map [M-right] 'helm-gtags-next-history)
-  (define-key helm-gtags-mode-map (kbd "C-^") 'helm-gtags-pop-stack))
+  (define-key helm-gtags-mode-map (kbd "C--") 'helm-gtags-pop-stack))
 
 (require 'helm-ag)
 ; agのデフォルトのコマンドオプションを指定

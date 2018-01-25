@@ -13,11 +13,17 @@
       (set-language-environment "Japanese")
 
       ;; 文字コード
-      (set-buffer-file-coding-system 'utf-8)
-      (set-terminal-coding-system 'utf-8)
-      (set-keyboard-coding-system 'utf-8)
-      (setq default-buffer-file-coding-system 'utf-8)
-      (set-selection-coding-system 'utf-16le-dos)
+      (set-buffer-file-coding-system 'utf-8-unix)
+      (set-terminal-coding-system 'utf-8-unix)
+      (setq default-buffer-file-coding-system 'utf-8-unix)
+      ;; デフォルトの文字コード
+      (set-default-coding-systems 'utf-8-unix)
+      ;; 新規バッファの文字コード
+      (prefer-coding-system 'utf-8-unix)
+      ;; ファイル名の文字コード
+      (set-file-name-coding-system 'utf-8-unix)
+      ;; キーボード入力の文字コード
+      (set-keyboard-coding-system 'utf-8-unix)      
 
       ;; Shell Mode
       (setq shell-mode-hook
