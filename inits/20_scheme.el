@@ -29,3 +29,5 @@
   (anything '(anything-c-source-info-gauche-refj)
             (thing-at-point 'symbol) nil nil nil "*anything info*"))
 (define-key global-map (kbd "C-M-i") 'anything-info-ja-at-point)
+
+(add-hook 'scheme-mode-hook 'highlight-symbol-mode)

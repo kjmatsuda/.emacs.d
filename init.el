@@ -19,7 +19,7 @@
  '(neo-click-changes-root t)
  '(package-selected-packages
    (quote
-    (wgrep-ag wgrep ag point-undo magit-popup git-commit with-editor dash magit alert imenu-list ctxmenu yaxception log4e init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
+    (highlight-symbol wgrep-ag wgrep ag point-undo magit-popup git-commit with-editor dash magit alert imenu-list ctxmenu yaxception log4e init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
  '(right-click-context-global-menu-tree
    (quote
     (("Tags"

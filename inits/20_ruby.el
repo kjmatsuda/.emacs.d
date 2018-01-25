@@ -16,4 +16,6 @@
 (ruby-block-mode t)
 (setq ruby-block-highlight-toggle t)
 
+(add-hook 'ruby-mode-hook 'highlight-symbol-mode)
+
 ;; TODO Rubyでタグジャンプ

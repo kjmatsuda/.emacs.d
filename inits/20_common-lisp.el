@@ -9,6 +9,8 @@
                             (slime-mode t)
                             (show-paren-mode t)))
 
+(add-hook 'lisp-mode-hook 'highlight-symbol-mode)
+
 ;; C-c L で slimeを起動
 (defun my-slime (&optional command coding-system)
   (interactive)

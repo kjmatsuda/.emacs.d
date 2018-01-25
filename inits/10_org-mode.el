@@ -22,7 +22,7 @@
          "** %U %?\n")
         )
       )
-(global-set-key (kbd "C-,") 'org-capture)
+;; (global-set-key (kbd "C-,") 'org-capture)
 
 ;; 14.6 TODOリストを作成する
 (setq org-use-fast-todo-selection t)

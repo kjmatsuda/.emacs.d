@@ -241,3 +241,10 @@
   (define-key imenu-list-major-mode-map (kbd "k") 'previous-line))
 
 (custom-set-variables '(imenu-list-size 0.2))
+
+;; シンボルのハイライト表示
+(require 'highlight-symbol)
+(global-set-key [(control f3)] 'highlight-symbol-at-point)
+(global-set-key (kbd "C-.") 'highlight-symbol-next)
+(global-set-key (kbd "C-,") 'highlight-symbol-prev)
+(global-set-key (kbd "M-S-r") 'highlight-symbol-query-replace)

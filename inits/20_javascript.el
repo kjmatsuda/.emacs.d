@@ -33,3 +33,5 @@
             (local-set-key "\C-cr" 'js-console-execute-region)
             (key-combo-define-local (kbd "{ RET") "{\n`!!'\n}")
             ))
+
+(add-hook 'js-mode-hook 'highlight-symbol-mode)

@@ -30,3 +30,5 @@
 
 ;; ciderのスタックトレースが明るくて見にくいため修正
 (setq cider-stacktrace-frames-background-color "#003200320032")
+
+(add-hook 'cider-mode-hook 'highlight-symbol-mode)
