@@ -35,6 +35,15 @@
 (require 'neotree)
 (global-set-key (kbd "M-+") 'window-manage-for-develop)
 (global-set-key (kbd "M--") 'neotree-hide)
+(add-hook
+ 'neotree-mode-hook
+ (lambda ()
+   (local-set-key (kbd "j") 'neotree-next-line)
+   (local-set-key (kbd "k") 'neotree-previous-line)
+   (local-set-key (kbd "u") 'neotree-select-up-node)
+   ))
+(setq neo-smart-open t)
+
 
 ;; (global-set-key "\M-g" 'goto-line)
 ;; (global-set-key (kbd "C-M-g") 'igrep)
@@ -99,3 +108,4 @@
 (global-set-key (kbd "<C-down>") (quote windmove-down))
 (global-set-key (kbd "<C-right>") (quote windmove-right))
 (global-set-key (kbd "<C-left>") (quote windmove-left))
+
