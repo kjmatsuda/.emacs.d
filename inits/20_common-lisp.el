@@ -54,6 +54,12 @@
      (define-key slime-repl-mode-map (kbd "<C-up>") nil)
      (define-key slime-repl-mode-map (kbd "<C-down>") nil)))
 
+(eval-after-load "slime"
+  '(progn
+     (define-key slime-mode-indirect-map (kbd "M-,") nil)
+     (define-key slime-mode-indirect-map (kbd "M-.") nil)
+     ))
+
 (require 'ac-slime)
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
