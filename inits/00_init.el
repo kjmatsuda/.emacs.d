@@ -261,7 +261,7 @@
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y")     'helm-show-kill-ring)
-(define-key global-map (kbd "C-c i")   'helm-imenu)
+(define-key global-map (kbd "M-i")   'helm-imenu)
 (define-key global-map (kbd "C-x b")   'helm-buffers-list)
 ;; (define-key global-map (kbd "M-r")     'helm-resume)
 (define-key global-map (kbd "C-M-h")   'helm-apropos)
