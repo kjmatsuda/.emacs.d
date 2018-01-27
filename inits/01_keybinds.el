@@ -110,7 +110,9 @@
       (imenu-list-minor-mode -1)
     (neotree-hide) ;; imenuを表示するときはneotreeをかくす
     (subwindow-hide)
-    (imenu-list-minor-mode 1)))
+    (imenu-list-minor-mode 1)
+    (other-window 1)
+    ))
 
 (global-set-key (kbd "M-I") 'my-imenu-list-smart-toggle)
 
