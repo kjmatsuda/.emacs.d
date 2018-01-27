@@ -13,20 +13,61 @@
         (switch-to-buffer (car b-list))
       (select-buffer-start-with (cdr b-list) buff-name-top))))
 
-;; clojure開発用にウィンドウを構成する
-(defun window-manage-for-develop ()
+(defun exists-visible-buffer-start-with (b-list buff-name-start-with)
+  (if (eq b-list nil)
+      nil
+    (if (and (eq (string-match (concat "^" buff-name-start-with) (buffer-name (car b-list))) 0) (get-buffer-window (buffer-name (car b-list)) t))
+        ;; バッファ名が一致した、かつバッファが表示されている
+        t
+      (exists-visible-buffer-start-with (cdr b-list) buff-name-start-with))))
+
+;; TODO サブウィンドウのバッファ名を"*slime-repl"固定にしているが、用途に応じて変えるようにする
+;; サブウィンドウを構成する
+(defun subwindow-show ()
   (interactive)
-  (delete-other-windows)
-  (neotree)
-  (other-window 1)
+  (if (not (exists-visible-buffer-start-with (buffer-list) "*slime-repl"))
+      (progn
+        ;; 表示されていない場合
+        (neotree-hide)             ;; neotreeかくす
+        (imenu-list-minor-mode -1) ;; imenuかくす
+        (split-window-vertically (/ (* 2 (window-height)) 3))
+        (other-window 1)
+        (select-buffer-start-with (buffer-list) "*slime-repl"))))
+
+(defun subwindow-hide ()
+    (interactive)
+    (if (exists-visible-buffer-start-with (buffer-list) "*slime-repl")
+        (progn
+          (if (not (string-match (concat "^" "*slime-repl") (buffer-name (current-buffer))))
+              ;; 現在、サブウィンドウにフォーカスがない場合
+              (other-window 1))
+          (delete-window))))
+
+(defun subwindow-toggle ()
+  (interactive)
+  (if (exists-visible-buffer-start-with (buffer-list) "*slime-repl")
+      ;; 表示中の場合
+      (subwindow-hide)
+    ;; 非表示の場合
+    (subwindow-show)))
+
+(defun show-sub-window-for-develop ()
+  (interactive)
+  ;; (delete-other-windows)
+  ;; (other-window 1)
   (split-window-vertically (/ (* 2 (window-height)) 3))
   (other-window 1)
   (if (eq major-mode 'clojure-mode)
       (select-buffer-start-with (buffer-list) "*cider-repl")
     (if (eq major-mode 'lisp-mode)
-        (select-buffer-start-with (buffer-list) "*slime-repl")))
-  (other-window 1)
-  (other-window 1))
+        (select-buffer-start-with (buffer-list) "*slime-repl")
+      ;; それ以外のモードの場合
+      (progn
+        (shell)
+        (select-buffer-start-with (buffer-list) "*shell*"))))
+  ;; (other-window 1)
+  ;; (other-window 1)
+  )
 
 ;; C-S-oで次のwindowへカーソルを移す
 (global-set-key (kbd "C-S-o") 'other-window-or-split)
@@ -37,10 +78,12 @@
   (interactive)
   (if (neo-global--window-exists-p)
       (neotree-hide)
+    (subwindow-hide)
     (imenu-list-minor-mode -1) ;; neotreeを表示するときなimenuをかくす
+    ;; (subwindow-hide)
     (neotree-show)))
 
-;; (global-set-key (kbd "M-+") 'window-manage-for-develop)
+(global-set-key (kbd "M-S") 'subwindow-toggle)
 (global-set-key (kbd "M-N") 'my-neotree-toggle)
 (add-hook
  'neotree-mode-hook
@@ -63,7 +106,9 @@
   (if (get-buffer-window imenu-list-buffer-name t)
       (imenu-list-minor-mode -1)
     (neotree-hide) ;; imenuを表示するときはneotreeをかくす
+    (subwindow-hide)
     (imenu-list-minor-mode 1)))
+
 (global-set-key (kbd "M-I") 'my-imenu-list-smart-toggle)
 
 ;; (global-set-key "\M-g" 'goto-line)
