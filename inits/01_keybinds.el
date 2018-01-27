@@ -91,13 +91,16 @@
    (local-set-key (kbd "j") 'neotree-next-line)
    (local-set-key (kbd "k") 'neotree-previous-line)
    (local-set-key (kbd "u") 'neotree-select-up-node)
+   (local-set-key (kbd "C-j") 'neotree-quick-look)
    ))
 (setq neo-smart-open t)
 
 ;; imenu
 (with-eval-after-load "imenu-list"
   (define-key imenu-list-major-mode-map (kbd "j") 'next-line)
-  (define-key imenu-list-major-mode-map (kbd "k") 'previous-line))
+  (define-key imenu-list-major-mode-map (kbd "k") 'previous-line)
+  (define-key imenu-list-major-mode-map (kbd "C-j") 'imenu-list-display-entry)
+  )
 
 (custom-set-variables '(imenu-list-size 0.2))
 
