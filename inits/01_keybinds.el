@@ -33,8 +33,15 @@
 
 ;; 画面左にディレクトリツリーを表示
 (require 'neotree)
-(global-set-key (kbd "M-+") 'window-manage-for-develop)
-(global-set-key (kbd "M--") 'neotree-hide)
+(defun my-neotree-toggle ()
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (neotree-hide)
+    (imenu-list-minor-mode -1) ;; neotreeを表示するときなimenuをかくす
+    (neotree-show)))
+
+;; (global-set-key (kbd "M-+") 'window-manage-for-develop)
+(global-set-key (kbd "M-N") 'my-neotree-toggle)
 (add-hook
  'neotree-mode-hook
  (lambda ()
@@ -44,6 +51,20 @@
    ))
 (setq neo-smart-open t)
 
+;; imenu
+(with-eval-after-load "imenu-list"
+  (define-key imenu-list-major-mode-map (kbd "j") 'next-line)
+  (define-key imenu-list-major-mode-map (kbd "k") 'previous-line))
+
+(custom-set-variables '(imenu-list-size 0.2))
+
+(defun my-imenu-list-smart-toggle ()
+  (interactive)
+  (if (get-buffer-window imenu-list-buffer-name t)
+      (imenu-list-minor-mode -1)
+    (neotree-hide) ;; imenuを表示するときはneotreeをかくす
+    (imenu-list-minor-mode 1)))
+(global-set-key (kbd "M-I") 'my-imenu-list-smart-toggle)
 
 ;; (global-set-key "\M-g" 'goto-line)
 ;; (global-set-key (kbd "C-M-g") 'igrep)

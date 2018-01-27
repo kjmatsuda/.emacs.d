@@ -235,13 +235,6 @@
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
 
-;; imenu
-(with-eval-after-load "imenu-list"
-  (define-key imenu-list-major-mode-map (kbd "j") 'next-line)
-  (define-key imenu-list-major-mode-map (kbd "k") 'previous-line))
-
-(custom-set-variables '(imenu-list-size 0.2))
-
 ;; シンボルのハイライト表示
 (require 'highlight-symbol)
 (global-set-key [(control f3)] 'highlight-symbol-at-point)
