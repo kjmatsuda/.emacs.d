@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: file path is symbolic link
+# key: file
+# --
+if [ -L ${1:path} ]; then
+   $0
+fi

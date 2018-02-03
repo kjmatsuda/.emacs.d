@@ -1,0 +1,4 @@
+# key: array
+# name: array add head
+# --
+array=("x" "\$\{array[@]\}")

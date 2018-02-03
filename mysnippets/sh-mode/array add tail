@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: array add tail
+# key: array
+# --
+array=("\$\{array[@]\}" "x")

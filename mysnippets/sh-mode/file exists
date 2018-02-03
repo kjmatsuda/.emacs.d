@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: file exists
+# key: file
+# --
+if [ -e ${1:path} ]; then
+   $0
+fi

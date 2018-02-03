@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: function
+# key: function
+# --
+function hoge() {
+  # local v="local variable"  # ローカル変数定義
+  # $n   # n番目引数
+  # $@   # 引数全体
+  # $#   # 引数の数
+  # return 0  # 戻り値
+}

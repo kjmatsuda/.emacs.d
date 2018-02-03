@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: array new
+# key: array
+# --
+declare -a $0=()

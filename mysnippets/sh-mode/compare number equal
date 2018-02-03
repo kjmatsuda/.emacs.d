@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: compare number equal
+# key: compare
+# --
+if [ ${1:var} -eq ${2:target} ]; then
+   $0
+fi

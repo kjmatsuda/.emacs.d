@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: compare not equal
+# key: compare
+# --
+
+if [ "${1:var}" != "${2:target}" ]; then
+   $0
+fi

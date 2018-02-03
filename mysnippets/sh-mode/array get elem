@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: array get elem
+# key: array
+# --
+\$\{array[0]\}

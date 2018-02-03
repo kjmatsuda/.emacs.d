@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: compare string empty
+# key: compare
+# --
+if [ -z "${1:var}" ]; then
+   $0
+fi

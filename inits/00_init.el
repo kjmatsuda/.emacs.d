@@ -378,9 +378,20 @@
 ;; (define-key global-map (kbd "C-=") 'point-redo)
 
 ;; 6.6 yasnippet.el
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/Dropbox/.emacs.d/elisp/plugins/yasnippet-0.6.1c/snippets")
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/mysnippets"   ;; 自分で追加するスニペット
+        "~/.emacs.d/elpa/yasnippet-snippets-20180122.521/snippets"
+        ))
+
+;; 既存スニペットを挿入する
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; 既存スニペットを閲覧・編集する
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+
+(yas-global-mode 1)
 
 ;; 6.14 auto-complete.el
 ;; M-x auto-install-batch auto-complete TAB

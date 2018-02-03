@@ -1,0 +1,7 @@
+# key: loop
+# name: loop through array
+# --
+for v in "\$\{array[@]\}"
+do
+    echo $v
+done

@@ -1,0 +1,4 @@
+# key: array
+# name: array length
+# --
+\$\{#array[@]\}
