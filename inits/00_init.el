@@ -318,6 +318,10 @@
           (lambda ()
             (key-combo-mode -1)))
 
+(setq skk-large-jisyo "~/.emacs.d/skk-jisyo/SKK-JISYO.L+emoji.utf8")
+(setq skk-jisyo "~/.skk-jisyo.utf8")
+(setq skk-jisyo-code 'utf-8)
+
 ;; 2.2 auto-install.el
 (if (linux?)
     (progn
@@ -614,7 +618,8 @@ Jump to reference point if curosr is on its definition"
   ;; (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
   (define-key helm-gtags-mode-map [M-left] 'helm-gtags-previous-history)
   (define-key helm-gtags-mode-map [M-right] 'helm-gtags-next-history)
-  (define-key helm-gtags-mode-map (kbd "C--") 'helm-gtags-pop-stack))
+  (define-key helm-gtags-mode-map (kbd "C--") 'helm-gtags-pop-stack)
+  (define-key helm-gtags-mode-map (kbd "C-o") 'helm-gtags-pop-stack))
 
 (require 'helm-ag)
 ; agのデフォルトのコマンドオプションを指定

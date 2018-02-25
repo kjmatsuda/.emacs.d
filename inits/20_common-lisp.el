@@ -76,6 +76,6 @@
                      'common-lisp-indent-function)
                  args))))
 
-;; Hyperspec の検索開始キー
-(global-unset-key (kbd "C-o"))
-(global-set-key (kbd "C-o") 'hyperspec-lookup)
+;; ;; Hyperspec の検索開始キー
+;; (global-unset-key (kbd "C-o"))
+;; (global-set-key (kbd "C-o") 'hyperspec-lookup)
