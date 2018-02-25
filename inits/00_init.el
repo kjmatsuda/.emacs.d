@@ -322,6 +322,10 @@
 (setq skk-jisyo "~/.skk-jisyo.utf8")
 (setq skk-jisyo-code 'utf-8)
 
+;; 動的候補表示
+(setq skk-dcomp-activate t) ; 動的補完
+(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+
 ;; 2.2 auto-install.el
 (if (linux?)
     (progn
