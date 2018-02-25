@@ -157,6 +157,7 @@
 (global-set-key "\C-xt" 'skk-tutorial)
 (global-set-key (kbd "C-t") 'skk-latin-toggle)
 
+
 ;; 5.8 goto-chg.el
 ;; 最後の変更箇所にジャンプする
 (require 'goto-chg)
@@ -179,4 +180,10 @@
 (global-set-key (kbd "<C-down>") (quote windmove-down))
 (global-set-key (kbd "<C-right>") (quote windmove-right))
 (global-set-key (kbd "<C-left>") (quote windmove-left))
+
+;; カーソルを動かさずにスクロール
+(global-set-key "\M-n" (lambda () (interactive) (scroll-up 1)))
+(global-set-key "\M-p" (lambda () (interactive) (scroll-down 1)))
+
+;; view-modeの場合はenterで1行下へスクロール、yで1行上へスクロールできる
 
