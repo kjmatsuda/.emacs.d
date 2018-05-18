@@ -525,7 +525,22 @@
 
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
+
+(defun my-magit-push ()
+  (key-combo-mode -1)
+  (magit-push)
+  )
+
+(global-set-key (kbd "C-x g s") 'magit-status)
+(add-hook
+ 'magit-status-mode-hook
+ (lambda ()
+   ;; key-combo-mode がONだと、push時のプロンプトで一切入力が効かない
+   (key-combo-mode -1)
+   ))
+(global-set-key (kbd "C-x g p") 'magit-pull)
+(global-set-key (kbd "C-x g P") 'my-magit-push)
+
 
 (when (executable-find "svn")
   (setq svn-status-verbose nil)
