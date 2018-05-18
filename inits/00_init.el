@@ -526,10 +526,24 @@
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'magit)
 
-(defun my-magit-push ()
+(defun my-magit-push (source target args)
+  "Push an arbitrary branch or commit somewhere.
+Both the source and the target are read in the minibuffer."
+  (interactive
+   (let ((source (magit-read-local-branch-or-commit "Push")))
+     (list source
+           (magit-read-remote-branch
+            (format "Push %s to" source) nil
+            (if (magit-local-branch-p source)
+                (or (magit-get-push-branch source)
+                    (magit-get-upstream-branch source))
+              (and (magit-rev-ancestor-p source "HEAD")
+                   (or (magit-get-push-branch)
+                       (magit-get-upstream-branch))))
+            source 'confirm)
+           (magit-push-arguments))))
   (key-combo-mode -1)
-  (magit-push)
-  )
+  (magit-git-push source target args))
 
 (global-set-key (kbd "C-x g s") 'magit-status)
 (add-hook
