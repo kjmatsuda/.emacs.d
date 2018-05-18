@@ -43,7 +43,12 @@
   ;; フォントの設定
  (if (linux?)
      ;; プログラミング用フォント Ricty
-     (add-to-list 'default-frame-alist '(font . "ricty-12")))
+     (progn
+       (add-to-list 'default-frame-alist '(font . "ricty-12"))
+       (set-fontset-font
+        t 'symbol
+        (font-spec :family "Symbola") nil 'prepend))
+   )
     ;;  (add-to-list 'default-frame-alist '(font . "-unknown-VL ゴシック-normal-normal-normal-*-13-*-*-*-*-0-iso10646-1"))
 
   ;; 背景色を設定します。
@@ -152,13 +157,16 @@
         ;; (set-default-font "Courier New-11")
         (set-default-font "Ricty Diminished-12")
           ;; Japanese(japanese-jisx0208)font
-          (set-fontset-font
-           (frame-parameter nil 'font)
-           'japanese-jisx0208
-           (font-spec :family "Meiryo"))
-    (set-fontset-font "fontset-default"
-                  'katakana-jisx0201
-                  '("ＭＳ ゴシック" . "jisx0201-katakana"))
+        (set-fontset-font
+           t 'symbol
+           (font-spec :family "Segoe UI Emoji") nil 'prepend) 
+        (set-fontset-font
+         (frame-parameter nil 'font)
+         'japanese-jisx0208
+         (font-spec :family "Meiryo"))
+        (set-fontset-font "fontset-default"
+                          'katakana-jisx0201
+                          '("ＭＳ ゴシック" . "jisx0201-katakana"))
     ))
       ;; フレームの最大化、切り替え
       (defvar w32-window-state nil)

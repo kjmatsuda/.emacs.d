@@ -118,7 +118,7 @@
 
 ;; (global-set-key "\M-g" 'goto-line)
 ;; (global-set-key (kbd "C-M-g") 'igrep)
-(global-set-key (kbd "C-x g") 'grep-find)
+;; (global-set-key (kbd "C-x g") 'grep-find)
 (global-set-key (kbd "C-M-e") 'ediff-merge-files)
 ;; (global-set-key "\M-o" 'occur-by-moccur)
 ;; (global-set-key (kbd "C-M-o") 'moccur)

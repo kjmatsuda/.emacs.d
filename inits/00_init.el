@@ -322,9 +322,9 @@
 (setq skk-jisyo "~/.skk-jisyo.utf8")
 (setq skk-jisyo-code 'utf-8)
 
-;; 動的候補表示
-(setq skk-dcomp-activate t) ; 動的補完
-(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+;; ;; 動的候補表示
+;; (setq skk-dcomp-activate t) ; 動的補完
+;; (setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
 
 ;; 2.2 auto-install.el
 (if (linux?)
@@ -419,6 +419,28 @@
     (setq ad-return-value
           (remove-if contain-japanese ad-return-value))))
 
+;; ac-emoji
+(require 'ac-emoji)
+(add-hook 'markdown-mode-hook 'ac-emoji-setup)
+(add-hook 'git-commit-mode-hook 'ac-emoji-setup)
+
+;; (defvar my-ac-emoji--candidates
+;;   (cl-loop for emoji in ac-emoji--data
+;;            collect
+;;            (popup-make-item (plist-get emoji :key)
+;;                             :value (plist-get emoji :codepoint)
+;;                             :document (plist-get emoji :description)
+;;                             :summary (plist-get emoji :codepoint))))
+
+;; (defun my-ac-emoji-setup ()
+;;   (interactive)
+;;   (add-to-list 'ac-sources 'my-ac-source-emoji))
+
+;; (ac-define-source my-emoji
+;;   '((candidates . my-ac-emoji--candidates)
+;;     (prefix . ":\\S-+")))
+
+
 ;; 7.6 color-moccur.el
 (require 'color-moccur)
 (setq moccur-split-word 1) ; スペースで区切られた複数の単語にマッチさせる
@@ -503,6 +525,7 @@
 
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (when (executable-find "svn")
   (setq svn-status-verbose nil)
