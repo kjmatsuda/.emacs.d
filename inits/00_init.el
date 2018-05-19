@@ -683,8 +683,16 @@ Jump to reference point if curosr is on its definition"
 (setq helm-ag-base-command "ag --nocolor --nogroup")
 (define-key global-map (kbd "M-O") 'helm-ag)
 (define-key global-map (kbd "M-o") 'helm-ag-this-file)
+(define-key global-map (kbd "M-G") 'ag)
 ;; 現在位置のシンボルをデフォルトで検索語句に設定する
 (setq helm-ag-insert-at-point 'symbol)
+
+;; eでwgrepモードにする
+(setf wgrep-enable-key "e")
+;; wgrep終了時にバッファを保存
+(setq wgrep-auto-save-buffer t)
+;; read-only bufferにも変更を適用する
+(setq wgrep-change-readonly-file t)
 
 ;;;;;;;;;;;;;;;;; doxygen START ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; doxygenによるコールグラフの生成
