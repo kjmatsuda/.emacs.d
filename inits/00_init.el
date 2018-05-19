@@ -683,6 +683,8 @@ Jump to reference point if curosr is on its definition"
 (setq helm-ag-base-command "ag --nocolor --nogroup")
 (define-key global-map (kbd "M-O") 'helm-ag)
 (define-key global-map (kbd "M-o") 'helm-ag-this-file)
+;; 現在位置のシンボルをデフォルトで検索語句に設定する
+(setq helm-ag-insert-at-point 'symbol)
 
 ;;;;;;;;;;;;;;;;; doxygen START ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; doxygenによるコールグラフの生成
