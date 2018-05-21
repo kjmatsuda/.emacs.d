@@ -853,23 +853,6 @@
 ;; (if (linux?)
 ;;    (require 'w3m-load))
 
-;; ;; 8.5 twittering-mode.el
-(require 'twittering-mode)
-(global-set-key (kbd "C-x t") 'twit)
-(setq twittering-status-format
-      "%C{%Y/%m/%d %H:%M:%S} %s > %T // from %f%L%r%R")
-(setq twittering-auth-method 'xauth)
-(setq twittering-username "stray346")
-(if (win?)
-  ;; windows の twittering-mode の認証が失敗しないための対策
-  (setq twittering-allow-insecure-server-cert t))
-;; F お気に入り
-;; R 公式リツイート
-;; Q 引用リツイート QT
-(define-key twittering-mode-map (kbd "F") 'twittering-favorite)
-(define-key twittering-mode-map (kbd "R") 'twittering-native-retweet)
-(define-key twittering-mode-map (kbd "Q") 'twittering-organic-retweet)
-
 ;; 8.6 gist.el
 ;(require 'gist)
 

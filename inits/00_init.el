@@ -449,7 +449,7 @@
 ;; 7.7 moccur-edit.el
 (require 'moccur-edit)
 
-(when (not (executable-find "grep"))
+(when (executable-find "grep")
   ;; 7.9 igrep.el
   (require 'igrep)
   ;; lgrepに-0u8オプションをつけると出力がUTF-8になる
