@@ -148,6 +148,15 @@
   (letf (((symbol-function 'sdic-describe-word) (symbol-function 'my-sdic-describe-word-with-popup)))
     ad-do-it))
 
+;;;; フランス語の入力切り換え
+(defun toggle-input-method-french ()
+  (interactive)
+  (if (equal current-input-method "french-postfix")
+      (set-input-method nil)
+    (set-input-method "french-postfix")))
+
+(global-set-key (kbd "C-x f") 'toggle-input-method-french)
+
 ;; wdired
 ;; http://at-aka.blogspot.com/2006/12/emacs-dired-wdired.html
 ;; (eval-after-load "dired"
