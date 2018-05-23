@@ -57,29 +57,50 @@
         ;;               ))))
         ;; ("g" "目標"
         ;;  ((tags-todo "goals")))
-        ("h" "目標：今日すること" ((agenda "" ((org-agenda-ndays 1)
-                                               (org-deadline-warning-days 1)
-                                                ;; (org-agenda-sorting-strategy
-                                                ;;  (quote ((agenda time-up priority-down tag-up))))
-                                                ;; (org-deadline-warning-days 0)
-                                                )))
-         ((org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+        ("d" "今日の予定" (
+                           ;; (agenda "" ((org-agenda-ndays 1)
+                           ;;                     (org-deadline-warning-days 1)
+                           ;;                      ;; (org-agenda-sorting-strategy
+                           ;;                      ;;  (quote ((agenda time-up priority-down tag-up))))
+                           ;;                      ;; (org-deadline-warning-days 0)
+                           ;;                     ))
+                           (agenda "" ((org-agenda-span 1)
+                                       (org-agenda-show-log nil)
+                                       (org-agenda-clockreport-mode nil)))
+                           )
+         (
+          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
           ;; (org-agenda-sorting-strategy '(priority-up effort-down))
           )
          ;; ("~/computer.html")
          )
-        ("j" "目標：今週すること" ((agenda "" ((org-agenda-ndays 7)
-                                               (org-deadline-warning-days 7)
-                                                ;; (org-agenda-sorting-strategy
-                                                ;;  (quote ((agenda time-up priority-down tag-up))))
-                                                ;; (org-deadline-warning-days 0)
-                                                )))
-         ((org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
-          ;; (org-agenda-sorting-strategy '(priority-up effort-down))
-          )
-         ;; ("~/computer.html")
+        ("l" "今日の作業記録" (
+                           (agenda "" ((org-agenda-span 1)
+                                       (org-agenda-show-log 'clockcheck)
+                                       (org-agenda-clockreport-mode t)))
+                           ))
+        ("w" "今週の予定" (
+                           (agenda "" ((org-agenda-span 7)
+                                       (org-agenda-show-log nil)
+                                       (org-agenda-clockreport-mode nil)))
+                           )
          )
         ))
+
+;;;; org-agendaの日付表示を日本語にする
+(defadvice org-agenda (around org-agenda-around)
+  (let ((system-time-locale "Japanese"))
+    ad-do-it))
+
+(defadvice org-agenda-redo (around org-agenda-redo-around)
+  (let ((system-time-locale "Japanese"))
+    ad-do-it))
+
+(custom-set-variables
+  '(org-agenda-format-date "%Y/%m/%d (%a)"))
+
+(custom-set-faces
+ '(org-agenda-date ((t :weight bold))))
 
 ;; Googleカレンダーへエスクポート
 ;; ネタ元
