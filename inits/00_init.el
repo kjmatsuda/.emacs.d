@@ -449,45 +449,6 @@
 ;; 7.7 moccur-edit.el
 (require 'moccur-edit)
 
-(when (executable-find "grep")
-  ;; 7.9 igrep.el
-  (require 'igrep)
-  ;; lgrepに-0u8オプションをつけると出力がUTF-8になる
-  (igrep-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -0u8"))
-  (igrep-find-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -0u8"))
-
-  ;; 7.10 grep-a-lot.el
-  (require 'grep-a-lot)
-  (grep-a-lot-setup-keys)
-  ;; igrepを使う人向け
-  (grep-a-lot-advise igrep)
-
-  ;; grep-a-lot-buffer-name の定義を上書き
-  ;; 参考 http://d.hatena.ne.jp/kitokitoki/20110213/p1
-  (setq my-grep-a-lot-search-word nil)
-  (defun grep-a-lot-buffer-name (position)
-    "Return name of grep-a-lot buffer at POSITION."
-    (if (not (null my-grep-a-lot-search-word))
-        (concat "*grep*<" my-grep-a-lot-search-word ">")
-      (concat "*grep*<" (number-to-string position) ">")))
-
-  (defadvice rgrep (before my-rgrep (regexp &optional files dir) activate)
-    (setq my-grep-a-lot-search-word regexp))
-
-  (defadvice lgrep (before my-lgrep (regexp &optional files dir) activate)
-    (setq my-grep-a-lot-search-word regexp))
-
-
-  (defadvice grep (before my-lgrep (regexp &optional files dir) activate)
-    (if (string-match "|.+'\\(.+\\)'" regexp)
-        ;; 検索ワードが '(シングルクォート)に囲まれていることを期待
-        (setq my-grep-a-lot-search-word
-              (subseq regexp (match-beginning 1) (match-end 1)))))
-
-  ;; 7.11 grep-edit.el
-  (require 'grep-edit)
-)
-
 ;; ;; 8.5 twittering-mode.el
 (require 'twittering-mode)
 (global-set-key (kbd "C-x t") 'twit)
