@@ -69,8 +69,8 @@
                                        (org-agenda-clockreport-mode nil)))
                            )
          (
-          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
-          ;; (org-agenda-sorting-strategy '(priority-up effort-down))
+          (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down))
           )
          ;; ("~/computer.html")
          )
@@ -101,6 +101,9 @@
 
 (custom-set-faces
  '(org-agenda-date ((t :weight bold))))
+
+;;;; 子タスクをもつタスクがグレーアウト表示されないようにする 
+(setq org-agenda-dim-blocked-tasks nil)
 
 ;; Googleカレンダーへエスクポート
 ;; ネタ元
