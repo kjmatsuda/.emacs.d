@@ -78,12 +78,21 @@
                            (agenda "" ((org-agenda-span 1)
                                        (org-agenda-show-log 'clockcheck)
                                        (org-agenda-clockreport-mode t)))
-                           ))
+                           )
+         (
+          (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down))
+          )
+         )
         ("w" "今週の予定" (
                            (agenda "" ((org-agenda-span 7)
                                        (org-agenda-show-log nil)
                                        (org-agenda-clockreport-mode nil)))
                            )
+         (
+          (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down))
+          )
          )
         ))
 
