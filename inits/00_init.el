@@ -466,6 +466,7 @@
       ;;   '((candidates . my-ac-emoji--candidates)
       ;;     (prefix . ":\\S-+")))
       )
+  )
 
 ;; 7.6 color-moccur.el
 (require 'color-moccur)
