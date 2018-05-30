@@ -246,6 +246,14 @@
 ;; シンボルのハイライト表示
 (require 'highlight-symbol)
 (global-set-key [(control f3)] 'highlight-symbol-at-point)
-(global-set-key (kbd "C-.") 'highlight-symbol-next)
-(global-set-key (kbd "C-,") 'highlight-symbol-prev)
+(if (not (is-termux))
+    (progn
+      (global-set-key (kbd "C-.") 'highlight-symbol-next)
+      (global-set-key (kbd "C-,") 'highlight-symbol-prev)
+      )
+  (progn
+    (global-set-key (kbd "M-.") 'highlight-symbol-next)
+    (global-set-key (kbd "M-,") 'highlight-symbol-prev)
+    )
+  )
 (global-set-key (kbd "M-R") 'highlight-symbol-query-replace)

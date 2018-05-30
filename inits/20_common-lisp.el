@@ -52,7 +52,10 @@
 (eval-after-load "slime-repl"
   '(progn
      (define-key slime-repl-mode-map (kbd "<C-up>") nil)
-     (define-key slime-repl-mode-map (kbd "<C-down>") nil)))
+     (define-key slime-repl-mode-map (kbd "<C-down>") nil)
+     (define-key slime-mode-indirect-map (kbd "M-n") nil)
+     (define-key slime-mode-indirect-map (kbd "M-p") nil)
+     ))
 
 (eval-after-load "slime"
   '(progn

@@ -125,8 +125,16 @@
 (global-set-key (kbd "C-x C-o") 'moccur-grep-find)
 ;; (global-set-key [\C-\tab] 'dabbrev-expand)
 (global-set-key (kbd "C-c C-i") 'indent-region)
-(global-set-key (kbd "C->") 'comment-region)
-(global-set-key (kbd "C-<") 'uncomment-region)
+(if (not (is-termux))
+    (progn
+      (global-set-key (kbd "C->") 'comment-region)
+      (global-set-key (kbd "C-<") 'uncomment-region)
+      )
+  (progn
+    (global-set-key (kbd "M-.") 'comment-region)
+    (global-set-key (kbd "M-,") 'uncomment-region)
+    )
+  )
 ;; 改行と同時にインデント
 (global-set-key (kbd "C-m") 'newline-and-indent)
 ;; C-h でバックスペース
@@ -167,7 +175,11 @@
 ;; undo
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode t)
-  (global-set-key (kbd "C-M-/") 'undo-tree-redo))
+  (if (not (is-termux))
+      (global-set-key (kbd "C-M-/") 'undo-tree-redo)
+    (global-set-key (kbd "M-/") 'undo-tree-redo)
+    )
+  )
 
 ;;; windmove (e2wm でバッファ切り換えがしやすくなるように)
 (windmove-default-keybindings)

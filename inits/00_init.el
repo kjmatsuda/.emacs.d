@@ -29,6 +29,15 @@
 (defun win? ()
   (eq os-type 'win))
 
+;; Termuxか否かを判別する
+(defvar which-bash-str "")
+(setq which-bash-str (shell-command-to-string "which bash"))
+
+(defun is-termux()
+  (if (string-match "termux" which-bash-str)
+      t
+    nil))
+
 ;; load-pathをサブディレクトリごと追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -75,16 +84,26 @@
        (setq x-select-enable-clipboard t)
 ))
 
-;; 参考
-;; http://d.hatena.ne.jp/uk-ar/20111208/1322572618%3E
-(require 'key-combo)
-(key-combo-load-default)
-(key-combo-define-global (kbd "(") "(`!!')")
-(key-combo-define-global (kbd "\"") "\"`!!'\"")
-(key-combo-define-global (kbd "[") "[`!!']")
-(key-combo-define-global (kbd "{") "{`!!'}")
-(key-combo-define-global (kbd "// ") "// ")
 
+(if (not (is-termux))
+    ;; 参考
+    ;; http://d.hatena.ne.jp/uk-ar/20111208/1322572618%3E
+    (progn 
+      (require 'key-combo)
+      (key-combo-load-default)
+      (key-combo-define-global (kbd "(") "(`!!')")
+      (key-combo-define-global (kbd "\"") "\"`!!'\"")
+      (key-combo-define-global (kbd "[") "[`!!']")
+      (key-combo-define-global (kbd "{") "{`!!'}")
+      (key-combo-define-global (kbd "// ") "// ")
+      )
+  (progn
+    ;; 2017/12/18(Mon) スマホのtermux上のEmacsではkey-comboが有効だと
+    ;; altキーが正常に効かなくなる
+    ;; よって、(electric-pair-mode 1)で代用する
+    (electric-pair-mode 1)
+    ))
+  
 ;; 英和辞書
 (when (require 'sdic nil t)
   (global-set-key "\C-cw" 'sdic-describe-word)
@@ -249,7 +268,9 @@
 (load "graphviz-dot-mode.el")
 (add-hook 'graphviz-dot-mode-hook (lambda () (local-set-key [f6] "\C-cc\C-m\C-cp")))
 
-(require 'ox-freemind)
+(if (not (is-termux))
+    (require 'ox-freemind)
+  )
 
 ;; anything初期設定
 (require 'anything-startup)
@@ -279,14 +300,6 @@
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
-;; (require 'helm-config)
-;; (helm-descbinds-mode)
-;; (require 'helm-migemo)
-;; (setq helm-use-migemo t)
-;; (define-key global-map (kbd "C-.") 'helm-for-files)
-;; (define-key global-map (kbd "C-x b") 'helm-for-files)
-;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
-
 ;; 2.1 ddskk
 (defun skk-latin-toggle()
   (interactive)
@@ -295,7 +308,10 @@
           (skk-mode t)
         (progn
           (skk-latin-mode t)
-          (key-combo-mode t)))))
+          (if (not (is-termux))
+              (key-combo-mode t))
+          )))
+  )
 
 (autoload 'skk-mode "skk" nil t)
 (autoload 'skk-tutorial "skk-tut" nil t)
@@ -325,15 +341,14 @@
   )
 (add-hook 'skk-mode-hook
           (lambda ()
-            (key-combo-mode -1)))
+            (if (not (is-termux))
+                (key-combo-mode -1)
+              nil)
+            ))
 
 (setq skk-large-jisyo "~/.emacs.d/skk-jisyo/SKK-JISYO.L+emoji.utf8")
 (setq skk-jisyo "~/.skk-jisyo.utf8")
 (setq skk-jisyo-code 'utf-8)
-
-;; ;; 動的候補表示
-;; (setq skk-dcomp-activate t) ; 動的補完
-;; (setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
 
 ;; 2.2 auto-install.el
 (if (linux?)
@@ -635,17 +650,27 @@ Jump to reference point if curosr is on its definition"
 
 ;;;;;;;;;;;; END ;;;;;;;;;;;;;;;
 
-;; key bindings
 (with-eval-after-load 'helm-gtags
   (define-key helm-gtags-mode-map (kbd "C-M-;") 'my/find-tag-without-ns)
   (define-key helm-gtags-mode-map (kbd "C-]") 'my/helm-gtags-find-tag-from-here)
-  (define-key helm-gtags-mode-map (kbd "C-M-r") 'helm-gtags-find-rtag)
-  (define-key helm-gtags-mode-map (kbd "C-M-s") 'helm-gtags-find-symbol)
-  ;; (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
   (define-key helm-gtags-mode-map [M-left] 'helm-gtags-previous-history)
   (define-key helm-gtags-mode-map [M-right] 'helm-gtags-next-history)
   (define-key helm-gtags-mode-map (kbd "C--") 'helm-gtags-pop-stack)
   (define-key helm-gtags-mode-map (kbd "C-o") 'helm-gtags-pop-stack))
+
+(if (not (is-termux))
+    ;; key bindings
+    (with-eval-after-load 'helm-gtags
+      (define-key helm-gtags-mode-map (kbd "C-M-r") 'helm-gtags-find-rtag)
+      (define-key helm-gtags-mode-map (kbd "C-M-s") 'helm-gtags-find-symbol)
+      )
+  ;; key bindings
+  (with-eval-after-load 'helm-gtags
+    (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
+    (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
+    )
+  )
+  
 
 (require 'helm-ag)
 ; agのデフォルトのコマンドオプションを指定
@@ -823,3 +848,12 @@ Jump to reference point if curosr is on its definition"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(if (is-termux)
+    (progn
+      (require 'info)
+      (setq Info-default-directory-list
+            (cons (expand-file-name "~/.emacs.d/info/")
+                  Info-default-directory-list))
+      )
+  )
