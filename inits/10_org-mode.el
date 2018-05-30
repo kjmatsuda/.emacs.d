@@ -66,6 +66,7 @@
                            ;;                      ;; (org-deadline-warning-days 0)
                            ;;                     ))
                            (agenda "" ((org-agenda-span 1)
+                                       (org-deadline-warning-days 7)
                                        (org-agenda-show-log nil)
                                        (org-agenda-clockreport-mode nil)))
                            )
@@ -87,6 +88,7 @@
          )
         ("w" "今週の予定" (
                            (agenda "" ((org-agenda-span 7)
+                                       (org-deadline-warning-days 14)
                                        (org-agenda-show-log nil)
                                        (org-agenda-clockreport-mode nil)))
                            )

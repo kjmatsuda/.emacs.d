@@ -16,7 +16,9 @@
  '(helm-gtags-ignore-case t)
  '(helm-gtags-path-style (quote relative))
  '(imenu-list-size 0.2)
+ '(initial-buffer-choice (quote ignore))
  '(neo-click-changes-root t)
+ '(org-agenda-format-date "%Y/%m/%d (%a)")
  '(package-selected-packages
    (quote
     (ac-emoji helm-c-yasnippet yasnippet-snippets yasnippet smartparens highlight-symbol wgrep-ag wgrep ag point-undo magit-popup git-commit with-editor dash magit alert imenu-list ctxmenu yaxception log4e init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
@@ -44,4 +46,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-agenda-date ((t :weight bold))))
