@@ -443,27 +443,29 @@
     (setq ad-return-value
           (remove-if contain-japanese ad-return-value))))
 
-;; ac-emoji
-(require 'ac-emoji)
-(add-hook 'markdown-mode-hook 'ac-emoji-setup)
-(add-hook 'git-commit-mode-hook 'ac-emoji-setup)
+(if (not (is-termux))
+    (progn
+      ;; ac-emoji
+      (require 'ac-emoji)
+      (add-hook 'markdown-mode-hook 'ac-emoji-setup)
+      (add-hook 'git-commit-mode-hook 'ac-emoji-setup)
 
-;; (defvar my-ac-emoji--candidates
-;;   (cl-loop for emoji in ac-emoji--data
-;;            collect
-;;            (popup-make-item (plist-get emoji :key)
-;;                             :value (plist-get emoji :codepoint)
-;;                             :document (plist-get emoji :description)
-;;                             :summary (plist-get emoji :codepoint))))
+      ;; (defvar my-ac-emoji--candidates
+      ;;   (cl-loop for emoji in ac-emoji--data
+      ;;            collect
+      ;;            (popup-make-item (plist-get emoji :key)
+      ;;                             :value (plist-get emoji :codepoint)
+      ;;                             :document (plist-get emoji :description)
+      ;;                             :summary (plist-get emoji :codepoint))))
 
-;; (defun my-ac-emoji-setup ()
-;;   (interactive)
-;;   (add-to-list 'ac-sources 'my-ac-source-emoji))
+      ;; (defun my-ac-emoji-setup ()
+      ;;   (interactive)
+      ;;   (add-to-list 'ac-sources 'my-ac-source-emoji))
 
-;; (ac-define-source my-emoji
-;;   '((candidates . my-ac-emoji--candidates)
-;;     (prefix . ":\\S-+")))
-
+      ;; (ac-define-source my-emoji
+      ;;   '((candidates . my-ac-emoji--candidates)
+      ;;     (prefix . ":\\S-+")))
+      )
 
 ;; 7.6 color-moccur.el
 (require 'color-moccur)
