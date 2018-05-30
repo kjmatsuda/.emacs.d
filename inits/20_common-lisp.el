@@ -63,6 +63,8 @@
   '(progn
      (define-key slime-mode-indirect-map (kbd "M-,") nil)
      (define-key slime-mode-indirect-map (kbd "M-.") nil)
+     (define-key slime-mode-indirect-map (kbd "M-n") nil)
+     (define-key slime-mode-indirect-map (kbd "M-p") nil)
      ))
 
 (require 'ac-slime)
