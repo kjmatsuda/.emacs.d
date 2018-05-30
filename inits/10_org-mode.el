@@ -1,6 +1,7 @@
 ;;;;;;;;;;;;;;;;;  Emacsテクニックバイブルより ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 14. org-mode
 (require 'org)
+(require 'org-agenda)
 
 ;; 14.4 M-x org-remember
 (setq org-directory "~/Dropbox/org/")
@@ -33,7 +34,7 @@
 ;; アジェンダ表示の対象ファイル
 (setq org-agenda-files (list org-directory))
 
-(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c a") 'org-agenda-cache)
 
 ;; mobileorg のアジェンダ表示を改善するべく、org-agenda-custom-commands を触った。2015/3/26
 ;; どこかが悪さをして、orgmobile から google カレンダーへの同期が効かなくなったので
@@ -110,6 +111,23 @@
 
 (custom-set-faces
  '(org-agenda-date ((t :weight bold))))
+
+;;;; 【もう遅くない】Emacs org-agendaによる予定表を瞬時に表示させる方法
+;; http://emacs.rubikitch.com/org-agenda-cache/
+(defun org-agenda-cache (&optional regenerate)
+  "agendaを更新せずに表示する。"
+  (interactive "P")
+  (if (or regenerate (null (get-buffer "*Org Agenda*")))
+    (progn 
+      (setq current-prefix-arg nil)
+      (org-agenda nil))
+  (delete-other-windows)
+  (split-window-horizontally (/ (window-width) 2))
+  (other-window 1)
+  (switch-to-buffer "*Org Agenda*"))
+  )
+;;; そもそもqで*Org Agenda*をkillしないようにする
+(define-key org-agenda-mode-map (kbd "q") 'delete-window)
 
 ;;;; 子タスクをもつタスクがグレーアウト表示されないようにする 
 (setq org-agenda-dim-blocked-tasks nil)
