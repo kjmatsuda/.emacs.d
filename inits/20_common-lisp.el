@@ -1,6 +1,8 @@
 ;;;;;; Lisp関連の設定
 ;; slime
-(load (expand-file-name "~/.roswell/helper.el"))
+(if (not (is-termux))
+    (load (expand-file-name "~/.roswell/helper.el"))
+  )
 
 ;; 日本語利用
 (setq slime-net-coding-system 'utf-8-unix)
@@ -23,25 +25,25 @@
 ;;; Modern Common Lisp より
 ;;; http://modern-cl.blogspot.com/
 ;; http://d.hatena.ne.jp/m2ym/20110120/1295524932
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-;; Apropos
-(push '("*slime-apropos*") popwin:special-display-config)
-;; Macroexpand
-(push '("*slime-macroexpansion*") popwin:special-display-config)
-;; Help
-(push '("*slime-description*") popwin:special-display-config)
-;; Compilation
-(push '("*slime-compilation*" :noselect t) popwin:special-display-config)
-;; Cross-reference
-(push '("*slime-xref*") popwin:special-display-config)
-;; Debugger
-(push '(sldb-mode :stick t) popwin:special-display-config)
-;; REPL
-(push '(slime-repl-mode) popwin:special-display-config)
-;; Connections
-(push '(slime-connection-list-mode) popwin:special-display-config)
-
+(when (require 'popwin nil t)
+  (setq display-buffer-function 'popwin:display-buffer)
+  ;; Apropos
+  (push '("*slime-apropos*") popwin:special-display-config)
+  ;; Macroexpand
+  (push '("*slime-macroexpansion*") popwin:special-display-config)
+  ;; Help
+  (push '("*slime-description*") popwin:special-display-config)
+  ;; Compilation
+  (push '("*slime-compilation*" :noselect t) popwin:special-display-config)
+  ;; Cross-reference
+  (push '("*slime-xref*") popwin:special-display-config)
+  ;; Debugger
+  (push '(sldb-mode :stick t) popwin:special-display-config)
+  ;; REPL
+  (push '(slime-repl-mode) popwin:special-display-config)
+  ;; Connections
+  (push '(slime-connection-list-mode) popwin:special-display-config)
+)
 ;; ウィンドウ間移動のキーバインドが上書きされないようにする
 (add-hook
  'slime-repl-mode-hook
