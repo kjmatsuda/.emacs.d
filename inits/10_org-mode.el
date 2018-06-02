@@ -71,7 +71,7 @@
                                        (org-agenda-clockreport-mode nil)))
                            )
          (
-          (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down))
           )
          ;; ("~/computer.html")
@@ -82,7 +82,7 @@
                                        (org-agenda-clockreport-mode t)))
                            )
          (
-          (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down))
           )
          )
@@ -93,7 +93,7 @@
                                        (org-agenda-clockreport-mode nil)))
                            )
          (
-          (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org"))
+          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down))
           )
          )
