@@ -88,7 +88,7 @@
 (if (not (is-termux))
     ;; 参考
     ;; http://d.hatena.ne.jp/uk-ar/20111208/1322572618%3E
-    (progn 
+    (progn
       (require 'key-combo)
       (key-combo-load-default)
       (key-combo-define-global (kbd "(") "(`!!')")
@@ -103,7 +103,7 @@
     ;; よって、(electric-pair-mode 1)で代用する
     (electric-pair-mode 1)
     ))
-  
+
 ;; 英和辞書
 (when (require 'sdic nil t)
   (global-set-key "\C-cw" 'sdic-describe-word)
@@ -267,10 +267,6 @@
 ;;graphviz mode
 (load "graphviz-dot-mode.el")
 (add-hook 'graphviz-dot-mode-hook (lambda () (local-set-key [f6] "\C-cc\C-m\C-cp")))
-
-(if (not (is-termux))
-    (require 'ox-freemind)
-  )
 
 ;; anything初期設定
 (require 'anything-startup)
@@ -673,7 +669,7 @@ Jump to reference point if curosr is on its definition"
     (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
     )
   )
-  
+
 
 (require 'helm-ag)
 ; agのデフォルトのコマンドオプションを指定
