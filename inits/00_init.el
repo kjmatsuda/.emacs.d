@@ -4,6 +4,12 @@
 ;; emacs 設定ファイル
 (require 'cl)
 ;;;;;;;;;;;;;;;;;; 初期処理 ;;;;;;;;;;;;;;;;;;;;;;;;
+;; emacs26 では default-*関連の変数が削除されたようなので、定義しておく
+(if (string-match "26" emacs-version)
+  (progn (setq default-fill-column (default-value 'fill-column))
+         (setq default-tab-width 4))
+  )
+
 ;; OSのタイプを格納
 (defvar os-type nil)
 
