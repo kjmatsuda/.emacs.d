@@ -57,14 +57,14 @@
 
 ;; http://pastelwill.jp/wiki/doku.php?id=emacs:org-mode
 ;; org-mode の開発版、安定板を切り替える
-(setq load-path (append '(
-              "~/Dropbox/.emacs.d/public_repos/org-mode/org-9.0.7/lisp"
-              "~/Dropbox/.emacs.d/public_repos/org-mode/org-9.0.7/contrib/lisp"
-			  ;; "~/Dropbox/.emacs.d/public_repos/org-mode/head/lisp"       ; The latest org-mode
-              ;; "~/Dropbox/.emacs.d/public_repos/org-mode/head/contrib/lisp"
-              ;; "~/Dropbox/.emacs.d/public_repos/org-mode/org-8.2.2/lisp"
-              ;; "~/Dropbox/.emacs.d/public_repos/org-mode/org-8.2.2/contrib/lisp"
-			  ) load-path))
+;; (setq load-path (append '(
+;;               "~/Dropbox/.emacs.d/public_repos/org-mode/org-9.0.7/lisp"
+;;               "~/Dropbox/.emacs.d/public_repos/org-mode/org-9.0.7/contrib/lisp"
+;; 			  ;; "~/Dropbox/.emacs.d/public_repos/org-mode/head/lisp"       ; The latest org-mode
+;;               ;; "~/Dropbox/.emacs.d/public_repos/org-mode/head/contrib/lisp"
+;;               ;; "~/Dropbox/.emacs.d/public_repos/org-mode/org-8.2.2/lisp"
+;;               ;; "~/Dropbox/.emacs.d/public_repos/org-mode/org-8.2.2/contrib/lisp"
+;; 			  ) load-path))
 
 ;; cua-mode の設定
 (cua-mode t)
@@ -708,8 +708,8 @@ Jump to reference point if curosr is on its definition"
 ;; GUIの警告は表示しない
 (setq flymake-gui-warnings-enabled nil)
 
-;; 全てのファイルで flymakeを有効化
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+;; ;; 全てのファイルで flymakeを有効化
+;; (add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;; M-p/M-n で警告/エラー行の移動
 (global-set-key "\M-p" 'flymake-goto-prev-error)
@@ -856,3 +856,14 @@ Jump to reference point if curosr is on its definition"
                   Info-default-directory-list))
       )
   )
+
+;; (when (load "btc-ticker" t)
+;;   (require 'btc-ticker)
+
+;;   ;;Optional: You can setup the fetch interval
+;;   ;;default: 10 secs
+;;   (setq btc-ticker-api-poll-interval 10)
+
+;;   ;;Enable btc-ticker-mode
+;;   (btc-ticker-mode 1))
+

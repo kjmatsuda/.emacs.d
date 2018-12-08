@@ -66,7 +66,7 @@
                            ;;                      ;; (org-deadline-warning-days 0)
                            ;;                     ))
                            (agenda "" ((org-agenda-span 1)
-                                       (org-deadline-warning-days 7)
+                                       (org-deadline-warning-days 1)
                                        (org-agenda-show-log nil)
                                        (org-agenda-clockreport-mode nil)))
                            )
@@ -88,7 +88,18 @@
          )
         ("w" "今週の予定" (
                            (agenda "" ((org-agenda-span 7)
-                                       (org-deadline-warning-days 14)
+                                       (org-deadline-warning-days 7)
+                                       (org-agenda-show-log nil)
+                                       (org-agenda-clockreport-mode nil)))
+                           )
+         (
+          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down))
+          )
+         )
+        ("m" "今月の予定" (
+                           (agenda "" ((org-agenda-span 'month)
+                                       (org-deadline-warning-days 7)
                                        (org-agenda-show-log nil)
                                        (org-agenda-clockreport-mode nil)))
                            )
@@ -205,6 +216,19 @@
 (define-key org-mode-map (kbd "<M-return>") (lambda () (interactive)
                                          (org-insert-todo-heading-respect-content)
                                          (insert (format "%s" "[0/1] "))))
+
+;; org-eldoc
+(require 'org-eldoc)
+
+(defadvice org-eldoc-documentation-function (around add-field-info activate)
+  (or
+   (ignore-errors (and (not (org-at-table-hline-p)) (org-table-field-info nil)))
+   ad-do-it))
+
+(add-hook 'org-mode-hook 'eldoc-mode)
+
+(eldoc-add-command-completions
+ "org-table-next-" "org-table-previous" "org-cycle")
 
 ;; org-babel
 (org-babel-do-load-languages    ;;; org7.5/doc/org.pdf p162

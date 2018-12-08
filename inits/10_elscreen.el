@@ -15,6 +15,7 @@
       (define-key global-map (kbd "M-n") 'elscreen-next)
       (define-key global-map (kbd "M-t") 'elscreen-create)
       ))
+  (setq elscreen-persist-file "~/.elscreen")
   (elscreen-start)
   ;; (elscreen-separate-buffer-list-mode 1)
   (elscreen-persist-mode 1)

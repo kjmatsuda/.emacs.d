@@ -30,6 +30,7 @@
         ;; 表示されていない場合
         (neotree-hide)             ;; neotreeかくす
         (imenu-list-minor-mode -1) ;; imenuかくす
+        (comment-tasks-minor-mode -1)
         (split-window-vertically (/ (* 2 (window-height)) 3))
         (other-window 1)
         (select-buffer-start-with (buffer-list) "*slime-repl"))))
@@ -80,6 +81,7 @@
       (neotree-hide)
     (subwindow-hide)
     (imenu-list-minor-mode -1) ;; neotreeを表示するときなimenuをかくす
+    (comment-tasks-minor-mode -1)
     ;; (subwindow-hide)
     (neotree-show)))
 
@@ -111,10 +113,32 @@
     (neotree-hide) ;; imenuを表示するときはneotreeをかくす
     (subwindow-hide)
     (imenu-list-minor-mode 1)
+    (comment-tasks-minor-mode -1)
     (other-window 1)
     ))
 
 (global-set-key (kbd "M-I") 'my-imenu-list-smart-toggle)
+
+;; comment-tasks
+(require 'comment-tasks)
+
+(setq comment-tasks-keyword-list '("TODO"))
+(setq comment-tasks-auto-update t)
+(setq comment-tasks-list-size 0.3)
+(setq comment-tasks-list-position 'below)
+(setq comment-tasks-focus-after-activation nil)
+
+(defun my-comment-tasks-smart-toggle ()
+  (interactive)
+  (if (get-buffer-window comment-tasks-buffer-name t)
+      (comment-tasks-minor-mode -1)
+    (neotree-hide)
+    (subwindow-hide)
+    (imenu-list-minor-mode -1)
+    (comment-tasks-minor-mode 1)
+    ))
+
+(global-set-key (kbd "M-T") 'my-comment-tasks-smart-toggle)
 
 ;; (global-set-key "\M-g" 'goto-line)
 ;; (global-set-key (kbd "C-M-g") 'igrep)
@@ -199,3 +223,5 @@
 
 ;; view-modeの場合はenterで1行下へスクロール、yで1行上へスクロールできる
 
+;; 不注意で領域のアルファベットを大文字にしないように無効にする
+(global-unset-key (kbd "C-x C-u"))
