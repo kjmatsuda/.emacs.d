@@ -570,6 +570,7 @@ Both the source and the target are read in the minibuffer."
 (add-hook 'clojure-mode-hook 'helm-gtags-mode)
 (add-hook 'emacs-lisp-mode-hook 'helm-gtags-mode)
 (add-hook 'lisp-mode-hook 'helm-gtags-mode)
+(add-hook 'js-mode-hook 'helm-gtags-mode)
 
 ;; customize
 (custom-set-variables
