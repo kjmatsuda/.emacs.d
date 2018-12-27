@@ -23,7 +23,7 @@
  '(org-agenda-format-date "%Y/%m/%d (%a)")
  '(package-selected-packages
    (quote
-    (org-plus-contrib tinysegmenter org gntp clocker projectile shut-up ac-skk nyan-mode google-this alert org-password-manager org-present org-pomodoro request init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
+    (python-mode init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
  '(right-click-context-global-menu-tree
    (quote
     (("Tags"
