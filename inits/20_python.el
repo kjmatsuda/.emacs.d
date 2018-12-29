@@ -6,5 +6,7 @@
   '(lambda()
     (setq tab-width 4) 
     (setq indent-tabs-mode nil)
+    ;; 以下をしないと、繰り返しhelp画面が表示されて使いものにならなかった
+    (setq-local eldoc-documentation-function  nil)
   )
 )
