@@ -10,3 +10,7 @@
     (setq-local eldoc-documentation-function  nil)
   )
 )
+
+(if (is-termux)
+    (progn
+      (add-hook 'python-mode-hook #'electric-spacing-mode)))

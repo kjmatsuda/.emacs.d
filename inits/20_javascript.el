@@ -10,3 +10,18 @@
     '(progn
         (require 'tern-auto-complete)
         (tern-ac-setup)))
+
+
+(if (is-termux)
+    (progn
+      (add-hook 'js2-mode-hook #'electric-spacing-mode)))
+
+
+
+
+
+
+
+
+
+
