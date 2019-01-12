@@ -1,37 +1,12 @@
-;;;;;; JavaScript関連の設定
-;; moz.el
-(add-hook 'js-mode-hook
-          (lambda ()
-            (moz-minor-mode 1) ;; 要moz.el
-            (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-cr" 'js-console-execute-region)
-            ))
 
-;;; ejacs
-;; C-c C-jでjs-consoleを起動
-;; C-c rで選択範囲を実行
-(autoload 'js-console "js-console" nil t)
-(defun js-console-execute-region (start end)
-  "Execute region"
-  (interactive "r")
-  (let ((buf-name (buffer-name (current-buffer))))
-    (copy-region-as-kill start end)
-    (switch-to-buffer-other-window "*js*")
-    (js-console-exec-input (car kill-ring))
-    (switch-to-buffer-other-window buf-name)))
-(defun run-js-console-and-split-window ()
-  "Run js-console and split window horizontally."
-  (interactive)
-  (split-window-horizontally)
-  (js-console)
-  (other-window 1)
-  )
-(add-hook 'js-mode-hook
-          (lambda ()
-            (moz-minor-mode 1) ;; 要moz.el
-            (local-set-key "\C-c\C-j" 'run-js-console-and-split-window)
-            (local-set-key "\C-cr" 'js-console-execute-region)
-            (key-combo-define-local (kbd "{ RET") "{\n`!!'\n}")
-            ))
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
-(add-hook 'js-mode-hook 'highlight-symbol-mode)
+(add-hook 'js2-mode-hook
+    (lambda ()
+        (tern-mode t)))
+
+(eval-after-load 'tern
+    '(progn
+        (require 'tern-auto-complete)
+        (tern-ac-setup)))
