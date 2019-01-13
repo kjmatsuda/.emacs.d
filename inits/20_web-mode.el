@@ -15,6 +15,7 @@
 (setq web-mode-auto-close-style 2)
 (setq web-mode-tag-auto-close-style t)
 (setq web-mode-enable-auto-pairing t)
+(setq web-mode-enable-auto-closing t)
 
 ;; html や css の編集に便利な emmet-mode
 (require 'emmet-mode)
