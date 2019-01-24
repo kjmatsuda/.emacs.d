@@ -18,3 +18,5 @@
              (make-variable-buffer-local 'ac-sources)
              (add-to-list 'ac-sources 'ac-source-php-completion)
              (auto-complete-mode t))))
+
+(add-hook 'php-mode-hook #'electric-spacing-mode)

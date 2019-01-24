@@ -11,6 +11,4 @@
   )
 )
 
-(if (is-termux)
-    (progn
-      (add-hook 'python-mode-hook #'electric-spacing-mode)))
+(add-hook 'python-mode-hook #'electric-spacing-mode)

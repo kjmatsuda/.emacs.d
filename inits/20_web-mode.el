@@ -17,6 +17,8 @@
 (setq web-mode-enable-auto-pairing t)
 (setq web-mode-enable-auto-closing t)
 
+(add-hook 'web-mode-hook #'electric-spacing-mode)
+
 ;; html や css の編集に便利な emmet-mode
 (require 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes

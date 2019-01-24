@@ -17,5 +17,6 @@
 (setq ruby-block-highlight-toggle t)
 
 (add-hook 'ruby-mode-hook 'highlight-symbol-mode)
+(add-hook 'ruby-mode-hook #'electric-spacing-mode)
 
 ;; TODO Rubyでタグジャンプ

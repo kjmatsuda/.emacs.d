@@ -32,3 +32,4 @@
 (setq cider-stacktrace-frames-background-color "#003200320032")
 
 (add-hook 'cider-mode-hook 'highlight-symbol-mode)
+(add-hook 'cider-mode-hook #'electric-spacing-mode)

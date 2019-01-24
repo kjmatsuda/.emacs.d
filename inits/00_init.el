@@ -91,24 +91,10 @@
 ))
 
 
-(if (not (is-termux))
-    ;; 参考
-    ;; http://d.hatena.ne.jp/uk-ar/20111208/1322572618%3E
-    (progn
-      (require 'key-combo)
-      (key-combo-load-default)
-      (key-combo-define-global (kbd "(") "(`!!')")
-      (key-combo-define-global (kbd "\"") "\"`!!'\"")
-      (key-combo-define-global (kbd "[") "[`!!']")
-      (key-combo-define-global (kbd "{") "{`!!'}")
-      (key-combo-define-global (kbd "// ") "// ")
-      )
-  (progn
-    ;; 2017/12/18(Mon) スマホのtermux上のEmacsではkey-comboが有効だと
-    ;; altキーが正常に効かなくなる
-    ;; よって、(electric-pair-mode 1)で代用する
-    (electric-pair-mode 1)
-    ))
+;; 2017/12/18(Mon) スマホのtermux上のEmacsではkey-comboが有効だと
+;; altキーが正常に効かなくなる
+;; よって、(electric-pair-mode 1)で代用する
+(electric-pair-mode 1)
 
 ;; 英和辞書
 (when (require 'sdic nil t)
@@ -310,8 +296,6 @@
           (skk-mode t)
         (progn
           (skk-latin-mode t)
-          (if (not (is-termux))
-              (key-combo-mode t))
           )))
   )
 
@@ -341,12 +325,6 @@
   ;; skk-list-chars が呼ばれた時点で元の▽モードが終了してしまうので、再度▽モードを呼び出す
   (skk-set-henkan-point-subr)
   )
-(add-hook 'skk-mode-hook
-          (lambda ()
-            (if (not (is-termux))
-                (key-combo-mode -1)
-              nil)
-            ))
 
 (setq skk-large-jisyo "~/.emacs.d/skk-jisyo/SKK-JISYO.L+emoji.utf8")
 (setq skk-jisyo "~/.skk-jisyo.utf8")
@@ -532,16 +510,9 @@ Both the source and the target are read in the minibuffer."
                        (magit-get-upstream-branch))))
             source 'confirm)
            (magit-push-arguments))))
-  (key-combo-mode -1)
   (magit-git-push source target args))
 
 (global-set-key (kbd "C-x g s") 'magit-status)
-(add-hook
- 'magit-status-mode-hook
- (lambda ()
-   ;; key-combo-mode がONだと、push時のプロンプトで一切入力が効かない
-   (key-combo-mode -1)
-   ))
 (global-set-key (kbd "C-x g p") 'magit-pull)
 (global-set-key (kbd "C-x g P") 'my-magit-push)
 
@@ -584,7 +555,7 @@ Both the source and the target are read in the minibuffer."
  '(helm-gtags-path-style (quote relative))
  '(package-selected-packages
    (quote
-    (init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl))))
+    (init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl))))
 
 ;; clojureでタグ名にネームスペースがつかないようにする
 ;; http://ayato.hateblo.jp/entry/20150607/1433653213
