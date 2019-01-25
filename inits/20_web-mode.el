@@ -12,16 +12,18 @@
 '(("php"    . "\\.phtml\\'")
   ("blade"  . "\\.blade\\.")))
 
-(setq web-mode-auto-close-style 2)
+(setq web-mode-auto-close-style 1)
 (setq web-mode-tag-auto-close-style t)
 (setq web-mode-enable-auto-pairing t)
 (setq web-mode-enable-auto-closing t)
-
-(add-hook 'web-mode-hook #'electric-spacing-mode)
 
 ;; html や css の編集に便利な emmet-mode
 (require 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+(add-hook 'web-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 (setq emmet-move-cursor-between-quotes t) ;; default nil
 
+(add-hook 'css-mode-hook 'ac-emmet-css-setup)
+(add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
+(add-hook 'web-mode-hook 'ac-emmet-html-setup)
