@@ -189,6 +189,12 @@
 (global-set-key "\C-xt" 'skk-tutorial)
 (global-set-key (kbd "C-t") 'skk-latin-toggle)
 
+;; emmet-modeの展開C-jとskkのC-jが衝突するため、skkの方を無効化
+(defadvice skk-setup-j-mode-map-options (after c-i-comp-wrapper2 activate)
+  (define-key skk-j-mode-map (kbd "C-j") nil))
+
+(defadvice skk-setup-latin-mode-map-options (after c-i-comp-wrapper2 activate)
+  (define-key skk-latin-mode-map (kbd "C-j") nil))
 
 ;; 5.8 goto-chg.el
 ;; 最後の変更箇所にジャンプする
