@@ -294,6 +294,9 @@
   (when (file-exists-p candidate)
     ad-do-it))
 
+;; Helm interface improvement. Stop asking "File does not exist, create buffer?" every time, when i try to create new file. 
+(setq helm-ff-newfile-prompt-p nil)
+
 ;; 2.1 ddskk
 (defun skk-latin-toggle()
   (interactive)
