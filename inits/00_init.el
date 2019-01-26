@@ -288,6 +288,12 @@
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
+;; 存在しないファイル名を指定してTABを入力した際にバッファを生成しないようにする
+(defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
+  "Execute command only if CANDIDATE exists"
+  (when (file-exists-p candidate)
+    ad-do-it))
+
 ;; 2.1 ddskk
 (defun skk-latin-toggle()
   (interactive)
