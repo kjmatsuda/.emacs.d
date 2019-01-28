@@ -197,29 +197,17 @@
 (add-hook
  'org-mode-hook
  (lambda ()
-   (local-set-key (kbd "<M-S-return>") (lambda () (interactive)
+   (local-set-key (kbd "<M-return>") (lambda () (interactive)
                                        (if (not (eq (org-position-status (org-context)) :item))
                                            (progn
-                                             (org-insert-heading-after-current))
-                                         (org-insert-heading))))
-   (local-set-key (kbd "<M-return>") (lambda () (interactive)
-                                         (org-insert-todo-heading-respect-content)
-                                         (insert (format "%s" "[0/1] "))))
-   ;; 自作の M-return の動きに干渉するので key-combo-mode をオフにする
-   (key-combo-mode -1)
+                                             (org-insert-todo-heading-respect-content)
+                                             (insert (format "%s" "[0/1] ")))
+                                         (org-insert-item))))
    (auto-complete-mode t)
    ))
 
 ;; elscreen で<C-tab>をタブの切り換えに割り当てたいので無効にする
 (define-key org-mode-map [(control tab)] nil)
-(define-key org-mode-map (kbd "<M-S-return>") (lambda () (interactive)
-                                       (if (not (eq (org-position-status (org-context)) :item))
-                                           (progn
-                                             (org-insert-heading-after-current))
-                                         (org-insert-heading))))
-(define-key org-mode-map (kbd "<M-return>") (lambda () (interactive)
-                                         (org-insert-todo-heading-respect-content)
-                                         (insert (format "%s" "[0/1] "))))
 
 ;; org-eldoc
 (require 'org-eldoc)
