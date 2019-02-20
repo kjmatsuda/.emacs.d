@@ -135,7 +135,7 @@
   "agendaを更新せずに表示する。"
   (interactive "P")
   (if (or regenerate (null (get-buffer "*Org Agenda*")))
-    (progn 
+    (progn
       (setq current-prefix-arg nil)
       (org-agenda nil))
   (delete-other-windows)
@@ -146,7 +146,7 @@
 ;;; そもそもqで*Org Agenda*をkillしないようにする
 (define-key org-agenda-mode-map (kbd "q") 'delete-window)
 
-;;;; 子タスクをもつタスクがグレーアウト表示されないようにする 
+;;;; 子タスクをもつタスクがグレーアウト表示されないようにする
 (setq org-agenda-dim-blocked-tasks nil)
 
 ;; Googleカレンダーへエスクポート
@@ -204,10 +204,23 @@
                                              (insert (format "%s" "[0/1] ")))
                                          (org-insert-item))))
    ;; 議事録などを書くときによく使う文字列を登録
-   (local-set-key (kbd "C-<") (lambda () (interactive) (insert-string " <- "))) 
+   (local-set-key (kbd "C-<") (lambda () (interactive) (insert-string " <- ")))
    (local-set-key (kbd "C->") (lambda () (interactive) (insert-string " -> ")))
+   ;; orgのリンクをコピー、ペーストするキーバインドを登録
+   (local-set-key (kbd "C-c C-w") 'org-store-link)
+   (local-set-key (kbd "C-c C-y") 'org-insert-last-stored-link)
+   (local-set-key (kbd "C-c C-M-y") 'org-insert-all-links)
+   (local-set-key (kbd "C-o") 'org-mark-ring-goto)
    (auto-complete-mode t)
    ))
+
+
+;; orgでリンクを開く際に同一フレームで開くようにする
+(setq org-link-frame-setup (quote ((vm . vm-visit-folder-other-frame)
+               (vm-imap . vm-visit-imap-folder-other-frame)
+               (gnus . org-gnus-no-new-news)
+               (file . find-file)
+               (wl . wl-other-frame))))
 
 ;; elscreen で<C-tab>をタブの切り換えに割り当てたいので無効にする
 (define-key org-mode-map [(control tab)] nil)
