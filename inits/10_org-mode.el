@@ -204,8 +204,8 @@
                                              (insert (format "%s" "[0/1] ")))
                                          (org-insert-item))))
    ;; 議事録などを書くときによく使う文字列を登録
-   (local-set-key (kbd "<C-M-left>") (lambda () (interactive) (insert-string " <- "))) 
-   (local-set-key (kbd "<C-M-right>") (lambda () (interactive) (insert-string " -> ")))
+   (local-set-key (kbd "C-<") (lambda () (interactive) (insert-string " <- "))) 
+   (local-set-key (kbd "C->") (lambda () (interactive) (insert-string " -> ")))
    (auto-complete-mode t)
    ))
 
