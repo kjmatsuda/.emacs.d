@@ -194,6 +194,28 @@
       (caar context-list)
     (org-position-status (cdr context-list))))
 
+(defun org-set-image-width (width)
+  "set org image width"
+  (interactive "nInput image width(0~) :")
+  (move-beginning-of-line nil)
+  (if (eq (org-position-status (org-context)) :link)
+      ;; リンク上にカーソルがある場合
+      (progn
+        ;; リンクの1行上にカーソル移動
+        (previous-line)
+        (if (not (eq nil (org-position-status (org-context))))
+            (progn (end-of-line)
+                   (newline))))
+    (if (not (eq nil (org-position-status (org-context))))
+        (progn (end-of-line)
+               (newline))))
+  (move-beginning-of-line nil)
+  (if (string-match "+ATTR_ORG" (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+      (kill-line))
+  ;; プロンプト表示して、widthをユーザに入力させる
+  (insert-string (concat "#+ATTR_ORG: :width " (number-to-string width)))
+  (org-redisplay-inline-images))
+
 (add-hook
  'org-mode-hook
  (lambda ()
@@ -211,9 +233,11 @@
    (local-set-key (kbd "C-c C-y") 'org-insert-last-stored-link)
    (local-set-key (kbd "C-c C-M-y") 'org-insert-all-links)
    (local-set-key (kbd "C-o") 'org-mark-ring-goto)
+   ;; 画像関連
+   (local-set-key (kbd "C-c u") 'org-redisplay-inline-images)
+   (local-set-key (kbd "C-c s") 'org-set-image-width)
    (auto-complete-mode t)
    ))
-
 
 ;; orgでリンクを開く際に同一フレームで開くようにする
 (setq org-link-frame-setup (quote ((vm . vm-visit-folder-other-frame)
@@ -249,7 +273,8 @@
 ;; org ファイル読み込み時に自動的に画像をインライン表示する
 ;; 読み込み後、編集中の画像リンクには影響しない
 (setq org-startup-with-inline-images t)
-
+;; 画像サイズを設定できるようにする
+(setq org-image-actual-width nil)
 
 ;; 常に画像を表示
 ;; リンク記述後 C-l で即表示
