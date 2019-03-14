@@ -233,6 +233,7 @@
    (local-set-key (kbd "C-c C-y") 'org-insert-last-stored-link)
    (local-set-key (kbd "C-c C-M-y") 'org-insert-all-links)
    (local-set-key (kbd "C-o") 'org-mark-ring-goto)
+   (local-set-key (kbd "C-]") 'org-open-at-point)
    ;; 画像関連
    (local-set-key (kbd "C-c u") 'org-redisplay-inline-images)
    (local-set-key (kbd "C-c s") 'org-set-image-width)
