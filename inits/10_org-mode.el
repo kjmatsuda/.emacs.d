@@ -281,6 +281,26 @@
 ;; リンク記述後 C-l で即表示
 (add-hook 'org-mode-hook 'turn-on-iimage-mode)
 
+;;;;;;;; org-modeでプレゼンテーション ;;;;;;;;
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook
+               (lambda ()
+                 (org-present-big)
+                 (org-display-inline-images)
+                 (org-present-hide-cursor)
+                 (org-present-read-only)))
+     (add-hook 'org-present-mode-quit-hook
+               (lambda ()
+                 (org-present-small)
+                 (org-remove-inline-images)
+                 (org-present-show-cursor)
+                 (org-present-read-write)))
+     ;; 文字をどれだけ大きくするかを設定する
+     (setq org-present-text-scale 5)
+     ;; 日本語キーボードの人はC-c C-;に割り当てるとよい
+     (define-key org-present-mode-keymap (kbd "C-c C-;") 'org-present-big)))
+
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
 ;; (require 'org-mobile)
