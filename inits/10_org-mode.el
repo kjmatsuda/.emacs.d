@@ -290,11 +290,6 @@
                  (org-display-inline-images)
                  (org-present-read-only)
                  (org-present-hide-cursor)
-                 (local-set-key (kbd "j") 'org-present-next)
-                 (local-set-key (kbd "k") 'org-present-prev)
-                 (local-set-key (kbd "M->") 'org-present-end)
-                 (local-set-key (kbd "M-<") 'org-present-beginning)
-                 (local-set-key (kbd "q") 'org-present-quit)
                  ))
      (add-hook 'org-present-mode-quit-hook
                (lambda ()
@@ -306,7 +301,13 @@
      ;; 文字をどれだけ大きくするかを設定する
      (setq org-present-text-scale 7)
      ;; 日本語キーボードの人はC-c C-;に割り当てるとよい
-     (define-key org-present-mode-keymap (kbd "C-c C-;") 'org-present-big)))
+     (define-key org-present-mode-keymap (kbd "C-c C-;") 'org-present-big)
+     (define-key org-present-mode-keymap (kbd "j") 'org-present-next)
+     (define-key org-present-mode-keymap (kbd "k") 'org-present-prev)
+     (define-key org-present-mode-keymap (kbd "M->") 'org-present-end)
+     (define-key org-present-mode-keymap (kbd "M-<") 'org-present-beginning)
+     (define-key org-present-mode-keymap (kbd "q") 'org-present-quit)
+     ))
 
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
