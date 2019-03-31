@@ -288,16 +288,23 @@
                (lambda ()
                  (org-present-big)
                  (org-display-inline-images)
+                 (org-present-read-only)
                  (org-present-hide-cursor)
-                 (org-present-read-only)))
+                 (local-set-key (kbd "j") 'org-present-next)
+                 (local-set-key (kbd "k") 'org-present-prev)
+                 (local-set-key (kbd "M->") 'org-present-end)
+                 (local-set-key (kbd "M-<") 'org-present-beginning)
+                 (local-set-key (kbd "q") 'org-present-quit)
+                 ))
      (add-hook 'org-present-mode-quit-hook
                (lambda ()
                  (org-present-small)
                  (org-remove-inline-images)
+                 (org-present-read-write)
                  (org-present-show-cursor)
-                 (org-present-read-write)))
+                 ))
      ;; 文字をどれだけ大きくするかを設定する
-     (setq org-present-text-scale 5)
+     (setq org-present-text-scale 7)
      ;; 日本語キーボードの人はC-c C-;に割り当てるとよい
      (define-key org-present-mode-keymap (kbd "C-c C-;") 'org-present-big)))
 
