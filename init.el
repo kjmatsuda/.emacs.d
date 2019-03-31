@@ -23,7 +23,7 @@
  '(org-agenda-format-date "%Y/%m/%d (%a)")
  '(package-selected-packages
    (quote
-    (indium company js2-refactor multiple-cursors electric-spacing web-mode js2-mode tern tern-auto-complete python-mode init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
+    (org-download indium company js2-refactor multiple-cursors electric-spacing web-mode js2-mode tern tern-auto-complete python-mode init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
  '(py-indent-offset 4)
  '(right-click-context-global-menu-tree
    (quote

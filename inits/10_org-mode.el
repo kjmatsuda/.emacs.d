@@ -309,6 +309,14 @@
      (define-key org-present-mode-keymap (kbd "q") 'org-present-quit)
      ))
 
+;;;;;;;; org-modeに画像をD&Dでダウンロード(org-download) ;;;;;;;;
+(require 'org-download)
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
+
+(setq-default org-download-image-dir "~/Dropbox/org/org-download")
+
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
 ;; (require 'org-mobile)
