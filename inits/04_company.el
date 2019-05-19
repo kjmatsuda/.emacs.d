@@ -40,3 +40,7 @@
                     :background "orange")
 (set-face-attribute 'company-scrollbar-bg nil
                     :background "gray40")
+
+;;;;;;;;;;;;; company-emoji ;;;;;;;;;;;;;;;;;;
+(require 'company-emoji)
+(add-to-list 'company-backends 'company-emoji)
