@@ -9,13 +9,16 @@
 (when (require 'indium nil t)
   (add-hook 'js-mode-hook #'indium-interaction-mode))
 
-(eval-after-load 'tern
-    '(progn
-        (require 'tern-auto-complete)
-        (tern-ac-setup)))
-
 (add-hook 'js2-mode-hook #'electric-spacing-mode)
 
+;; company関連
+(setq company-tern-property-marker "")
+(defun company-tern-depth (candidate)
+  "Return depth attribute for CANDIDATE. 'nil' entries are treated as 0."
+  (let ((depth (get-text-property 0 'depth candidate)))
+    (if (eq depth nil) 0 depth)))
+(add-hook 'js2-mode-hook 'tern-mode) ; 自分が使っているjs用メジャーモードに変える
+(add-to-list 'company-backends 'company-tern) ; backendに追加
 
 
 

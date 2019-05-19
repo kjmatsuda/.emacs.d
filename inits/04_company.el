@@ -4,6 +4,10 @@
 (setq company-idle-delay 0) ; デフォルトは0.5
 (setq company-minimum-prefix-length 2) ; デフォルトは4
 (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+(setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+
+;; 現在開いているバッファからキーワードを拾ってくる
+(add-to-list 'company-backends '(company-tern :with company-dabbrev-code))
 
 ;;;;;;;;;;;;; auto-completeと同じような操作感にする ;;;;;;;;;;;;;;;;;;;;
 (define-key company-active-map (kbd "M-n") nil)
