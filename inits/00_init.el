@@ -414,49 +414,6 @@
 
 (yas-global-mode 1)
 
-;; 6.14 auto-complete.el
-;; M-x auto-install-batch auto-complete TAB
-(require 'auto-complete-config)
-(global-auto-complete-mode 1)
-;; C-n/C-p で候補を選択
-(define-key ac-complete-mode-map "\C-n" 'ac-next)
-(define-key ac-complete-mode-map "\C-p" 'ac-previous)
-
-;; 大文字、小文字を区別する
-(setq ac-ignore-case nil)
-
-;; auto-complete の候補に日本語を含む単語が含まれないようにする
-;; http://d.hatena.ne.jp/IMAKADO/20090813/1250130343
-(defadvice ac-word-candidates (after remove-word-contain-japanese activate)
-  (let ((contain-japanese (lambda (s) (string-match (rx (category japanese)) s))))
-    (setq ad-return-value
-          (remove-if contain-japanese ad-return-value))))
-
-(if (not (is-termux))
-    (progn
-      ;; ac-emoji
-      (require 'ac-emoji)
-      (add-hook 'markdown-mode-hook 'ac-emoji-setup)
-      (add-hook 'git-commit-mode-hook 'ac-emoji-setup)
-
-      ;; (defvar my-ac-emoji--candidates
-      ;;   (cl-loop for emoji in ac-emoji--data
-      ;;            collect
-      ;;            (popup-make-item (plist-get emoji :key)
-      ;;                             :value (plist-get emoji :codepoint)
-      ;;                             :document (plist-get emoji :description)
-      ;;                             :summary (plist-get emoji :codepoint))))
-
-      ;; (defun my-ac-emoji-setup ()
-      ;;   (interactive)
-      ;;   (add-to-list 'ac-sources 'my-ac-source-emoji))
-
-      ;; (ac-define-source my-emoji
-      ;;   '((candidates . my-ac-emoji--candidates)
-      ;;     (prefix . ":\\S-+")))
-      )
-  )
-
 ;; 7.6 color-moccur.el
 (require 'color-moccur)
 (setq moccur-split-word 1) ; スペースで区切られた複数の単語にマッチさせる
@@ -816,15 +773,6 @@ Jump to reference point if curosr is on its definition"
 (define-key global-map (kbd "C-9") 'hs-show-block)
 (define-key global-map (kbd "C-M-8") 'hs-hide-all)
 (define-key global-map (kbd "C-M-9") 'hs-show-all)
-
-;; sql-mode
-(add-hook 'sql-mode-hook
-          (lambda () (auto-complete-mode t)))
-
-;; graphviz-dot-mode
-(add-hook 'graphviz-dot-mode-hook
-          (lambda () (auto-complete-mode t)))
-
 
 ;;;; 単語補完
 (require 'pabbrev)

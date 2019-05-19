@@ -2,9 +2,6 @@
 (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))
 (autoload 'plantuml-mode "plantuml-mode" "PlantUML mode" t)
 
-(add-hook 'plantuml-mode-hook
-          (lambda () (auto-complete-mode t)))
-
 (defun plantuml-execute ()
   (interactive)
   (when (buffer-modified-p)

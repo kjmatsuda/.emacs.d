@@ -237,7 +237,6 @@
    ;; 画像関連
    (local-set-key (kbd "C-c u") 'org-redisplay-inline-images)
    (local-set-key (kbd "C-c s") 'org-set-image-width)
-   (auto-complete-mode t)
    ))
 
 ;; orgでリンクを開く際に同一フレームで開くようにする
