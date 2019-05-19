@@ -29,6 +29,10 @@
       )
 (global-set-key (kbd "C-;") 'org-capture)
 
+(setq org-log-done 'time)
+
+(setq org-agenda-log-mode-items '(closed clock))
+
 ;; 14.6 TODOリストを作成する
 (setq org-use-fast-todo-selection t)
 (setq org-todo-keywords
@@ -46,37 +50,16 @@
 ;; どれがまずかったのかまでは分からない。org-agenda-sorting-strategy,org-deadline-warning-days
 (setq org-agenda-custom-commands
       '(
-        ;; ("d" "全般：今日すること"
-        ;;  ((agenda "" ((org-agenda-ndays 1)
-        ;;               (org-deadline-warning-days 1) ;; 締切日の一日前のアジェンダに表示
-        ;;               ;; (org-agenda-sorting-strategy
-        ;;               ;;  (quote ((agenda time-up priority-down tag-up))))
-        ;;               ;; (org-deadline-warning-days 0)
-        ;;               ))))
-        ;; ("w" "全般：今週すること"
-        ;;  ((agenda "" ((org-agenda-ndays 7)
-        ;;               (org-deadline-warning-days 7)
-        ;;               ;; (org-agenda-sorting-strategy
-        ;;               ;;  (quote ((agenda time-up priority-down tag-up))))
-        ;;               ;; (org-deadline-warning-days 0)
-        ;;               ))))
-        ;; ("g" "目標"
-        ;;  ((tags-todo "goals")))
         ("d" "今日の予定" (
-                           ;; (agenda "" ((org-agenda-ndays 1)
-                           ;;                     (org-deadline-warning-days 1)
-                           ;;                      ;; (org-agenda-sorting-strategy
-                           ;;                      ;;  (quote ((agenda time-up priority-down tag-up))))
-                           ;;                      ;; (org-deadline-warning-days 0)
-                           ;;                     ))
                            (agenda "" ((org-agenda-span 1)
                                        (org-deadline-warning-days 1)
-                                       (org-agenda-show-log nil)
-                                       (org-agenda-clockreport-mode nil)))
+                                       ;; (org-agenda-show-log nil)
+                                       (org-agenda-clockreport-mode nil)
+                                       ))
                            )
          (
           ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
-          (org-agenda-sorting-strategy '(priority-up effort-down))
+          (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          ;; ("~/computer.html")
          )
@@ -87,29 +70,29 @@
                            )
          (
           ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
-          (org-agenda-sorting-strategy '(priority-up effort-down))
+          (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          )
         ("w" "今週の予定" (
                            (agenda "" ((org-agenda-span 7)
                                        (org-deadline-warning-days 7)
-                                       (org-agenda-show-log nil)
-                                       (org-agenda-clockreport-mode nil)))
+                                       (org-agenda-clockreport-mode nil)
+                                       ))
                            )
          (
           ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
-          (org-agenda-sorting-strategy '(priority-up effort-down))
+          (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          )
         ("m" "今月の予定" (
                            (agenda "" ((org-agenda-span 'month)
                                        (org-deadline-warning-days 7)
-                                       (org-agenda-show-log nil)
-                                       (org-agenda-clockreport-mode nil)))
+                                       (org-agenda-clockreport-mode nil)
+                                       ))
                            )
          (
           ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
-          (org-agenda-sorting-strategy '(priority-up effort-down))
+          (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          )
         ))
