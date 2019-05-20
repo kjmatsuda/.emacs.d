@@ -164,8 +164,7 @@
 ;; サブタスクをひとつでも TODO にしたら 親タスクも TODO になる
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+  (org-todo (if (= n-not-done 0) "DONE" "TODO")))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
@@ -232,26 +231,27 @@
 ;; elscreen で<C-tab>をタブの切り換えに割り当てたいので無効にする
 (define-key org-mode-map [(control tab)] nil)
 
+
 ;; org-eldoc
-(require 'org-eldoc)
+(when (require 'org-eldoc nil t)
+  (defadvice org-eldoc-documentation-function (around add-field-info activate)
+    (or
+     (ignore-errors (and (not (org-at-table-hline-p)) (org-table-field-info nil)))
+     ad-do-it))
 
-(defadvice org-eldoc-documentation-function (around add-field-info activate)
-  (or
-   (ignore-errors (and (not (org-at-table-hline-p)) (org-table-field-info nil)))
-   ad-do-it))
+  (add-hook 'org-mode-hook 'eldoc-mode)
 
-(add-hook 'org-mode-hook 'eldoc-mode)
+  (eldoc-add-command-completions
+   "org-table-next-" "org-table-previous" "org-cycle")
 
-(eldoc-add-command-completions
- "org-table-next-" "org-table-previous" "org-cycle")
-
-;; org-babel
-(org-babel-do-load-languages    ;;; org7.5/doc/org.pdf p162
-  'org-babel-load-languages
-  '((R . t)
-    (sh . t)
-    (C . t)
-    (dot . t)))
+  ;; org-babel
+  (org-babel-do-load-languages    ;;; org7.5/doc/org.pdf p162
+   'org-babel-load-languages
+   '((R . t)
+     (sh . t)
+     (C . t)
+     (dot . t)))
+)
 
 ;; org ファイル読み込み時に自動的に画像をインライン表示する
 ;; 読み込み後、編集中の画像リンクには影響しない
@@ -292,13 +292,13 @@
      ))
 
 ;;;;;;;; org-modeに画像をD&Dでダウンロード(org-download) ;;;;;;;;
-(require 'org-download)
+(when (require 'org-download nil t)
 
-;; Drag-and-drop to `dired`
-(add-hook 'dired-mode-hook 'org-download-enable)
+  ;; Drag-and-drop to `dired`
+  (add-hook 'dired-mode-hook 'org-download-enable)
 
-(setq-default org-download-image-dir "~/Dropbox/org/org-download")
-
+  (setq-default org-download-image-dir "~/Dropbox/org/org-download")
+)
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
 ;; (require 'org-mobile)
