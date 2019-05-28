@@ -8,7 +8,6 @@
        )
 
       (setq org-agenda-files (list "~/WORK/org/"))
-      (setq org-default-notes-file "~/Dropbox/org/agenda/agenda.org")
 
       ;; ローカルに ical をエクスポート
       ;; http://d.hatena.ne.jp/t0m0_tomo/20100103/1262537012

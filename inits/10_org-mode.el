@@ -4,22 +4,22 @@
 (require 'org-agenda)
 
 ;; 14.4 M-x org-remember
-(setq org-directory "~/Dropbox/org/")
-(setq org-mobile-directory "~/Dropbox/mobileorg/")
-(setq org-mobile-inbox-for-pull "~/Dropbox/org/goals.org")
+(setq org-directory "~/work/org/")
+(setq org-mobile-directory "~/work/mobileorg/")
+(setq org-mobile-inbox-for-pull "~/work/org/goals.org")
 
 (setq org-default-notes-file (expand-file-name "capture.org" org-directory))
 (require 'org-capture)
 (setq org-capture-templates
-      '(("j" "JavaScript" entry (file+headline org-default-notes-file "JavaScript")
-         "** TODO %?\n %U\n %a\n %i\n")
-        ("n" "Node.js" entry (file+headline org-default-notes-file "Node.js")
+      '(("e" "Embedded" entry (file+headline org-default-notes-file "Embedded")
          "** TODO %?\n %U\n %a\n %i\n")
         ("w" "Web" entry (file+headline org-default-notes-file "Web")
          "** TODO %?\n %U\n %a\n %i\n")
-        ("l" "Lisp" entry (file+headline org-default-notes-file "Lisp")
+        ("j" "JavaScript" entry (file+headline org-default-notes-file "JavaScript")
          "** TODO %?\n %U\n %a\n %i\n")
-        ("e" "Embedded" entry (file+headline org-default-notes-file "Embedded")
+        ("n" "Node.js" entry (file+headline org-default-notes-file "Node.js")
+         "** TODO %?\n %U\n %a\n %i\n")
+        ("d" "Data Analysis" entry (file+headline org-default-notes-file "Data Analysis")
          "** TODO %?\n %U\n %a\n %i\n")
         ("i" "Idea" entry (file+headline org-default-notes-file "Idea")
          "** TODO %?\n %U\n %a\n %i\n")
@@ -58,7 +58,7 @@
                                        ))
                            )
          (
-          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
+          ;; (org-agenda-files '("~/work/org/goals.org" "~/work/org/projects.org" "~/work/org/inbox.org" "~/work/org/dev_env.org"))
           (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          ;; ("~/computer.html")
@@ -69,7 +69,7 @@
                                        (org-agenda-clockreport-mode t)))
                            )
          (
-          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
+          ;; (org-agenda-files '("~/work/org/goals.org" "~/work/org/projects.org" "~/work/org/inbox.org" "~/work/org/dev_env.org"))
           (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          )
@@ -80,7 +80,7 @@
                                        ))
                            )
          (
-          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
+          ;; (org-agenda-files '("~/work/org/goals.org" "~/work/org/projects.org" "~/work/org/inbox.org" "~/work/org/dev_env.org"))
           (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          )
@@ -91,7 +91,7 @@
                                        ))
                            )
          (
-          ;; (org-agenda-files '("~/Dropbox/org/goals.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/dev_env.org"))
+          ;; (org-agenda-files '("~/work/org/goals.org" "~/work/org/projects.org" "~/work/org/inbox.org" "~/work/org/dev_env.org"))
           (org-agenda-sorting-strategy '(time-up priority-down effort-down))
           )
          )
@@ -135,7 +135,7 @@
 ;; Googleカレンダーへエスクポート
 ;; ネタ元
 ;; http://d.hatena.ne.jp/t0m0_tomo/20100103/1262537012
-(setq org-combined-agenda-icalendar-file "~/Dropbox/calendar/org.ics")
+(setq org-combined-agenda-icalendar-file "~/work/calendar/org.ics")
 (setq org-icalendar-include-todo t)
 ;; (setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo))
 ;; (setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo))
@@ -145,7 +145,7 @@
 ;; ;; org ファイルを google カレンダーに同期する
 ;; (defun start-process-org ()
 ;;   (interactive)
-;;   (start-process-shell-command "org-sync-gcal" "*org-sync-gcal*" "emacs" "--script" "~/Dropbox/.emacs.d/elisp/org-sync-gcal.el"))
+;;   (start-process-shell-command "org-sync-gcal" "*org-sync-gcal*" "emacs" "--script" "~/work/.emacs.d/elisp/org-sync-gcal.el"))
 ;; (define-key global-map [f12] 'start-process-org)
 
 
@@ -293,12 +293,11 @@
 
 ;;;;;;;; org-modeに画像をD&Dでダウンロード(org-download) ;;;;;;;;
 (when (require 'org-download nil t)
-
   ;; Drag-and-drop to `dired`
   (add-hook 'dired-mode-hook 'org-download-enable)
+  (setq-default org-download-image-dir "~/work/org/org-download")
+  )
 
-  (setq-default org-download-image-dir "~/Dropbox/org/org-download")
-)
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
 ;; (require 'org-mobile)
