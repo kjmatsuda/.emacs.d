@@ -61,17 +61,6 @@
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/emu")
   (setq org-mobile-checksum-binary "~/.emacs.d/other/sha1sum.exe"))
 
-;; http://pastelwill.jp/wiki/doku.php?id=emacs:org-mode
-;; org-mode の開発版、安定板を切り替える
-;; (setq load-path (append '(
-;;               "~/Dropbox/.emacs.d/public_repos/org-mode/org-9.0.7/lisp"
-;;               "~/Dropbox/.emacs.d/public_repos/org-mode/org-9.0.7/contrib/lisp"
-;; 			  ;; "~/Dropbox/.emacs.d/public_repos/org-mode/head/lisp"       ; The latest org-mode
-;;               ;; "~/Dropbox/.emacs.d/public_repos/org-mode/head/contrib/lisp"
-;;               ;; "~/Dropbox/.emacs.d/public_repos/org-mode/org-8.2.2/lisp"
-;;               ;; "~/Dropbox/.emacs.d/public_repos/org-mode/org-8.2.2/contrib/lisp"
-;; 			  ) load-path))
-
 ;; cua-mode の設定
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
@@ -106,8 +95,8 @@
 (if (win?)
     (progn
       ;; 使用する辞書ファイルの設定
-      (setq sdic-eiwa-dictionary-list '((sdicf-client "~/Dropbox/.emacs.d/dict/gene.sdic")))
-      (setq sdic-waei-dictionary-list '((sdicf-client "~/Dropbox/.emacs.d/dict/jedict.sdic")))
+      (setq sdic-eiwa-dictionary-list '((sdicf-client "~/.emacs.d/dict/gene.sdic")))
+      (setq sdic-waei-dictionary-list '((sdicf-client "~/.emacs.d/dict/jedict.sdic")))
       )
   )
 
@@ -347,7 +336,7 @@
       (auto-install-compatibility-setup)
       (setq auto-install-use-wget t)
       (auto-install-compatibility-setup)
-      (setq auto-install-directory "~/Dropbox/.emacs.d/elisp/")
+      (setq auto-install-directory "~/.emacs.d/elisp/")
       (setq ediff-window-setup-function 'ediff-setup-windows-plain)))
 
 
@@ -374,7 +363,7 @@
   ;; migemo-dictのパスを指定
   (if (linux?)
       (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-    (setq migemo-dictionary (expand-file-name "~/Dropbox/.emacs.d/elisp/migemo/cp932/migemo-dict")))
+    (setq migemo-dictionary (expand-file-name "~/.emacs.d/elisp/migemo/cp932/migemo-dict")))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
   ;; キャッシュ機能を利用する
