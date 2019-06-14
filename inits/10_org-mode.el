@@ -13,6 +13,8 @@
 (setq org-capture-templates
       '(("e" "Embedded" entry (file+headline org-default-notes-file "Embedded")
          "** TODO %?\n %U\n %a\n %i\n")
+        ("c" "C,C++" entry (file+headline org-default-notes-file "C,C++")
+         "** TODO %?\n %U\n %a\n %i\n")
         ("w" "Web" entry (file+headline org-default-notes-file "Web")
          "** TODO %?\n %U\n %a\n %i\n")
         ("j" "JavaScript" entry (file+headline org-default-notes-file "JavaScript")
