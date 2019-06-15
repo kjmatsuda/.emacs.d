@@ -7,7 +7,7 @@
 ;;; ciderは編集が重くなったり、replの起動に1分近くかかる問題から、一旦無効にする 2017/1/29(日)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; START ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'cider)
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 (setq nrepl-hide-special-buffers t)
 
 (eval-after-load 'clojure-mode
