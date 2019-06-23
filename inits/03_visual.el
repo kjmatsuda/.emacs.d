@@ -272,3 +272,6 @@
            ("l" imagex-sticky-rotate-left "rotate left"))))
 
 (eval-after-load 'image+ '(imagex-auto-adjust-mode 1))
+
+;; image-dired
+(setq image-dired-dir  "~/.emacs.tmp/image-dired/")
