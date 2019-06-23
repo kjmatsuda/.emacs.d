@@ -50,3 +50,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-date ((t :weight bold))))
+
+;; Because insert-string is not available in Emacs26.
+(defalias 'insert-string 'insert)
