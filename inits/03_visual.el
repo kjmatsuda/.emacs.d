@@ -275,3 +275,5 @@
 
 ;; image-dired
 (setq image-dired-dir  "~/.emacs.tmp/image-dired/")
+
+(define-key dired-mode-map "i" 'image-dired)
