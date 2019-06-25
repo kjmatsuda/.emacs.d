@@ -622,6 +622,11 @@ Jump to reference point if curosr is on its definition"
 ;; read-only bufferにも変更を適用する
 (setq wgrep-change-readonly-file t)
 
+;; call-graph
+(when (require 'call-graph nil t)
+  (call-graph) ;; to launch it
+  )
+
 ;;;;;;;;;;;;;;;;; doxygen START ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; doxygenによるコールグラフの生成
 (defun create-doxygen-and-open()
