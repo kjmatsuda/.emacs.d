@@ -276,6 +276,7 @@
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(global-set-key (kbd "C-h C-f") 'find-function)
 
 ;; 存在しないファイル名を指定してTABを入力した際にバッファを生成しないようにする
 (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
