@@ -7,7 +7,7 @@
            (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t))
   (setq scheme-program-name "gosh"))
 
-(require 'cmuscheme)
+(use-package cmuscheme)
 
 (defun scheme-other-window ()
   "Run scheme on other window"

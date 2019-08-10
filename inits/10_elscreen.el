@@ -1,5 +1,6 @@
 ;; ElScreen
-(when (require 'elscreen nil t)
+(use-package elscreen
+  :config
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs))
@@ -18,6 +19,7 @@
   (setq elscreen-persist-file "~/.elscreen")
   (elscreen-start)
   ;; (elscreen-separate-buffer-list-mode 1)
-  (elscreen-persist-mode 1)
+  (elscreen-persist-mode 1)  
   )
+
 (put 'upcase-region 'disabled nil)

@@ -6,8 +6,10 @@
     (lambda ()
         (tern-mode t)))
 
-(when (require 'indium nil t)
-  (add-hook 'js-mode-hook #'indium-interaction-mode))
+(use-package indium
+  :config
+  (add-hook 'js-mode-hook #'indium-interaction-mode)
+  )
 
 (add-hook 'js2-mode-hook #'electric-spacing-mode)
 

@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;  Emacsテクニックバイブルより ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 14. org-mode
-(require 'org)
-(require 'org-agenda)
+(use-package org)
+(use-package org-agenda)
 
 ;; 14.4 M-x org-remember
 (setq org-directory "~/work/org/")
@@ -9,7 +9,7 @@
 (setq org-mobile-inbox-for-pull "~/work/org/goals.org")
 
 (setq org-default-notes-file (expand-file-name "capture.org" org-directory))
-(require 'org-capture)
+(use-package org-capture)
 (setq org-capture-templates
       '(("e" "Embedded" entry (file+headline org-default-notes-file "Embedded")
          "** TODO %?\n %U\n %a\n %i\n")
@@ -243,7 +243,8 @@
 
 
 ;; org-eldoc
-(when (require 'org-eldoc nil t)
+(use-package org-eldoc
+  :config
   (defadvice org-eldoc-documentation-function (around add-field-info activate)
     (or
      (ignore-errors (and (not (org-at-table-hline-p)) (org-table-field-info nil)))
@@ -302,7 +303,8 @@
      ))
 
 ;;;;;;;; org-modeに画像をD&Dでダウンロード(org-download) ;;;;;;;;
-(when (require 'org-download nil t)
+(use-package org-download
+  :config
   ;; Drag-and-drop to `dired`
   (add-hook 'dired-mode-hook 'org-download-enable)
   (setq-default org-download-image-dir "~/work/org/org-download")
@@ -310,7 +312,7 @@
 
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
-;; (require 'org-mobile)
+;; (use-package org-mobile)
 ;; (defvar org-mobile-sync-timer nil
 ;;   "Timer that `org-mobile-sync-timer' used to reschedule itself, or nil.")
 
@@ -372,5 +374,5 @@
 ;;;;;;;;;;;;;;;;;;; mobile-orgとの同期 END ;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; どうもこれが有効になってるとwindows 10 で時折固まるので、コメントアウトする 2017/5/19(金)
-;; (require 'org-mobile-sync)
+;; (use-package org-mobile-sync)
 ;; (org-mobile-sync-mode 1)

@@ -5,6 +5,9 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 (package-initialize)
+
+(require 'use-package)
+
 (init-loader-load "~/.emacs.d/inits")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -14,6 +17,8 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers (quote nil))
  '(ag-reuse-window (quote nil))
+ '(cg-initial-max-depth 5)
+ '(cg-search-filters (quote ("grep -E \"\\.(cpp|cc|c|el):\"")))
  '(helm-gtags-auto-update t)
  '(helm-gtags-ignore-case t)
  '(helm-gtags-path-style (quote relative))
@@ -23,7 +28,7 @@
  '(org-agenda-format-date "%Y/%m/%d (%a)")
  '(package-selected-packages
    (quote
-    (pythonic anaconda-mode call-graph tree-mode ivy hierarchy image+ company-tern company-emoji dash-functional org-present indium company js2-refactor multiple-cursors electric-spacing web-mode js2-mode tern tern-auto-complete python-mode init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
+    (bind-key use-package pythonic anaconda-mode call-graph tree-mode ivy hierarchy image+ company-tern company-emoji dash-functional org-present indium company js2-refactor multiple-cursors electric-spacing web-mode js2-mode tern tern-auto-complete python-mode init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa key-combo helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl)))
  '(py-indent-offset 4)
  '(right-click-context-global-menu-tree
    (quote

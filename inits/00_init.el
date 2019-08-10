@@ -1,8 +1,8 @@
 ; melpa.el
-(require 'melpa)
+(use-package melpa)
 
 ;; emacs 設定ファイル
-(require 'cl)
+(use-package cl)
 ;;;;;;;;;;;;;;;;;; 初期処理 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; emacs26 では default-*関連の変数が削除されたようなので、定義しておく
 (if (string-match "26" emacs-version)
@@ -86,7 +86,8 @@
 (electric-pair-mode 1)
 
 ;; 英和辞書
-(when (require 'sdic nil t)
+(use-package sdic
+  :config
   (global-set-key "\C-cw" 'sdic-describe-word)
   (global-set-key "\C-cp" 'sdic-describe-word-at-point))
 ;; 動作と見掛けを調節するための設定
@@ -162,7 +163,7 @@
 ;; (eval-after-load "dired"
 ;;   '(lambda ()
 ;;      (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)))
-(require 'dired)
+(use-package dired)
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;; ワンキーで dired のソートタイプを切り替える
@@ -250,16 +251,17 @@
 (add-hook 'graphviz-dot-mode-hook (lambda () (local-set-key [f6] "\C-cc\C-m\C-cp")))
 
 ;; anything初期設定
-(require 'anything-startup)
+(use-package anything-startup)
 ;; 15.5 anything-for-files
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 ;; (auto-install-from-url "http://www.emacswiki.org/cgi-bin/emacs/download/descbinds-anything.el")
-(when (require 'descbinds-anything nil t)
+(use-package descbinds-anything
+  :config
   ;; describe-bindings を Anything に置き換える
   (descbinds-anything-install))
 
 ;; helm
-(require 'helm-config)
+(use-package helm-config)
 (helm-mode 1)
 
 ;; helmの操作感を改善するため、下記の設定を追加
@@ -332,7 +334,7 @@
 ;; 2.2 auto-install.el
 (if (linux?)
     (progn
-      (require 'auto-install)
+      (use-package auto-install)
       (auto-install-update-emacswiki-package-name t)
       (auto-install-compatibility-setup)
       (setq auto-install-use-wget t)
@@ -342,19 +344,19 @@
 
 
 ;; 4.2 uniquify.el
-(require 'uniquify)
+(use-package uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq uniqify-ignore-buffers-re "*[^*]+*")
 
 ;; 4.4 recentf.el
 ;; (setq recentf-max-saved-items 500)
 ;; (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
-(require 'recentf-ext)
+(use-package recentf-ext)
 ;; (define-key global-map (kbd "C-x f") 'recentf-open-files)
 
 ;; 4.8 auto-save-buffers.el
 ;; ファイルを自動保存する
-(require ' auto-save-buffers)
+(use-package  auto-save-buffers)
 (run-with-idle-timer 2 t 'auto-save-buffers)
 
 (when (executable-find "cmigemo")
@@ -384,12 +386,12 @@
 
 ;; 5.6 point-undo.el
 ;; カーソル位置を戻す
-;; (require 'point-undo)
+;; (use-package point-undo)
 ;; (define-key global-map (kbd "C--") 'point-undo)
 ;; (define-key global-map (kbd "C-=") 'point-redo)
 
 ;; 6.6 yasnippet.el
-(require 'yasnippet)
+(use-package yasnippet)
 (setq yas-snippet-dirs
       '("~/.emacs.d/mysnippets"   ;; 自分で追加するスニペット
         "~/.emacs.d/elpa/yasnippet-snippets-20180122.521/snippets"
@@ -405,15 +407,15 @@
 (yas-global-mode 1)
 
 ;; 7.6 color-moccur.el
-(require 'color-moccur)
+(use-package color-moccur)
 (setq moccur-split-word 1) ; スペースで区切られた複数の単語にマッチさせる
 (setq moccur-use-migemo 1)
 
 ;; 7.7 moccur-edit.el
-(require 'moccur-edit)
+(use-package moccur-edit)
 
 ;; ;; 8.5 twittering-mode.el
-(require 'twittering-mode)
+(use-package twittering-mode)
 (global-set-key (kbd "C-x t") 'twit)
 (setq twittering-status-format
       "%C{%Y/%m/%d %H:%M:%S} %s > %T // from %f%L%r%R")
@@ -448,7 +450,7 @@
 
 
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'magit)
+(use-package magit)
 
 (defun my-magit-push (source target args)
   "Push an arbitrary branch or commit somewhere.
@@ -488,7 +490,7 @@ Both the source and the target are read in the minibuffer."
   )
 
 ;;; Enable helm-gtags-mode
-(require 'helm-gtags)
+(use-package helm-gtags)
 (setq helm-gtags-auto-update t)
 (setq helm-gtags-update-interval-second 20)
 (add-hook 'java-mode-hook 'helm-gtags-mode)
@@ -606,7 +608,7 @@ Jump to reference point if curosr is on its definition"
   )
 
 
-(require 'helm-ag)
+(use-package helm-ag)
 ; agのデフォルトのコマンドオプションを指定
 ; -nを消すとサブディレクトリも再帰的に検索します
 (setq helm-ag-base-command "ag --nocolor --nogroup")
@@ -624,7 +626,8 @@ Jump to reference point if curosr is on its definition"
 (setq wgrep-change-readonly-file t)
 
 ;; call-graph
-(when (require 'call-graph nil t)
+(use-package call-graph
+  :config
   (custom-set-variables
    '(cg-initial-max-depth 5)
    '(cg-search-filters '("grep -E \"\\.(cpp|cc|c|el):\""))
@@ -648,7 +651,7 @@ Jump to reference point if curosr is on its definition"
 ;;;;; プログラミング全般
 ;; 参考
 ;; http://moimoitei.blogspot.jp/2010/05/flymake-in-emacs.html
-(require 'flymake)
+(use-package flymake)
 
 ;; GUIの警告は表示しない
 (setq flymake-gui-warnings-enabled nil)
@@ -775,7 +778,7 @@ Jump to reference point if curosr is on its definition"
 (define-key global-map (kbd "C-M-9") 'hs-show-all)
 
 ;;;; 単語補完
-(require 'pabbrev)
+(use-package pabbrev)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -786,7 +789,7 @@ Jump to reference point if curosr is on its definition"
 
 (if (is-termux)
     (progn
-      (require 'info)
+      (use-package info)
       (setq Info-default-directory-list
             (cons (expand-file-name "~/.emacs.d/info/")
                   Info-default-directory-list))
@@ -794,7 +797,7 @@ Jump to reference point if curosr is on its definition"
   )
 
 ;; (when (load "btc-ticker" t)
-;;   (require 'btc-ticker)
+;;   (use-package btc-ticker)
 
 ;;   ;;Optional: You can setup the fetch interval
 ;;   ;;default: 10 secs

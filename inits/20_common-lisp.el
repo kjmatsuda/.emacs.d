@@ -26,7 +26,8 @@
 ;;; Modern Common Lisp より
 ;;; http://modern-cl.blogspot.com/
 ;; http://d.hatena.ne.jp/m2ym/20110120/1295524932
-(when (require 'popwin nil t)
+(use-package popwin
+  :config
   (setq display-buffer-function 'popwin:display-buffer)
   ;; Apropos
   (push '("*slime-apropos*") popwin:special-display-config)
@@ -68,14 +69,15 @@
      (define-key slime-mode-indirect-map (kbd "M-p") nil)
      ))
 
-(require 'ac-slime)
+(use-package ac-slime)
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'slime-repl-mode))
 
 ;; 正しいインデントにする
-(when (require 'cl-indent-patches nil t)
+(use-package cl-indent-patches
+  :config
   ;; emacs-lispのインデントと混同しないように
   (setq lisp-indent-function
         (lambda (&rest args)

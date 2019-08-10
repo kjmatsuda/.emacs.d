@@ -1,4 +1,4 @@
-(require 'company)
+(use-package company)
 
 (global-company-mode) ; 全バッファで有効にする 
 (setq company-idle-delay 0) ; デフォルトは0.5
@@ -46,5 +46,5 @@
                     :background "gray40")
 
 ;;;;;;;;;;;;; company-emoji ;;;;;;;;;;;;;;;;;;
-(require 'company-emoji)
+(use-package company-emoji)
 (add-to-list 'company-backends 'company-emoji)

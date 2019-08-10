@@ -115,7 +115,7 @@
       '((space-mark ?\x3000 [?\□])
         (tab-mark   ?\t   [?\xBB ?\t])
         ))
-(require 'whitespace)
+(use-package whitespace)
 (global-whitespace-mode 1)
 (set-face-foreground 'whitespace-space "LightSlateGray")
 (set-face-background 'whitespace-space "DarkSlateGray")
@@ -244,7 +244,7 @@
 (global-hl-line-mode)
 
 ;; シンボルのハイライト表示
-(require 'highlight-symbol)
+(use-package highlight-symbol)
 (global-set-key [(control f3)] 'highlight-symbol-at-point)
 (if (not (is-termux))
     (progn
@@ -260,7 +260,8 @@
 
 ;; image+
 (eval-after-load 'image+
-      `(when (require 'hydra nil t)
+  `(use-package hydra
+     :config
          (defhydra imagex-sticky-binding (global-map "C-x C-l")
            "Manipulating Image"
            ("+" imagex-sticky-zoom-in "zoom in")

@@ -1,4 +1,4 @@
-(require 'right-click-context)
+(use-package right-click-context)
 
 (custom-set-variables
  '(right-click-context-global-menu-tree

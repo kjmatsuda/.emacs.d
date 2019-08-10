@@ -1,12 +1,12 @@
 ;;;;;; clojure
-(require 'clojure-mode)
+(use-package clojure-mode)
 ;; (autoload 'inf-clojure "inf-clojure" "Run an inferior Clojure process" t)
 ;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 ;; (setq inf-clojure-prompt-read-only nil)
 
 ;;; ciderは編集が重くなったり、replの起動に1分近くかかる問題から、一旦無効にする 2017/1/29(日)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; START ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'cider)
+(use-package cider)
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 (setq nrepl-hide-special-buffers t)
 
@@ -22,7 +22,7 @@
    (local-set-key (kbd "<C-down>") (quote windmove-down))))
 
 ;; ciderのreplでauto-completeが使えるようにする
-(require 'ac-nrepl)
+(use-package ac-nrepl)
 (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"

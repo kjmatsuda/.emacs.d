@@ -74,7 +74,7 @@
 (global-set-key (kbd "C-S-o") 'other-window-or-split)
 
 ;; 画面左にディレクトリツリーを表示
-(require 'neotree)
+(use-package neotree)
 (defun my-neotree-toggle ()
   (interactive)
   (if (neo-global--window-exists-p)
@@ -120,7 +120,7 @@
 (global-set-key (kbd "M-I") 'my-imenu-list-smart-toggle)
 
 ;; comment-tasks
-(require 'comment-tasks)
+(use-package comment-tasks)
 
 (setq comment-tasks-keyword-list '("TODO"))
 (setq comment-tasks-auto-update t)
@@ -198,18 +198,18 @@
 
 ;; 5.8 goto-chg.el
 ;; 最後の変更箇所にジャンプする
-(require 'goto-chg)
+(use-package goto-chg)
 (define-key global-map (kbd "<f8>") 'goto-last-change)
 (define-key global-map (kbd "S-<f8>") 'goto-last-change-reverse)
 
 ;; undo
-(when (require 'undo-tree nil t)
+(use-package undo-tree
+  :config
   (global-undo-tree-mode t)
   (if (not (is-termux))
       (global-set-key (kbd "C-M-/") 'undo-tree-redo)
     (global-set-key (kbd "M-/") 'undo-tree-redo)
     )
-  )
 
 ;;; windmove (e2wm でバッファ切り換えがしやすくなるように)
 (windmove-default-keybindings)
