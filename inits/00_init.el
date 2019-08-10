@@ -625,7 +625,12 @@ Jump to reference point if curosr is on its definition"
 
 ;; call-graph
 (when (require 'call-graph nil t)
+  (custom-set-variables
+   '(cg-initial-max-depth 5)
+   '(cg-search-filters '("grep -E \"\\.(cpp|cc|c|el):\""))
+  )
   (call-graph) ;; to launch it
+  
   )
 
 ;;;;;;;;;;;;;;;;; doxygen START ;;;;;;;;;;;;;;;;;;;;;;;;;
