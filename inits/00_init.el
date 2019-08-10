@@ -53,9 +53,6 @@
 	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
-;; サブディレクトリごとload-pathに追加
-(add-to-load-path "elisp")
-
 (when (win?)
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/apel")
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/emu")
@@ -346,10 +343,6 @@
   ;; 5.5 migemo.el
   (setq migemo-command "cmigemo")
   (setq migemo-options '("-q" "--emacs" "-i" "\g"))
-  ;; migemo-dictのパスを指定
-  (if (linux?)
-      (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-    (setq migemo-dictionary (expand-file-name "~/.emacs.d/elisp/migemo/cp932/migemo-dict")))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
   ;; キャッシュ機能を利用する
@@ -582,6 +575,9 @@ Jump to reference point if curosr is on its definition"
 (setq wgrep-change-readonly-file t)
 
 ;; call-graph
+(straight-use-package
+ '(call-graph :type git :host github :repo "kjmatsuda/call-graph"))
+
 (use-package call-graph
   :config
   (custom-set-variables
@@ -589,7 +585,6 @@ Jump to reference point if curosr is on its definition"
    '(cg-search-filters '("grep -E \"\\.(cpp|cc|c|el):\""))
   )
   (call-graph) ;; to launch it
-  
   )
 
 ;;;;;;;;;;;;;;;;; doxygen START ;;;;;;;;;;;;;;;;;;;;;;;;;

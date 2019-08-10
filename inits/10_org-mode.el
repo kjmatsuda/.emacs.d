@@ -152,13 +152,6 @@
 (setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-use-scheduled '(event-if-todo event-if-not-todo))
 
-;; ;; org ファイルを google カレンダーに同期する
-;; (defun start-process-org ()
-;;   (interactive)
-;;   (start-process-shell-command "org-sync-gcal" "*org-sync-gcal*" "emacs" "--script" "~/work/.emacs.d/elisp/org-sync-gcal.el"))
-;; (define-key global-map [f12] 'start-process-org)
-
-
 ;; (if (linux?)
 ;;     (progn
 ;;       ;; (start-process-org)
