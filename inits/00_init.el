@@ -279,7 +279,7 @@
          :map helm-find-files-map
          ("C-h" . delete-backward-char)
          ("TAB" . helm-execute-persistent-action)
-         :map helm-read-files-map
+         :map helm-read-file-map
          ("TAB" . helm-execute-persistent-action)
          )
   :config

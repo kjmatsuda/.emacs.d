@@ -209,10 +209,12 @@
   (if (not (is-termux))
       (global-set-key (kbd "C-M-/") 'undo-tree-redo)
     (global-set-key (kbd "M-/") 'undo-tree-redo)
-    )
+    ))
 
 ;;; windmove (e2wm でバッファ切り換えがしやすくなるように)
 (windmove-default-keybindings)
+
+  
 (global-unset-key (kbd "<C-up>"))
 (global-unset-key (kbd "<C-down>"))
 (global-unset-key (kbd "<C-right>"))
