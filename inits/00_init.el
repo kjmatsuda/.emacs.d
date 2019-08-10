@@ -54,7 +54,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; サブディレクトリごとload-pathに追加
-(add-to-load-path "elisp" "conf")
+(add-to-load-path "elisp")
 
 (when (win?)
   (add-to-list 'load-path "C:/opt/emacs/site-lisp/apel")
@@ -211,23 +211,9 @@
        (read-string "ls switches (must contain -l): " dired-actual-switches))
     (dired-various-sort-change dired-various-sort-type)))
 
-(defvar anything-c-source-dired-various-sort
-  '((name . "Dired various sort type")
-    (candidates . (lambda ()
-                    (mapcar (lambda (x)
-                              (cons (concat (cdr x) " (" (car x) ")") x))
-                            dired-various-sort-type)))
-    (action . (("Set sort type" . (lambda (candidate)
-                                    (dired-various-sort-change dired-various-sort-type candidate)))))
-    ))
-
 (add-hook 'dired-mode-hook
           '(lambda ()
              (define-key dired-mode-map "s" 'dired-various-sort-change-or-edit)
-             (define-key dired-mode-map "c"
-               '(lambda ()
-                  (interactive)
-                  (anything '(anything-c-source-dired-various-sort))))
              ))
 
 
@@ -245,20 +231,6 @@
 
 ;; バッファ自動再読み込み
 (global-auto-revert-mode 1)
-
-;;graphviz mode
-(load "graphviz-dot-mode.el")
-(add-hook 'graphviz-dot-mode-hook (lambda () (local-set-key [f6] "\C-cc\C-m\C-cp")))
-
-;; anything初期設定
-(use-package anything-startup)
-;; 15.5 anything-for-files
-(define-key global-map (kbd "M-y") 'anything-show-kill-ring)
-;; (auto-install-from-url "http://www.emacswiki.org/cgi-bin/emacs/download/descbinds-anything.el")
-(use-package descbinds-anything
-  :config
-  ;; describe-bindings を Anything に置き換える
-  (descbinds-anything-install))
 
 ;; helm
 (use-package helm-config)
@@ -341,18 +313,6 @@
 (setq skk-jisyo "~/.skk-jisyo.utf8")
 (setq skk-jisyo-code 'utf-8)
 
-;; 2.2 auto-install.el
-(if (linux?)
-    (progn
-      (use-package auto-install)
-      (auto-install-update-emacswiki-package-name t)
-      (auto-install-compatibility-setup)
-      (setq auto-install-use-wget t)
-      (auto-install-compatibility-setup)
-      (setq auto-install-directory "~/.emacs.d/elisp/")
-      (setq ediff-window-setup-function 'ediff-setup-windows-plain)))
-
-
 ;; 4.2 uniquify.el
 (use-package uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -364,10 +324,23 @@
 (use-package recentf-ext)
 ;; (define-key global-map (kbd "C-x f") 'recentf-open-files)
 
-;; 4.8 auto-save-buffers.el
 ;; ファイルを自動保存する
-(use-package  auto-save-buffers)
-(run-with-idle-timer 2 t 'auto-save-buffers)
+(use-package auto-save-buffers-enhanced
+  :straight t
+  :config
+   ;;; 1秒後に保存
+  (setq auto-save-buffers-enhanced-interval 1)
+  ;;; 特定のファイルのみ有効にする
+  (setq auto-save-buffers-enhanced-include-regexps '(".+")) ;全ファイル
+  ;; not-save-fileと.ignoreは除外する
+  (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
+   ;;; Wroteのメッセージを抑制
+  (setq auto-save-buffers-enhanced-quiet-save-p t)
+  ;;; *scratch*も ~/.emacs.d/scratch に自動保存
+  (setq auto-save-buffers-enhanced-save-scratch-buffer-to-file-p t)
+  (setq auto-save-buffers-enhanced-file-related-with-scratch-buffer
+        (locate-user-emacs-file "scratch"))
+  (auto-save-buffers-enhanced t))
 
 (when (executable-find "cmigemo")
   ;; 5.5 migemo.el
@@ -416,32 +389,6 @@
 
 (yas-global-mode 1)
 
-;; 7.6 color-moccur.el
-(use-package color-moccur)
-(setq moccur-split-word 1) ; スペースで区切られた複数の単語にマッチさせる
-(setq moccur-use-migemo 1)
-
-;; 7.7 moccur-edit.el
-(use-package moccur-edit)
-
-;; ;; 8.5 twittering-mode.el
-(use-package twittering-mode)
-(global-set-key (kbd "C-x t") 'twit)
-(setq twittering-status-format
-      "%C{%Y/%m/%d %H:%M:%S} %s > %T // from %f%L%r%R")
-(setq twittering-auth-method 'xauth)
-(setq twittering-username "sakugoe_hituji")
-(if (win?)
-  ;; windows の twittering-mode の認証が失敗しないための対策
-  (setq twittering-allow-insecure-server-cert t))
-;; F お気に入り
-;; R 公式リツイート
-;; Q 引用リツイート QT
-(define-key twittering-mode-map (kbd "F") 'twittering-favorite)
-(define-key twittering-mode-map (kbd "R") 'twittering-native-retweet)
-(define-key twittering-mode-map (kbd "Q") 'twittering-organic-retweet)
-
-
 ;; 11.1 view-mode
 ;; view-minor-modeの設定
 (setq view-read-only t)
@@ -457,7 +404,6 @@
                ;; C-f, →
                (define-key view-mode-map "l" 'forward-char)
                )))
-
 
 ;;;;;;;;;;;;;;;;;  VCS関連 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package magit)
@@ -523,7 +469,7 @@ Both the source and the target are read in the minibuffer."
  '(helm-gtags-path-style (quote relative))
  '(package-selected-packages
    (quote
-    (init-loader org-mobile-sync alda-mode slime macrostep auto-complete neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl))))
+    (init-loader org-mobile-sync alda-mode slime macrostep neotree elscreen-persist elscreen-buffer-group package-utils persp-mode window-layout helm-ag cdb ccc ddskk helm-core popup async helm helm-projectile helm-gtags gtags inf-clojure ripgrep todotxt-mode ruby-block quickrun melpa helm-migemo helm-descbinds flymake flycheck emmet-mode elscreen ctags clojure-cheatsheet ac-nrepl))))
 
 ;; clojureでタグ名にネームスペースがつかないようにする
 ;; http://ayato.hateblo.jp/entry/20150607/1433653213

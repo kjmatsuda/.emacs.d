@@ -25,8 +25,6 @@
 (use-package ac-nrepl)
 (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-repl-mode))
 
 ;; ciderのスタックトレースが明るくて見にくいため修正
 (setq cider-stacktrace-frames-background-color "#003200320032")

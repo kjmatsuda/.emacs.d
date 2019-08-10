@@ -120,13 +120,20 @@
 (global-set-key (kbd "M-I") 'my-imenu-list-smart-toggle)
 
 ;; comment-tasks
-(use-package comment-tasks)
+(straight-use-package
+ '(comment-tasks :type git :host github :repo "kjmatsuda/comment-tasks"))
 
-(setq comment-tasks-keyword-list '("TODO"))
-(setq comment-tasks-auto-update t)
-(setq comment-tasks-list-size 0.3)
-(setq comment-tasks-list-position 'below)
-(setq comment-tasks-focus-after-activation nil)
+(use-package comment-tasks
+  :bind (
+         ("M-T" . My-Comment-tasks-smart-toggle)
+         )
+  :config
+  (setq comment-tasks-keyword-list '("TODO"))
+  (setq comment-tasks-auto-update t)
+  (setq comment-tasks-list-size 0.3)
+  (setq comment-tasks-list-position 'below)
+  (setq comment-tasks-focus-after-activation nil)
+)
 
 (defun my-comment-tasks-smart-toggle ()
   (interactive)
@@ -137,8 +144,6 @@
     (imenu-list-minor-mode -1)
     (comment-tasks-minor-mode 1)
     ))
-
-(global-set-key (kbd "M-T") 'my-comment-tasks-smart-toggle)
 
 ;; (global-set-key "\M-g" 'goto-line)
 ;; (global-set-key (kbd "C-M-g") 'igrep)
