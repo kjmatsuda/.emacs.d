@@ -262,23 +262,33 @@
 
 ;; helm
 (use-package helm-config)
-(helm-mode 1)
+(use-package helm
+  :bind (
+         ("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x C-r" . helm-recentf)
+         ("M-y" . helm-show-kill-ring)
+         ("M-i" . helm-imenu)
+         ("C-x b" . helm-buffers-list)
+         ("C-M-h" . helm-apropos)
+         ("C-c C-f" . find-function)
+         ("C-c o" . helm-occur)
+         ("C-c m" . helm-man-woman)
+         :map helm-map
+         ("C-h" . delete-backward-char)
+         :map helm-find-files-map
+         ("C-h" . delete-backward-char)
+         ("TAB" . helm-execute-persistent-action)
+         :map helm-read-files-map
+         ("TAB" . helm-execute-persistent-action)
+         )
+  :config
+  (helm-mode 1)
+  )
 
 ;; helmの操作感を改善するため、下記の設定を追加
 ;; https://abicky.net/2014/01/04/170448/
-(define-key global-map (kbd "M-x")     'helm-M-x)
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "C-x C-r") 'helm-recentf)
-(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
-(define-key global-map (kbd "M-i")   'helm-imenu)
-(define-key global-map (kbd "C-x b")   'helm-buffers-list)
 ;; (define-key global-map (kbd "M-r")     'helm-resume)
-(define-key global-map (kbd "C-M-h")   'helm-apropos)
-(define-key helm-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-(global-set-key (kbd "C-c C-f") 'find-function)
 
 ;; 存在しないファイル名を指定してTABを入力した際にバッファを生成しないようにする
 (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
