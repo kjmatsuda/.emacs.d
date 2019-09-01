@@ -582,7 +582,7 @@ Jump to reference point if curosr is on its definition"
   :config
   (custom-set-variables
    '(cg-initial-max-depth 5)
-   '(cg-search-filters '("grep -E \"\\.(cpp|cc|c|el):\""))
+   '(cg-search-filters '("grep -E \"\\.(cpp|cc|c|el|clj):\""))
   )
   (call-graph) ;; to launch it
   )

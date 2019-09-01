@@ -25,6 +25,8 @@
          "** TODO %?\n %U\n %a\n %i\n")
         ("a" "Asset Management" entry (file+headline org-default-notes-file "Asset Management")
          "** TODO %?\n %U\n %a\n %i\n")
+        ("f" "Finance" entry (file+headline org-default-notes-file "Finance")
+         "** TODO %?\n %U\n %a\n %i\n")
         ("s" "Software Architecture" entry (file+headline org-default-notes-file "Software Architecture")
          "** TODO %?\n %U\n %a\n %i\n")
         ("b" "Building Architecture" entry (file+headline org-default-notes-file "Building Architecture")
