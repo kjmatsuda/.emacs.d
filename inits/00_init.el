@@ -339,26 +339,26 @@
         (locate-user-emacs-file "scratch"))
   (auto-save-buffers-enhanced t))
 
-(when (executable-find "cmigemo")
-  ;; 5.5 migemo.el
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs" "-i" "\g"))
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  ;; キャッシュ機能を利用する
-  (setq migemo-use-pattern-alist t)
-  (setq migemo-use-frequent-pattern-alist t)
-  (setq migemo-pattern-alist-length 1024)
-  ;; 辞書の文字コードを指定．
-  (if (linux?)
-      (setq migemo-coding-system 'utf-8-unix)
-    (setq migemo-coding-system 'cp932-unix))
-  (load-library "migemo")
-  (migemo-init)
-)
+;; (when (executable-find "cmigemo")
+;;   ;; 5.5 migemo.el
+;;   (setq migemo-command "cmigemo")
+;;   (setq migemo-options '("-q" "--emacs" "-i" "\g"))
+;;   (setq migemo-user-dictionary nil)
+;;   (setq migemo-regex-dictionary nil)
+;;   ;; キャッシュ機能を利用する
+;;   (setq migemo-use-pattern-alist t)
+;;   (setq migemo-use-frequent-pattern-alist t)
+;;   (setq migemo-pattern-alist-length 1024)
+;;   ;; 辞書の文字コードを指定．
+;;   (if (linux?)
+;;       (setq migemo-coding-system 'utf-8-unix)
+;;     (setq migemo-coding-system 'cp932-unix))
+;;   (load-library "migemo")
+;;   (migemo-init)
+;; )
 
-(when (not (executable-find "cmigemo"))
-  (setq migemo-isearch-enable-p nil))
+;; (when (not (executable-find "cmigemo"))
+;;   (setq migemo-isearch-enable-p nil))
 
 ;; 5.6 point-undo.el
 ;; カーソル位置を戻す

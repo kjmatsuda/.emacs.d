@@ -21,6 +21,8 @@
          "** TODO %?\n %U\n %a\n %i\n")
         ("n" "Node.js" entry (file+headline org-default-notes-file "Node.js")
          "** TODO %?\n %U\n %a\n %i\n")
+        ("r" "React.js" entry (file+headline org-default-notes-file "React.js")
+         "** TODO %?\n %U\n %a\n %i\n")
         ("d" "Data Analysis" entry (file+headline org-default-notes-file "Data Analysis")
          "** TODO %?\n %U\n %a\n %i\n")
         ("a" "Asset Management" entry (file+headline org-default-notes-file "Asset Management")
