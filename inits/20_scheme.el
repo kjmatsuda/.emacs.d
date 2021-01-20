@@ -17,7 +17,7 @@
   (run-scheme scheme-program-name))
 
 (define-key global-map
-  "\C-cS" 'scheme-other-window)
+  "\C-cg" 'scheme-other-window)
 
 (add-hook 'scheme-mode-hook 'highlight-symbol-mode)
 (add-hook 'scheme-mode-hook #'electric-spacing-mode)
