@@ -205,6 +205,13 @@
   (insert-string (concat "#+ATTR_ORG: :width " (number-to-string width)))
   (org-redisplay-inline-images))
 
+;; Emacs lisp の評価結果をプリント
+(defun my-eval-print-last-sexp (&optional eval-last-sexp-arg-internal)
+  (interactive "P")
+  (let ((eval-result (eval-last-sexp nil))
+        (standard-output (current-buffer)))
+    (insert (format " => %s" eval-result))))
+
 (add-hook
  'org-mode-hook
  (lambda ()
@@ -226,6 +233,7 @@
    ;; 画像関連
    (local-set-key (kbd "C-c u") 'org-redisplay-inline-images)
    (local-set-key (kbd "C-c s") 'org-set-image-width)
+   (local-set-key (kbd "C-x C-e") 'my-eval-print-last-sexp)
    ))
 
 ;; orgでリンクを開く際に同一フレームで開くようにする
