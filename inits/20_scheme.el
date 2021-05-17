@@ -20,4 +20,4 @@
   "\C-cg" 'scheme-other-window)
 
 (add-hook 'scheme-mode-hook 'highlight-symbol-mode)
-(add-hook 'scheme-mode-hook #'electric-spacing-mode)
+;; (add-hook 'scheme-mode-hook #'electric-spacing-mode)
