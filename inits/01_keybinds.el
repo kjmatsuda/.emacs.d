@@ -125,7 +125,7 @@
 
 (use-package comment-tasks
   :bind (
-         ("M-T" . my-Comment-tasks-smart-toggle)
+         ("M-T" . my-comment-tasks-smart-toggle)
          )
   :config
   (setq comment-tasks-keyword-list '("TODO"))
