@@ -315,6 +315,12 @@
   (setq-default org-download-image-dir "~/work/org/org-download")
   )
 
+;; org 9.4 くらいから、初期表示時にヘッダが展開した状態になっているので、初期表示時は閉じた状態にする
+(setq org-startup-folded t)
+
+;; disable indentation
+(setq org-adapt-indentation nil)
+
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
 ;; (use-package org-mobile)
