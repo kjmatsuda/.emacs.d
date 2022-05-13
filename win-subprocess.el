@@ -1,3 +1,8 @@
+;; 2022/05/13(金)
+;; ripgrep をインストールした際に Windows では Emacs から ripgrep を起動したときに、日本語の検索がうまくいかなかった。
+;; そのための対策を以下のネット記事から拾ってきた。
+;; UTF-8 をベースとして利用するための設定 - NTEmacs @ ウィキ - atwiki（アットウィキ）
+;; https://w.atwiki.jp/ntemacs/pages/16.html
 (if (win?)
     (progn
       (require 'cl-lib)

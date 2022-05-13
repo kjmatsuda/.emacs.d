@@ -36,7 +36,7 @@
     (let ((coding-system-for-read 'utf-8))
       ad-do-it))
 
-      (load-file "../win-subprocess.el")
+      (load "../win-subprocess.el")
 
       ))
 
