@@ -168,7 +168,7 @@
 (global-set-key (kbd "C-m") 'newline-and-indent)
 ;; C-h でバックスペース
 (keyboard-translate ?\C-h ?\C-?) ; C-h -> BS
-(global-set-key (kbd "C-H") 'help-command)
+(global-set-key (kbd "C-M-h") 'help-command)
 
 ;; ;; 文字の拡大、縮小、元に戻す
 ;; (global-set-key (kbd "C-M-;") (lambda () (interactive) (text-scale-increase 1)))

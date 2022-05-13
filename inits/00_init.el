@@ -239,7 +239,7 @@
          ("M-y" . helm-show-kill-ring)
          ("M-i" . helm-imenu)
          ("C-x b" . helm-buffers-list)
-         ("C-M-h" . helm-apropos)
+         ;; ("C-M-h" . helm-apropos)
          ("C-c C-f" . find-function)
          ("C-c o" . helm-occur)
          ("C-c m" . helm-man-woman)
@@ -569,7 +569,7 @@ Jump to reference point if curosr is on its definition"
 
 (use-package ripgrep)
 
-(define-key global-map (kbd "C-F") 'ripgrep-regexp)
+(define-key global-map (kbd "C-H") 'ripgrep-regexp)
 
 ;; eでwgrepモードにする
 (setf wgrep-enable-key "r")
