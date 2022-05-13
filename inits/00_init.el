@@ -557,15 +557,19 @@ Jump to reference point if curosr is on its definition"
   )
 
 
-(use-package helm-ag)
-; agのデフォルトのコマンドオプションを指定
-; -nを消すとサブディレクトリも再帰的に検索します
-(setq helm-ag-base-command "ag --nocolor --nogroup")
-(define-key global-map (kbd "M-O") 'helm-ag)
-(define-key global-map (kbd "M-o") 'helm-ag-this-file)
-(define-key global-map (kbd "M-G") 'ag)
-;; 現在位置のシンボルをデフォルトで検索語句に設定する
-(setq helm-ag-insert-at-point 'symbol)
+;; (use-package helm-ag)
+;; ; agのデフォルトのコマンドオプションを指定
+;; ; -nを消すとサブディレクトリも再帰的に検索します
+;; (setq helm-ag-base-command "ag --nocolor --nogroup")
+;; (define-key global-map (kbd "M-O") 'helm-ag)
+;; (define-key global-map (kbd "M-o") 'helm-ag-this-file)
+;; (define-key global-map (kbd "M-G") 'ag)
+;; ;; 現在位置のシンボルをデフォルトで検索語句に設定する
+;; (setq helm-ag-insert-at-point 'symbol)
+
+(use-package ripgrep)
+
+(define-key global-map (kbd "C-F") 'ripgrep-regexp)
 
 ;; eでwgrepモードにする
 (setf wgrep-enable-key "r")
