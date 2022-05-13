@@ -34,7 +34,11 @@
       ;; Grep
       (defadvice grep (around grep-coding-setup activate)
     (let ((coding-system-for-read 'utf-8))
-      ad-do-it))))
+      ad-do-it))
+
+      (load-file "../win-subprocess.el")
+
+      ))
 
 ;;;;;;;;;;;;;;;;;  画面の基本設定 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (if window-system (progn
