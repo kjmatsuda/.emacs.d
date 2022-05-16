@@ -7,14 +7,14 @@
     (progn
       (require 'cl-lib)
 
-      (setenv "LANG" "ja_JP.UTF-8")
+      ;; (setenv "LANG" "ja_JP.UTF-8")
 
-      ;; IME の設定をした後には実行しないこと
-      ;; (set-language-environment "Japanese")
+      ;; ;; IME の設定をした後には実行しないこと
+      ;; ;; (set-language-environment "Japanese")
 
-      (prefer-coding-system 'utf-8-unix)
-      (set-file-name-coding-system 'cp932)
-      (setq locale-coding-system 'utf-8-unix)
+      ;; (prefer-coding-system 'utf-8-unix)
+      ;; (set-file-name-coding-system 'cp932)
+      ;; (setq locale-coding-system 'utf-8-unix)
 
       ;; プロセスが出力する文字コードを判定して、process-coding-system の DECODING の設定値を決定する
       (setq default-process-coding-system '(undecided-dos . utf-8-unix))
