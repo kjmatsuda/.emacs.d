@@ -231,7 +231,7 @@
   (when (file-exists-p candidate)
     ad-do-it))
 
-;; Helm interface improvement. Stop asking "File does not exist, create buffer?" every time, when i try to create new file. 
+;; Helm interface improvement. Stop asking "File does not exist, create buffer?" every time, when i try to create new file.
 (setq helm-ff-newfile-prompt-p nil)
 
 ;; 2.1 ddskk
@@ -535,7 +535,14 @@ Jump to reference point if curosr is on its definition"
 
 (use-package ripgrep)
 
-(define-key global-map (kbd "C-H") 'ripgrep-regexp)
+(if (not (is-termux))
+    (progn
+      (define-key global-map (kbd "C-H") 'ripgrep-regexp)
+      )
+  (progn
+    (define-key global-map (kbd "M-h") 'ripgrep-regexp)
+    )
+  )
 
 ;; eでwgrepモードにする
 (setf wgrep-enable-key "r")
@@ -726,4 +733,3 @@ Jump to reference point if curosr is on its definition"
 
 ;;   ;;Enable btc-ticker-mode
 ;;   (btc-ticker-mode 1))
-
