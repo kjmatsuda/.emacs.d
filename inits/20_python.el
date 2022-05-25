@@ -8,6 +8,13 @@
     (setq indent-tabs-mode nil)
     ;; 以下をしないと、繰り返しhelp画面が表示されて使いものにならなかった
     (setq-local eldoc-documentation-function  nil)
+
+    ;; 以下をしないと、Termux (Emacs 28)では勝手に補完されてまともに編集できなかった
+    (if (is-termux)
+        (progn
+          (delete 'company-capf company-backends)
+          )
+      )
   )
 )
 
