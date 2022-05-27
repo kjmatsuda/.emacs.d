@@ -1,6 +1,26 @@
 ;; plantuml-mode
 (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.pu\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plu\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
 (autoload 'plantuml-mode "plantuml-mode" "PlantUML mode" t)
+
+(setq plantuml-executable-path "plantuml")
+(setq plantuml-default-exec-mode 'executable)
+(setq plantuml-output-type "png")
+
+(defun plantuml-preview-frame (prefix)
+  (interactive "p")
+  (plantuml-preview 16))
+
+(add-hook 'plantuml-mode-hook
+          (lambda ()
+            (define-key plantuml-mode-map (kbd "C-c C-p") 'plantuml-preview-frame)
+            (define-key plantuml-mode-map (kbd "C-c C-s") 'plantuml-execute)
+            (setq plantuml-executable-args
+                  (append plantuml-executable-args '("-charset" "UTF-8")))))
 
 (defun plantuml-execute ()
   (interactive)
@@ -13,22 +33,13 @@
     (when (string-match "^\\s-*@startuml\\s-+\\(\\S-+\\)\\s*$" code)
       (setq out-file (match-string 1 code)))
     (setq cmd (concat
-               "java -jar " plantuml-java-options " "
-               (shell-quote-argument plantuml-jar-path) " "
+               "plantuml"
                (and out-file (concat "-t" (file-name-extension out-file))) " "
                plantuml-options " "
                (buffer-file-name)))
     (message cmd)
     (shell-command cmd)
+    
     (message "done")))
 
-(if (linux?)
-    (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-  (setq plantuml-jar-path "C:/opt/jars/plantuml.jar")
-  )
-(setq plantuml-java-options "")
 (setq plantuml-options "-charset UTF-8")
-(setq plantuml-mode-map
-      (let ((map (make-sparse-keymap)))
-        (define-key map (kbd "C-c C-c") 'plantuml-execute)
-        map))
