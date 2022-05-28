@@ -1,3 +1,13 @@
+
+;; Termux (Emacs28)で package-desc-vers が見つからないというエラーが出たことへの対策
+(fset 'package-desc-vers 'package--ac-desc-version)
+
+;; Termux (Emacs28)で Package cl is deprecated が出ないようにする対策
+(setq byte-compile-warnings '(cl-function))
+
+;;Emacs @28用void: browse-url-mosaic-program対策
+(setq browse-url-mosaic-program nil)
+
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                      ("marmalade" . "http://marmalade-repo.org/packages/")

@@ -204,7 +204,8 @@
          ("C-x C-r" . helm-recentf)
          ("M-y" . helm-show-kill-ring)
          ("M-i" . helm-imenu)
-         ("C-x b" . helm-buffers-list)
+         ;; Termux (Emacs28)で C-x b を実行したら、"No buffer named *temp*"と表示されて、バッファ切り替えができないので無効化
+         ;; ("C-x b" . helm-buffers-list)
          ;; ("C-M-h" . helm-apropos)
          ("C-c C-f" . find-function)
          ("C-c o" . helm-occur)
