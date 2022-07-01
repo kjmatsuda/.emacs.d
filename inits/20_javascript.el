@@ -4,7 +4,11 @@
 
 (add-hook 'js2-mode-hook
     (lambda ()
-        (tern-mode t)))
+      (tern-mode t)
+      (when (executable-find "prettier")
+        (local-set-key (kbd "C-x C-s") 'my/prettier))
+      (make-local-variable 'js-indent-level)
+      (setq js-indent-level 2)))
 
 (use-package indium
   :config

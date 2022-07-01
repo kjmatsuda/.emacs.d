@@ -418,6 +418,18 @@ Both the source and the target are read in the minibuffer."
 (add-hook 'js-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
 
+;;;; Code Formatter
+;; 引用元
+;; Emacs + Prettier = ❤️ - Qiita
+;; https://qiita.com/ybiquitous/items/0761feeff7f31ba0a476
+(defun my/prettier ()
+  (interactive)
+  (shell-command
+    (format "%s --write %s"
+      (shell-quote-argument (executable-find "prettier"))
+      (shell-quote-argument (expand-file-name buffer-file-name))))
+  (revert-buffer t t t))
+
 ;; customize
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
