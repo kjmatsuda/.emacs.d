@@ -8,7 +8,9 @@
       (when (executable-find "prettier")
         (local-set-key (kbd "C-x C-s") 'my/prettier))
       (make-local-variable 'js-indent-level)
-      (setq js-indent-level 2)))
+      (setq js-indent-level 2)
+      ;; (setq add-node-modules-path-debug t)
+      ))
 
 (use-package indium
   :config
@@ -16,6 +18,10 @@
   )
 
 (add-hook 'js2-mode-hook #'electric-spacing-mode)
+
+;; ./node_modules/.bin/ の下のバイナリ(prettier)を優先的に使用するために add-node-modules-path を導入
+(eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook #'add-node-modules-path))
 
 ;; company関連
 (setq company-tern-property-marker "")
