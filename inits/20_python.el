@@ -1,7 +1,13 @@
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 (custom-set-variables
   '(py-indent-offset 4)
-)
+  )
+
+(use-package python-black
+  :demand t
+  :after python
+  :hook nil)
+
 (add-hook 'python-mode-hook
   '(lambda()
     (setq tab-width 4) 
@@ -15,7 +21,10 @@
           (delete 'company-capf company-backends)
           )
       )
+    (when (executable-find "black")
+      (local-set-key (kbd "C-x C-s") 'python-black-buffer))
   )
 )
 
 (add-hook 'python-mode-hook #'electric-spacing-mode)
+
