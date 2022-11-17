@@ -525,13 +525,14 @@ Jump to reference point if curosr is on its definition"
   (define-key helm-gtags-mode-map (kbd "C--") 'helm-gtags-pop-stack)
   (define-key helm-gtags-mode-map (kbd "C-o") 'helm-gtags-pop-stack))
 
-;; 今開いているファイルの org 用リンクをコピーする(dired-mode ではカーソルの当たっているファイルのリンクがコピーされる)
-(global-set-key (kbd "C-c C-w") 'org-store-link)
+;; org-agenda から org のヘッダに飛んだ後、C-o で org-agenda の元の行に戻る機能に支障があるようなのでコメントアウトする
+;; ;; 今開いているファイルの org 用リンクをコピーする(dired-mode ではカーソルの当たっているファイルのリンクがコピーされる)
+;; (global-set-key (kbd "C-c C-w") 'org-store-link)
 
-;; org-mode から orgファイル以外に飛んだ際に元の org ファイルに簡単に戻れるようにする
-(global-set-key (kbd "C-o") 'org-mark-ring-goto)
-(with-eval-after-load 'helm-gtags
-      (define-key helm-gtags-mode-map (kbd "C-c C-o") 'org-mark-ring-goto)
+;; ;; org-mode から orgファイル以外に飛んだ際に元の org ファイルに簡単に戻れるようにする
+;; (global-set-key (kbd "C-o") 'org-mark-ring-goto)
+;; (with-eval-after-load 'helm-gtags
+;;       (define-key helm-gtags-mode-map (kbd "C-c C-o") 'org-mark-ring-goto)
       )
 
 (if (not (is-termux))
