@@ -533,7 +533,7 @@ Jump to reference point if curosr is on its definition"
 ;; (global-set-key (kbd "C-o") 'org-mark-ring-goto)
 ;; (with-eval-after-load 'helm-gtags
 ;;       (define-key helm-gtags-mode-map (kbd "C-c C-o") 'org-mark-ring-goto)
-      )
+;;    )
 
 (if (not (is-termux))
     ;; key bindings
