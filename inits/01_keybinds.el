@@ -215,7 +215,10 @@
   (if (not (is-termux))
       (global-set-key (kbd "C-M-/") 'undo-tree-redo)
     (global-set-key (kbd "M-/") 'undo-tree-redo)
-    ))
+    )
+  ;; undo-tree 0.8 から履歴ファイル(*.~undo-tree~)を自動的に作成するようになっているので、それを無効化する
+  (setq undo-tree-auto-save-history nil)
+  )
 
 ;;; windmove (e2wm でバッファ切り換えがしやすくなるように)
 (windmove-default-keybindings)
