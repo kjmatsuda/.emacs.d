@@ -1,8 +1,7 @@
 ;;;;;; Lisp関連の設定
 ;; slime
-(if (not (is-termux))
-    (load (expand-file-name "~/.roswell/helper.el"))
-  )
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
 
 ;; 日本語利用
 (setq slime-net-coding-system 'utf-8-unix)
