@@ -341,7 +341,8 @@ same directory as the org-buffer and insert a link to this file."
 
   ;; (shell-command "snippingtool /clip") ;; 有効にするとツールで範囲指定した箇所を取り込みできる
   (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('"temp-filename"',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
-  (insert (concat "[[file:" temp-filename "]]"))
+  (setq org-image-filename (replace-regexp-in-string "\\\\" "\/" temp-filename t t))
+  (insert (concat "[[file:" org-image-filename "]]"))
   (org-display-inline-images))
 
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
