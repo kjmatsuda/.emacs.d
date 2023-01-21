@@ -234,6 +234,8 @@
    (local-set-key (kbd "C-c u") 'org-redisplay-inline-images)
    (local-set-key (kbd "C-c s") 'org-set-image-width)
    (local-set-key (kbd "C-x C-e") 'my-eval-print-last-sexp)
+
+   (global-set-key (kbd "C-c p") 'my-org-screenshot)
    ))
 
 ;; orgでリンクを開く際に同一フレームで開くようにする
@@ -320,6 +322,27 @@
 
 ;; disable indentation
 (setq org-adapt-indentation nil)
+
+
+;; emacs org-mode用の画像貼り付るための設定 - i123のブログ
+;; https://i123.hatenablog.com/entry/2022/06/12/001529
+(defun my-org-screenshot ()
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+
+  (setq temp-filename
+    (concat
+      (make-temp-name
+        (concat "images\\"
+          (file-name-sans-extension (buffer-name))
+          "_"
+          (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+
+  ;; (shell-command "snippingtool /clip") ;; 有効にするとツールで範囲指定した箇所を取り込みできる
+  (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('"temp-filename"',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
+  (insert (concat "[[file:" temp-filename "]]"))
+  (org-display-inline-images))
 
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
