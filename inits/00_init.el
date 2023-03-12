@@ -390,6 +390,10 @@ Both the source and the target are read in the minibuffer."
 (global-set-key (kbd "C-x g p") 'magit-pull)
 (global-set-key (kbd "C-x g P") 'my-magit-push)
 
+;; magit のコミットメッセージ入力時に勝手に改行されないようにする
+(add-hook 'git-commit-setup-hook '(lambda () (auto-fill-mode -1))
+          ;; append to end of git-commit-setup-hook to ensure our hook trumps others.
+          t)
 
 (when (executable-find "svn")
   (setq svn-status-verbose nil)
