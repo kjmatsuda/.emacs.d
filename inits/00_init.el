@@ -420,7 +420,7 @@ Both the source and the target are read in the minibuffer."
 (add-hook 'emacs-lisp-mode-hook 'helm-gtags-mode)
 (add-hook 'lisp-mode-hook 'helm-gtags-mode)
 (add-hook 'js-mode-hook 'helm-gtags-mode)
-(if (is-termux)
+(if (or (is-termux) (win?))
     (add-hook 'typescript-mode-hook 'helm-gtags-mode)
   )
 (add-hook 'python-mode-hook 'helm-gtags-mode)

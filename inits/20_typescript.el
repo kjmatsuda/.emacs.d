@@ -2,7 +2,7 @@
 (straight-use-package 'typescript-mode)
 (straight-use-package 'tide)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-(if (not (is-termux))
+(if (and (not (is-termux)) (not (win?)))
     (add-hook 'typescript-mode-hook
               '(lambda ()
                  (interactive)
