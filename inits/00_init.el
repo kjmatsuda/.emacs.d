@@ -424,6 +424,7 @@ Both the source and the target are read in the minibuffer."
     (add-hook 'typescript-mode-hook 'helm-gtags-mode)
   )
 (add-hook 'python-mode-hook 'helm-gtags-mode)
+(add-hook 'rust-mode-hook 'helm-gtags-mode)
 
 ;;;; Code Formatter
 ;; 引用元
