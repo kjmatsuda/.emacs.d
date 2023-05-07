@@ -756,6 +756,10 @@ Jump to reference point if curosr is on its definition"
 
 ;; auto-complete の 補完候補表示までの delay
 (setq ac-delay 0)
+;; auto-complete環境で補完の大文字小文字を区別する - Qiita
+;; https://qiita.com/tadsan/items/ab3c3b594b5bf6203f02
+(custom-set-valiables
+ '(ac-ignore-case nil))
 
 ;; (when (load "btc-ticker" t)
 ;;   (use-package btc-ticker)

@@ -45,4 +45,6 @@
 (add-hook 'auto-complete-mode-hook
           (lambda ()
             (define-key ac-completing-map "\C-n" 'ac-next)
-            (define-key ac-completing-map "\C-p" 'ac-previous)))
+            (define-key ac-completing-map "\C-p" 'ac-previous)
+            (make-local-variable 'ac-ignore-case)
+            (setq ac-ignore-case nil)))
