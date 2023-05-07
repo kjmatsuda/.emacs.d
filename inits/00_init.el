@@ -754,6 +754,9 @@ Jump to reference point if curosr is on its definition"
       )
   )
 
+;; auto-complete の 補完候補表示までの delay
+(setq ac-delay 0)
+
 ;; (when (load "btc-ticker" t)
 ;;   (use-package btc-ticker)
 
