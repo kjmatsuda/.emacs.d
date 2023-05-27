@@ -7,8 +7,15 @@
 
 (autoload 'plantuml-mode "plantuml-mode" "PlantUML mode" t)
 
-(setq plantuml-executable-path "plantuml")
-(setq plantuml-default-exec-mode 'executable)
+
+(if (win?)
+    (progn (setq plantuml-jar-path "C:/Users/kjmat/.vscode/extensions/jebbs.plantuml-2.17.5/plantuml.jar")
+           (setq plantuml-exec-mode 'jar))
+  (progn
+    (setq plantuml-executable-path "plantuml")
+    (setq plantuml-default-exec-mode 'executable)
+    ))
+
 (setq plantuml-output-type "png")
 
 (defun plantuml-preview-frame (prefix)
