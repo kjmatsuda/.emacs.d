@@ -567,7 +567,7 @@ Jump to reference point if curosr is on its definition"
 
 (if (not (is-termux))
     (progn
-      (define-key global-map (kbd "C-H") 'ripgrep-regexp)
+      (define-key global-map (kbd "C-F") 'ripgrep-regexp)
       )
   (progn
     (define-key global-map (kbd "M-h") 'ripgrep-regexp)
