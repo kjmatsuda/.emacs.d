@@ -221,6 +221,7 @@
                                              (org-insert-todo-heading-respect-content)
                                              (insert (format "%s" "[0/1] ")))
                                          (org-insert-item))))
+   (local-set-key (kbd "C-c C-x C-r") 'org-clock-report)
    ;; 議事録などを書くときによく使う文字列を登録
    (local-set-key (kbd "C-<") (lambda () (interactive) (insert-string " <- ")))
    (local-set-key (kbd "C->") (lambda () (interactive) (insert-string " -> ")))
