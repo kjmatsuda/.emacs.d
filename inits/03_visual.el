@@ -159,19 +159,20 @@
       ;; 日本語フォント設定
       (cond
        (window-system
+        (set-default-font "Firple-10")
         ;; (set-default-font "Courier New-11")
-        (set-default-font "Ricty Diminished-12")
+        ;; (set-default-font "Ricty Diminished-12")
           ;; Japanese(japanese-jisx0208)font
         (set-fontset-font
            t 'symbol
            (font-spec :family "Segoe UI Emoji") nil 'prepend) 
-        (set-fontset-font
-         (frame-parameter nil 'font)
-         'japanese-jisx0208
-         (font-spec :family "Meiryo"))
-        (set-fontset-font "fontset-default"
-                          'katakana-jisx0201
-                          '("ＭＳ ゴシック" . "jisx0201-katakana"))
+        ;; (set-fontset-font
+        ;;  (frame-parameter nil 'font)
+        ;;  'japanese-jisx0208
+        ;;  (font-spec :family "Meiryo"))
+        ;; (set-fontset-font "fontset-default"
+        ;;                   'katakana-jisx0201
+        ;;                   '("ＭＳ ゴシック" . "jisx0201-katakana"))
     ))
       ;; フレームの最大化、切り替え
       (defvar w32-window-state nil)
