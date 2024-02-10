@@ -52,6 +52,7 @@
        (set-fontset-font
         t 'symbol
         (font-spec :family "Symbola") nil 'prepend)
+       (set-mouse-color "white")
        )
    )
     ;;  (add-to-list 'default-frame-alist '(font . "-unknown-VL ゴシック-normal-normal-normal-*-13-*-*-*-*-0-iso10646-1"))
