@@ -119,7 +119,7 @@
       (set-input-method nil)
     (set-input-method "french-postfix")))
 
-(global-set-key (kbd "C-x f") 'toggle-input-method-french)
+(global-set-key (kbd "C-M-f") 'toggle-input-method-french)
 
 ;; wdired
 ;; http://at-aka.blogspot.com/2006/12/emacs-dired-wdired.html

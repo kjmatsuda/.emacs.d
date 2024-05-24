@@ -242,3 +242,23 @@
 
 ;; 不注意で領域のアルファベットを大文字にしないように無効にする
 (global-unset-key (kbd "C-x C-u"))
+
+;; multicolumn と follow-mode を連携
+(multicolumn-global-mode 1)
+(setq multicolumn-min-width 72)
+
+(require 'follow)
+(defun my-follow-multicolumn-toggle
+    (&optional number-of-windows)
+  (interactive "P")
+  (if follow-mode
+      (progn
+        (follow-mode -1)
+        (delete-other-windows))
+    (multicolumn-delete-other-windows-and-split number-of-windows)
+    (follow-mode 1)))
+
+;; C-x f 画面を2分割し、follow-mode を有効にする(トグル)
+;; C-4 C-x f 画面を4分割し、follow-mode を有効にする
+(define-key multicolumn-map (kbd "C-x f")
+  'my-follow-multicolumn-toggle)

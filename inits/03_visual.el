@@ -48,6 +48,7 @@
  (if (linux?)
      ;; プログラミング用フォント Ricty
      (progn
+       ;; (add-to-list 'default-frame-alist '(font . "Firple-10"))
        (add-to-list 'default-frame-alist '(font . "ricty-12"))
        (set-fontset-font
         t 'symbol
