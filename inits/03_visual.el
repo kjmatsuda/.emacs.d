@@ -23,7 +23,7 @@
       ;; ファイル名の文字コード
       (set-file-name-coding-system 'utf-8-unix)
       ;; キーボード入力の文字コード
-      (set-keyboard-coding-system 'utf-8-unix)      
+      (set-keyboard-coding-system 'utf-8-unix)
 
       ;; Shell Mode
       (setq shell-mode-hook
@@ -53,7 +53,6 @@
        (set-fontset-font
         t 'symbol
         (font-spec :family "Symbola") nil 'prepend)
-       (set-mouse-color "white")
        )
    )
     ;;  (add-to-list 'default-frame-alist '(font . "-unknown-VL ゴシック-normal-normal-normal-*-13-*-*-*-*-0-iso10646-1"))
@@ -71,7 +70,7 @@
   ;; カ-ソルの色を設定します。
   (add-to-list 'default-frame-alist '(cursor-color . "SlateBlue2"))
   ;; マウスポインタの色を設定します。
-  (add-to-list 'default-frame-alist '(mouse-color . "SlateBlue2"))
+  (add-to-list 'default-frame-alist '(mouse-color . "white"))
   (if (linux?)
       (add-to-list 'default-frame-alist '(width . 160))
     (add-to-list 'default-frame-alist '(width . 140)))
@@ -167,7 +166,7 @@
           ;; Japanese(japanese-jisx0208)font
         (set-fontset-font
            t 'symbol
-           (font-spec :family "Segoe UI Emoji") nil 'prepend) 
+           (font-spec :family "Segoe UI Emoji") nil 'prepend)
         ;; (set-fontset-font
         ;;  (frame-parameter nil 'font)
         ;;  'japanese-jisx0208
