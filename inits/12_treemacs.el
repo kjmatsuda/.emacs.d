@@ -89,8 +89,11 @@
         ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
+  ;; :after (treemacs evil)
+  :after (treemacs)
+  :ensure t
+  :init
+  (add-hook 'treemacs-mode-hook #'evil-treemacs-state))
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
