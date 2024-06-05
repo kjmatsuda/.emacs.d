@@ -1,4 +1,5 @@
 (use-package treemacs
+  ;; :ensure t にすることで、自動的にインストールされる
   :ensure t
   :defer t
   :init
