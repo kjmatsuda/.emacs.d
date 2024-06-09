@@ -38,7 +38,6 @@
       (define-key lsp-mode-map (kbd "C-M-c") 'lsp-treemacs-call-hierarchy)
       )
   ;; key bindings
-  ;; TODO テストコミット。あとで消す
   (with-eval-after-load 'lsp-treemacs
       (define-key lsp-mode-map (kbd "M-c") 'lsp-treemacs-call-hierarchy)
     )
