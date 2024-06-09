@@ -39,7 +39,7 @@
       )
   ;; key bindings
   (with-eval-after-load 'lsp-treemacs
-      (define-key lsp-mode-map (kbd "C-M-c") 'lsp-treemacs-call-hierarchy)
+      (define-key lsp-mode-map (kbd "M-c") 'lsp-treemacs-call-hierarchy)
     )
 )
 
