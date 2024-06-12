@@ -128,11 +128,8 @@
 (set-face-foreground 'whitespace-tab "LightSlateGray")
 (set-face-background 'whitespace-tab "DarkSlateGray")
 
-;; 行番号を表示
-; org-mode 時はlinumオンになると挙動が遅くなるので無効にしておく
-(defadvice linum-on (around my-linum-on () activate)
-  (unless (and (fboundp 'org-mode-p) (org-mode-p))
-    ad-do-it))
+;; プログラミング言語モードの場合は行番号を表示
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; org-modeで表を編集中にskkの漢字変換でEnterを押すと、
 ;; org-enterが走ってしまい、表が崩れる問題への対応
@@ -144,10 +141,6 @@
          (skk-kakutei))
         (t
          ad-do-it)))
-
-;; (global-linum-mode t)
-(setq linum-format "%4d|")
-
 
 (setq-default tab-width 4 indent-tabs-mode nil)
 (setq default-tab-width 4)
