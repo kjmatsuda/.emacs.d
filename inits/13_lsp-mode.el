@@ -57,6 +57,13 @@
   (add-hook 'dap-stopped-hook
             (lambda (arg) (call-interactively #'dap-hydra))))
 
+(add-hook
+ 'dap-mode-hook
+ (lambda ()
+   (local-set-key (kbd "<f5>") 'dap-debug)
+   (local-set-key (kbd "<f9>") 'dap-breakpoint-toggle)
+   ))
+
 ;; ;; optional if you want which-key integration
 ;; (use-package which-key
 ;;     :config
