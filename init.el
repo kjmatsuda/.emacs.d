@@ -124,3 +124,5 @@
 
 ;; Because insert-string is not available in Emacs26.
 (defalias 'insert-string 'insert)
+
+(global-unset-key (kbd "<C-down-mouse-1>"))
