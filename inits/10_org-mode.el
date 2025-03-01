@@ -354,12 +354,11 @@ same directory as the org-buffer and insert a link to this file."
     ;; clipboard - How to paste all images into emacs org-mode running in WSL in one directory - Emacs Stack Exchange
     ;; https://emacs.stackexchange.com/questions/74045/how-to-paste-all-images-into-emacs-org-mode-running-in-wsl-in-one-directory
     (progn
-      (defun my-org-screenshot (image-dir)
-        "Paste an image into a time stamped unique-named file in the
-directory as the org-buffer and insert a link to this file."
-        ;; (interactive "DImage Directory: \nsStart Image Name with: ")
-        (interactive "DImage Directory: ")
-        (let* ((target-file
+      (defun my-org-screenshot ()
+        "Paste an image into a time stamped unique-named file in the directory as the org-buffer and insert a link to this file."
+        (interactive)
+        (let* ((image-dir (concat (expand-file-name org-directory) "images/"))
+               (target-file
                 ;; This creates an empty file
                 (let ((temporary-file-directory image-dir))
                   (make-temp-file (format "%s%s_%s"
@@ -378,8 +377,10 @@ directory as the org-buffer and insert a link to this file."
           (delete-file target-file t)
           (powershell ps-script)
           (if (file-exists-p target-file)
-              (progn (insert (concat "[[" "file:" (expand-file-name target-file) "]]"))
-                     (org-display-inline-images))
+              (progn
+                (setq relative-file-name (string-remove-prefix (expand-file-name org-directory) (expand-file-name target-file)))
+                (insert (concat "[[" "file:" relative-file-name "]]"))
+                (org-display-inline-images))
             (user-error
              "Error pasting the image, make sure you have an image in the clipboard!"))))
 
