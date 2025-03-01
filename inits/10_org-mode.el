@@ -324,27 +324,79 @@
 ;; disable indentation
 (setq org-adapt-indentation nil)
 
-
-;; emacs org-mode用の画像貼り付るための設定 - i123のブログ
-;; https://i123.hatenablog.com/entry/2022/06/12/001529
-(defun my-org-screenshot ()
-  "Take a screenshot into a time stamped unique-named file in the
+;;;;;;;;  org-mode にスクリーンショットを貼り付けられるようにするための設定 ;;;;;;;;
+(if (win?)
+    ;; emacs org-mode用の画像貼り付るための設定 - i123のブログ
+    ;; https://i123.hatenablog.com/entry/2022/06/12/001529
+    (progn
+      (defun my-org-screenshot ()
+        "Take a screenshot into a time stamped unique-named file in the
 same directory as the org-buffer and insert a link to this file."
-  (interactive)
+        (interactive)
 
-  (setq temp-filename
-    (concat
-      (make-temp-name
-        (concat "images\\"
-          (file-name-sans-extension (buffer-name))
-          "_"
-          (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+        (setq temp-filename
+              (concat
+               (make-temp-name
+                (concat "images\\"
+                        (file-name-sans-extension (buffer-name))
+                        "_"
+                        (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
 
-  ;; (shell-command "snippingtool /clip") ;; 有効にするとツールで範囲指定した箇所を取り込みできる
-  (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('"temp-filename"',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
-  (setq org-image-filename (replace-regexp-in-string "\\\\" "\/" temp-filename t t))
-  (insert (concat "[[file:" org-image-filename "]]"))
-  (org-display-inline-images))
+        ;; (shell-command "snippingtool /clip") ;; 有効にするとツールで範囲指定した箇所を取り込みできる
+        (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('"temp-filename"',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
+        (setq org-image-filename (replace-regexp-in-string "\\\\" "\/" temp-filename t t))
+        (insert (concat "[[file:" org-image-filename "]]"))
+        (org-display-inline-images))
+      )
+  )
+
+(if (linux?)
+    ;; clipboard - How to paste all images into emacs org-mode running in WSL in one directory - Emacs Stack Exchange
+    ;; https://emacs.stackexchange.com/questions/74045/how-to-paste-all-images-into-emacs-org-mode-running-in-wsl-in-one-directory
+    (progn
+      (defun my-org-screenshot (image-dir image-name)
+        "Paste an image into a time stamped unique-named file in the
+ same directory as the org-buffer and insert a link to this file."
+        (interactive "DImage Directory: \nsStart Image Name with: ")
+        (let* ((target-file
+                ;; This creates an empty file
+                (let ((temporary-file-directory image-dir))
+                  (make-temp-file (format "%s%s_%s"
+                                          (file-name-as-directory image-dir)
+                                          image-name
+                                          (format-time-string "%Y%m%d_%H%M%S_"))
+                                  nil ".png")))
+               (wsl-path
+                (concat (as-windows-path (file-name-directory target-file))
+                        "\\"
+                        (file-name-nondirectory target-file)))
+               (ps-script
+                (concat "(Get-Clipboard -Format image).Save('" wsl-path "')")))
+          ;; Delete the empty file
+          (message "Deleting empty file %s" target-file)
+          (delete-file target-file t)
+          (powershell ps-script)
+          (if (file-exists-p target-file)
+              (progn (insert (concat "[[" "file:" (expand-file-name target-file) "]]"))
+                     (org-display-inline-images))
+            (user-error
+             "Error pasting the image, make sure you have an image in the clipboard!"))))
+
+      (defun as-windows-path (unix-path)
+        "Takes a unix path and returns a matching WSL path."
+        ;; (e.g. \\wsl$\Ubuntu-20.04\tmp)
+        ;; substring removes the trailing \n
+        (substring
+         (shell-command-to-string
+          (concat "wslpath -w " unix-path))
+         0 -1))
+
+      (defun powershell (script)
+        "executes the given script within a powershell and returns its return value"
+        (call-process "powershell.exe" nil nil nil
+                      "-Command" (concat "& {" script "}")))
+  )
+)
 
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
