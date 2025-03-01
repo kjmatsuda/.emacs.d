@@ -354,16 +354,17 @@ same directory as the org-buffer and insert a link to this file."
     ;; clipboard - How to paste all images into emacs org-mode running in WSL in one directory - Emacs Stack Exchange
     ;; https://emacs.stackexchange.com/questions/74045/how-to-paste-all-images-into-emacs-org-mode-running-in-wsl-in-one-directory
     (progn
-      (defun my-org-screenshot (image-dir image-name)
+      (defun my-org-screenshot (image-dir)
         "Paste an image into a time stamped unique-named file in the
- same directory as the org-buffer and insert a link to this file."
-        (interactive "DImage Directory: \nsStart Image Name with: ")
+directory as the org-buffer and insert a link to this file."
+        ;; (interactive "DImage Directory: \nsStart Image Name with: ")
+        (interactive "DImage Directory: ")
         (let* ((target-file
                 ;; This creates an empty file
                 (let ((temporary-file-directory image-dir))
                   (make-temp-file (format "%s%s_%s"
                                           (file-name-as-directory image-dir)
-                                          image-name
+                                          (file-name-sans-extension (buffer-name))
                                           (format-time-string "%Y%m%d_%H%M%S_"))
                                   nil ".png")))
                (wsl-path
