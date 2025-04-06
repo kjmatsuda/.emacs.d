@@ -49,7 +49,7 @@
      ;; プログラミング用フォント Ricty
      (progn
        ;; (add-to-list 'default-frame-alist '(font . "Firple-10"))
-       (add-to-list 'default-frame-alist '(font . "ricty-12"))
+       (add-to-list 'default-frame-alist '(font . "ricty-11"))
        (set-fontset-font
         t 'symbol
         (font-spec :family "Symbola") nil 'prepend)
