@@ -400,6 +400,22 @@ same directory as the org-buffer and insert a link to this file."
   )
 )
 
+;; WSL2のEmacsでorg-modeのリンクをWindows側のEdgeで開く - 神和電子
+;; https://xn--kst.jp/blog/2022/11/13/wsl2-emacs-org-mode-windows-edge/
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "msedge")
+
+(defadvice org-open-at-point (around org-open-at-point-choose-browser activate)
+  (let ((browse-url-browser-function
+        (cond ((equal (ad-get-arg 0) '(4))
+                'browse-url-generic)
+              ((equal (ad-get-arg 0) '(16))
+                'choose-browser)
+              (t
+                (lambda (url &optional new)
+                  (browse-url-generic url t)))
+    )))
+
 ;;;;;;;;;;;;;;;; mobile-orgとの同期 START ;;;;;;;;;;;;;;;;;;;;
 ;;;;; 参考 http://tokikane-tec.blogspot.jp/2015/01/org-mobile-pullpush_21.html
 ;; (use-package org-mobile)
